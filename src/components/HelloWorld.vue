@@ -68,7 +68,7 @@
     <lunbotu></lunbotu>
     <contentleft></contentleft>
     <contentright></contentright>
-    <footer></footer>
+    <!--<footer></footer>-->
   </div>
 
 
@@ -203,7 +203,7 @@
     text-align: center;
     line-height: 50px;
     position: fixed;
-    left: 90%;
+    left: 92%;
     top: 60%;
   }
   .thegadofsearch:hover{
@@ -222,7 +222,7 @@
     width: 600px;
     position: absolute;
     left: 50%;
-    top:350px;
+    top:320px;
     transform: translate(-50%,0);
     z-index: 50;
 

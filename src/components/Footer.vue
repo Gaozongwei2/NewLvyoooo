@@ -40,9 +40,7 @@ export default {
     return {
     }
   },
-  created(){
-},
-  method:{
+  methods:{
   }
 }
 </script>

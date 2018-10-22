@@ -84,7 +84,20 @@
 
 <script>
   export default {
-    name: "TravelMain"
+    name: "TravelMain",
+    props:["travels"],
+    data(){
+      return{
+      }
+    },
+    created(){
+
+
+    },
+    methods:{
+
+    }
+
   }
 </script>
 

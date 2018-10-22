@@ -8,6 +8,7 @@ import axios from 'axios'
 
 // 测试组件
 import TestX from './components/TestX'
+import TestRadioButton from './components/TestRadioButton'
 // 导入组件
 import MyMessage from './components/personalcenter/MyMessage'
 import Lunbotu from './components/lunbotu'
@@ -29,13 +30,11 @@ import SearchPages from './components/travelnote/SearchPages'
 import WriteNotes from './components/travelnote/WriteNotes'
 import TravelNotes from './components/travelnote/TravelNotes'
 import TravelMian from './components/travelnote/TravelMain'
-
 // 攻略部分(姜)
 import NavTop from './components/strategy/check/NavTop'
 import NavBottom from './components/strategy/check/NavBottom'
 import NavBread from './components/strategy/check/NavBread'
 import RouteView from './components/strategy/check/RouteView'
-
 //具体路线
 import SpecificRoute from './components/strategy/check/SpecificRoute'
 //轮播图
@@ -61,6 +60,7 @@ import Discuss from './components/strategy/check/Discuss'
 
 // 测试组件
 Vue.component("testx",TestX)
+Vue.component('testradiobutton',TestRadioButton)
 // 注册全局组件
 Vue.component("mymessage",MyMessage);
 Vue.component("lunbotu",Lunbotu);

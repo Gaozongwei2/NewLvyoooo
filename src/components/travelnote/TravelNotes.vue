@@ -12,14 +12,14 @@
       </div>
       <div class="col-md-2" id="user-img">
         <img
-          src="http://n2-q.mafengwo.net/s12/M00/35/2C/wKgED1uqImOAAxCCAAAeJTVWYJU680.png?imageMogr2%2Fthumbnail%2F%2132x32r%2Fgravity%2FCenter%2Fcrop%2F%2132x32%2Fquality%2F90"
+          :src="travel['tcover__url']"
           height="32" width="32" alt="">
       </div>
     </div>
 
     <div id="set-bg-big">
       <!--名字-->
-      <h1 style="white-space: nowrap; overflow-wrap: normal;">
+      <h1 style="white-space: nowrap; overflow-wrap: normal;" v-text="travel['title']">
         无问南北西东，只愿你像风一样自由
       </h1>
     </div>
@@ -27,19 +27,19 @@
     <div class="container-fluid" style="height: 80px">
       <div class="col-md-3" id="user-head">
         <img width="120" height="120"
-             src="http://n1-q.mafengwo.net/s11/M00/D1/0A/wKgBEFsGwmSAMQ_ZADZa-1o8WYQ95.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90"
+             :src="travel['userid__icno__imageurl']"
              alt="">
       </div>
 
 
       <div class="col-md-5" id="user-person">
         <strong>
-          <a href="/u/87710821.html" target="_blank" class="per_name" title="采蘑菇的juju佩奇">采蘑菇的juju佩奇</a>
+          <a href="/u/87710821.html" target="_blank" class="per_name" title="采蘑菇的juju佩奇" v-text="travel['title']">采蘑菇的juju佩奇</a>
           <a href="/u/87710821.html" target="_blank" class="per_grade" title="LV.11">LV.11</a>
           <img src="http://images.mafengwo.net/images/home/tweet/btn_sfollow.gif" width="38" height="13" border="0"
                title="关注TA">
-          <span class="now_time">2018-09-01 14:01</span>
-          <span><i class="ico_view"></i>5754/44</span>
+          <span class="now_time" v-text="travel['time']">2018-09-01 14:01</span>
+          <span v-text="travel['view']"><i class="ico_view"></i>5754/44</span>
         </strong>
       </div>
 
@@ -48,7 +48,7 @@
         <a @click="collecttravelnote" href="" rel="nofollow" title="收藏" class="collect_num"
            data-ctime="2018-09-01 14:01:56">
           <i></i><br>
-          <span v-text="this.collect">136</span>收藏
+          <span v-text="travel['view']">136</span>收藏
         </a>
       </div>
 
@@ -59,7 +59,7 @@
         <a href="">
           <div @cilck="praisenum" class=" praise">
             <i></i> <br>
-            <span v-text="this.praise">25</span>点赞
+            <span v-text="travel['good']">25</span>点赞
           </div>
         </a>
       </div>
@@ -78,8 +78,13 @@
       return {
         collect: 12,
         praise: 25,
+        travel:'',
       }
 
+    },
+    created(){
+      this.travel = this.$route.params.travel
+      console.log(this.travel)
     },
     methods: {
       shouye: function () {

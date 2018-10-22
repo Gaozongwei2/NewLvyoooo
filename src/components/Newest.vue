@@ -220,10 +220,10 @@
   }
 
   .lefttxt {
-    position: absolute;
+    position: relative;
     height: 100px;
     width: 400px;
-    top: 210px;
+    top: 145px;
     overflow: hidden;
     background-color: rgba(255, 251, 249, 0.56);
     border-radius: 0 0 10px 10px;

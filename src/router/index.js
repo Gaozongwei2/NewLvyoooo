@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import PersonalIndex from '../components/personalcenter/PersonalIndex'
+import TestX  from '../components/TestX'
+import TestRadioButton from '../components/TestRadioButton'
 Vue.use(Router)
 // 导入二级路由
 import MyMessage from '../components/personalcenter/MyMessage'
@@ -29,6 +31,17 @@ import E_Top from '../components/strategy/edit/E_Top'
 // import motaikuang from '../components/personalcenter/moaikuang'
 export default new Router({
   routes: [
+    // 测试方法
+    {
+      path:'/test',
+      name:'test',
+      component:TestX
+    },
+    {
+      path:'/testradio',
+      name:'testradio',
+      component:TestRadioButton
+    },
     // 攻略部分
     //查看攻略
     {
@@ -74,6 +87,7 @@ export default new Router({
     {
       path: '/',
       name: 'helloword',
+      redirect:'/hottravelnote',
       component: HelloWorld,
       children: [
         { path:"/hottravelnote",

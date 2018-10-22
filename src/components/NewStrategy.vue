@@ -1,24 +1,29 @@
 <template >
   <div>
     <motaikuang @hidden="hiddenshow" v-if="motaikuang" v-model="travelnoteid" :travelnoteid="travelnoteid"></motaikuang>
-    <div class="boxleft" v-for="i in travels.length">
+    <div class="boxleft" v-for="i in strategys.length">
       <!--用来存id的隐藏div-->
-      <div :id="travels[i-1]['id']" @click='showthat($event)'>
-        <div class="leftcover" v-bind:style="{background:'url('+travels[i-1]['cover__url']+')' ,backgroundSize:'cover'}"
-             :id="travels[i-1]['id']">
+      <div :id="strategys[i-1]['id']" @click='showthat($event)'>
+        <div class="leftcover" v-bind:style="{background:'url('+strategys[i-1]['scover__url']+')' ,backgroundSize:'cover'}"
+             :id="strategys[i-1]['id']">
           <!--<img class="cover" :src="travel['cover_url']" alt="">-->
           <div class="lefttxt">
-            <div class="lefttitle" v-text="travels[i-1]['title']" @click="showthat" style="background-size: cover;">
+            <div class="lefttitle" v-text="strategys[i-1]['title']" @click="showthat" style="background-size: cover;">
               第一次来到苏州，感觉还不错
             </div>
             <div class="txt">
-              <div class="usericno left"><img class="usericno" :src="travels[i-1]['userid__icno__imageurl']" alt="" height="20px"
-                                              width="20px"></div>
-              <div class="username left" style="color: green"><a href="" v-text="travels[i-1]['userid__username']"></a></div>
-              <div class="leftstate left" v-text="travels[i-1]['state']">地址</div>
-              <div class="leftgood left" v-text="travels[i-1]['good']">点赞</div>
-              <div class="leftview left" v-text="travels[i-1]['view']">浏览</div>
+              <div class="usericno left">
+                <img class="usericno" :src="strategys[i-1]['userid__icno__imageurl']" alt="" height="20px" width="20px">
+              </div>
+              <div class="username left" style="color: green">
+                <a href="" v-text="strategys[i-1]['userid__username']"></a>
+              </div>
+              <div class="leftstate left" v-text="strategys[i-1]['state']">地址</div>
+              <div class="leftgood left" v-text="strategys[i-1]['good']">点赞</div>
+              <div class="leftview left" v-text="strategys[i-1]['view']">浏览</div>
             </div>
+
+
           </div>
         </div>
       </div>
@@ -29,7 +34,7 @@
 <script>
   import axios from 'axios'
   export default {
-    name: 'NewStrategy',
+    name: 'NewStragety',
     data() {
       return {
         travel: [],
@@ -39,7 +44,7 @@
         travelnoteid: '1',
         motaikuang: false,
         props: ["user", "token"],
-        travels: [{
+        strategys: [{
           "id": "1",
           "username": "莎莎爱旅行",
           "title": "徽州，一座文化古城。。。。大江东去浪淘尽，千古风流人物，故垒西边，人道是，三国周郎赤壁，乱石穿空，惊涛拍岸，卷起千堆雪，",
@@ -52,29 +57,6 @@
           "usericno": "https://b1-q.mafengwo.net/s12/M00/39/F7/wKgED1ujYTGAUH0zAAhVpG44zZE10.jpeg?imageMogr2%2Finterlace%2F1",
         },
         ],
-        travel1: [{
-          "id": "1",
-          "title": "开封，一座文化古城。。。。",
-          "imageurls": "https://b1-q.mafengwo.net/s12/M00/39/F7/wKgED1ujYTGAUH0zAAhVpG44zZE10.jpeg?imageMogr2%2Finterlace%2F1",
-          "content": "这里是简介",
-          "good": "231",
-          "view": "300",
-          "state": "苏州",
-          "cover_url": "https://b1-q.mafengwo.net/s12/M00/39/F7/wKgED1ujYTGAUH0zAAhVpG44zZE10.jpeg?imageMogr2%2Finterlace%2F1",
-          "usericno": "https://b1-q.mafengwo.net/s12/M00/39/F7/wKgED1ujYTGAUH0zAAhVpG44zZE10.jpeg?imageMogr2%2Finterlace%2F1",
-        },
-        ],
-        user: {
-          'id': '1',
-          "username": "棕色试剂瓶",
-          "usericno": "http://n3-q.mafengwo.net/s10/M00/0F/9B/wKgBZ1iUpFWAbScxAAC2Vfg46fo14.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90",
-          "sex": "男",
-          "mark": "15",
-          "birthday": "1997-6-2",
-          "state": "大庆",
-          "content": "起始",
-        },
-        msg: 'Welcome to Your Vue.js App'
       }
     },
     created() {
@@ -88,7 +70,7 @@
       // 点击最新发布
       newest: function () {
         var vm = this
-        vm.$set(vm.travels, vm.travel1, 1)
+        // vm.$set(vm.travels, vm.travel1, 1)
         // vm.travels = vm.travel1
         // axios.get(' http://127.0.0.1:8000/travelnote/gettravelnotenewest/')
         //   .then(function (response) {
@@ -117,14 +99,9 @@
       },
       getalltravelnotes: function () {
         var vm = this
-        axios.get(' http://127.0.0.1:8000/travelnote/searchall/')
+        axios.get('http://127.0.0.1:8000/strategy/showall/')
           .then(function (response) {
-            vm.travels = response.data
-            console.log(vm.travels[0]["id"])
-
-            // console.log(vm.some)
-            // 获取所有数据
-            // vm.alldata = response.data
+            vm.strategys = response.data
           })
           .catch(function (error) {
             return error
@@ -192,10 +169,10 @@
   }
 
   .lefttxt {
-    position: absolute;
+    position: relative;
     height: 100px;
     width: 400px;
-    top: 210px;
+    top: 145px;
     overflow: hidden;
     background-color: rgba(255, 251, 249, 0.56);
     border-radius: 0 0 10px 10px;

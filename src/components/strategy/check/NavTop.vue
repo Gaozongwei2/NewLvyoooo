@@ -4,7 +4,7 @@
   <!--<div class="row">-->
 
   <!--导航-->
-  <div class="container-fluid" style="margin: 0;padding: 0">
+  <div class="container-fluid outline" style="margin: 0;padding: 0; box-shadow: black 1px 1px 6px 4px;">
     <div class="col-md-1"><img src="../../../assets/travelnote/logoweight.png"
                                alt="" style="width: 130px;height: 40px;float: left;margin-left: 130px;margin-top: 12px"></div>
     <div class="row text-center " style="background:white;margin: 0;padding: 0;width: 100%;">
@@ -90,6 +90,9 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .outline{
+    box-shadow: #4b4b4b 1px 1px 6px 1px;
+  }
 
   /*路线超链接下划线*/
   .a-none-line a{

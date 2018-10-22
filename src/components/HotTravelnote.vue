@@ -1,57 +1,44 @@
-<template >
+<template>
   <div>
     <motaikuang @hidden="hiddenshow" v-if="motaikuang" v-model="travelnoteid" :travelnoteid="travelnoteid"></motaikuang>
+    <div class="outbox">
+    <div class="boxleft" v-for="i in pagesize">
+      <!--用来存id的隐藏div-->
+      <router-link :to="{name:'travelnotes',params:{travel:travels[i-1]}}">
+      <div :id="travels[i-1]['id']" @click='showthat($event)'>
 
-        <div class="boxleft" v-for="i in travels.length">
-          <!--用来存id的隐藏div-->
-          <div :id="travels[i-1]['id']" @click='showthat($event)'>
-            <div class="leftcover" v-bind:style="{background:'url('+travels[i-1]['cover__url']+')' ,backgroundSize:'cover'}"
-                 :id="travels[i-1]['id']">
-              <!--<img class="cover" :src="travel['cover_url']" alt="">-->
-              <div class="lefttxt">
-                <div class="lefttitle" v-text="travels[i-1]['title']" @click="showthat" style="background-size: cover;">
-                  第一次来到苏州，感觉还不错
-                </div>
-                <div class="txt">
-                  <div class="usericno left"><img class="usericno" :src="travels[i-1]['userid__icno__imageurl']" alt="" height="20px"
-                                                  width="20px"></div>
-                  <div class="username left" style="color: green"><a href="" v-text="travels[i-1]['userid__username']"></a></div>
-                  <div class="leftstate left" v-text="travels[i-1]['state']">地址</div>
-                  <div class="leftgood left" v-text="travels[i-1]['good']">点赞</div>
-                  <div class="leftview left" v-text="travels[i-1]['view']">浏览</div>
-                </div>
-
-
+        <div class="leftcover" v-bind:style="{background:'url('+travels[i-1]['cover__url']+')' ,backgroundSize:'cover'}"
+             :id="travels[i-1]['id']">
+          <div class="lefttxt">
+            <div class="lefttitle" v-text="travels[i-1]['title']" @click="showthat" style="background-size: cover;">
+              第一次来到苏州，感觉还不错
+            </div>
+            <div class="txt">
+              <div class="usericno left">
+                <img class="usericno" :src="travels[i-1]['userid__icno__imageurl']" alt="" height="20px" width="20px">
               </div>
+              <div class="username left" :id="i" style="color: green" @click="showpage($event)"><a href="javascrip:;" v-text="travels[i-1]['userid__username']" ></a>
+              </div>
+              <div class="leftstate left" v-text="travels[i-1]['state']">地址</div>
+              <div class="leftgood left" v-text="travels[i-1]['good']">点赞</div>
+              <div class="leftview left" v-text="travels[i-1]['view']">浏览</div>
             </div>
           </div>
         </div>
-        <!--<div class="boxright">-->
-            <!--<div class="rightcover" v-bind:style="{background:'url('+travels[i-1]['cover_url']+')' ,backgroundSize:'cover'}">-->
-              <!--<div class="righttext"></div>-->
-              <!--<div class="leftcover" v-bind:style="{background:'url('+travels[i-1]['cover_url']+')' ,backgroundSize:'cover'}"-->
-                   <!--:id="travels[i-1]['id']">-->
-                <!--&lt;!&ndash;<img class="cover" :src="travel['cover_url']" alt="">&ndash;&gt;-->
-                <!--<div class="lefttxt">-->
-                  <!--<div class="lefttitle" v-text="travels[i-1]['title']" @click="showthat" style="background-size: cover;">-->
-                    <!--第一次来到苏州，感觉还不错-->
-                  <!--</div>-->
-                  <!--<div class="txt">-->
-                    <!--<div class="usericno left"><img class="usericno" :src="travels[i-1]['usericno']" alt="" height="20px"-->
-                                                    <!--width="20px"></div>-->
-                    <!--<div class="username left" style="color: green"><a href="" v-text="travels[i-1]['username']"></a></div>-->
-                    <!--<div class="leftstate left" v-text="travels[i-1]['state']">地址</div>-->
-                    <!--<div class="leftgood left" v-text="travels[i-1]['good']">点赞</div>-->
-                    <!--<div class="leftview left" v-text="travels[i-1]['view']">浏览</div>-->
-                  <!--</div>-->
 
-
-                <!--</div>-->
-              <!--</div>-->
-              <!--&lt;!&ndash;<div class="righttitle right">第一次来到苏州，感觉还不错</div>&ndash;&gt;-->
-            <!--</div>-->
-    <!--</div>-->
+      </div>
+      </router-link>
     </div>
+    </div>
+    <div class="page">
+      <button class="btn before-page">上一页</button>
+      <div class="lin_page_index btn " v-for="i in pagecount">
+        <a class="btn btn-default padding" href="javascript:;" v-text="i" :id="i" @click="showpage($event)" ></a>
+      </div>
+      <button class="btn next-page">下一页</button>
+      <div class="btn ">共<span style="color: #549c55" v-text="pagecount"></span>页</div>
+    </div>
+  </div>
 </template>
 <!--复制模板-->
 <script>
@@ -61,9 +48,17 @@
     data() {
       return {
         travel: [],
-        id: 1,
+        // id: 1,
         aa: 1,
         bb: 0,
+
+        // 分页相关
+        pagecount:0,
+        pagesize:4,
+        page:1,
+        pagelist:[0,1,2,3],
+
+
         travelnoteid: '1',
         motaikuang: false,
         props: ["user", "token"],
@@ -102,33 +97,18 @@
           "state": "大庆",
           "content": "起始",
         },
-        msg: 'Welcome to Your Vue.js App'
+
       }
     },
     created() {
+      console.log(this.travels)
       this.getalltravelnotes()
-      // sessionStorage.setItem("token", "congqianyouzuoshan")
-      // sessionStorage.setItem("id", "1")
-      // this.token = "gzw"
-      // console.log(this.props)
     },
     methods: {
       // 点击最新发布
       newest: function () {
         var vm = this
         vm.$set(vm.travels, vm.travel1, 1)
-        // vm.travels = vm.travel1
-        // axios.get(' http://127.0.0.1:8000/travelnote/gettravelnotenewest/')
-        //   .then(function (response) {
-        //     // vm.some = response.data
-        //
-        //     console.log(vm.some)
-        //     // 获取所有数据
-        //     // vm.alldata = response.data
-        //   })
-        //   .catch(function (error) {
-        //     return error
-        //   })
       },
       // 点击显示模态框
       showthat(event) {
@@ -143,27 +123,67 @@
         // 将其值修改为false
         that.motaikuang = !that.motaikuang
       },
+      // 获取所有的游记基础信息
       getalltravelnotes: function () {
         var vm = this
-        axios.get(' http://127.0.0.1:8000/travelnote/searchall/')
+        axios.get('http://127.0.0.1:8000/travelnote/searchall/')
           .then(function (response) {
             vm.travels = response.data
-            console.log(vm.travels[0]["id"])
-
-            // console.log(vm.some)
-            // 获取所有数据
-            // vm.alldata = response.data
+            console.log(vm.travels)
+            vm.getpages()
           })
           .catch(function (error) {
             return error
           })
+      },
+      // 获取游记条数进而确定页数
+      getpages: function () {
+        var vm = this
+        vm.pagecount = Math.ceil(vm.travels.length/vm.pagesize)
+        console.log(vm.pagecount)
+
+      },
+      showpage:function (event) {
+        var vm = this
+        var newlist=[]
+        vm.page = event.currentTarget.id
+        if (vm.page*vm.pagesize<=vm.travels.length){
+          vm.pagesize = 4
+          for(let i =1; i<=4; i++){
+            newlist.push((vm.page-1)*4+i)
+          }
+          alert(newlist)
+
+        }else{
+          vm.pagesize = vm.travels.length-((vm.page-1)*vm.pagesize)
+          for(let i =1; i<=vm.pagesize; i++){
+            newlist.push((vm.page-1)*4+i)
+
+          }
+        }
+        alert(newlist)
+        vm.pagelist = newlist
+        // alert(vm.newlist)
+        // alert(vm.pagesize)
+        vm.pagelist = [5,6,7,8]
+        alert(vm.pagelist)
+
       }
-
     }
-
   }
 </script>
 <style scoped>
+  a,button,input{-webkit-tap-highlight-color:rgba(255,0,0,0);}
+  .outbox{
+    width: 100%;
+    min-height: 530px;
+    /*background-color: lime;*/
+  }
+  .page{
+    width: 100%;
+    display: block;
+    margin-top: 20px;
+  }
   body {
     position: fixed;
   }
@@ -185,7 +205,7 @@
   }
 
   /*右框架*/
-  .righttext{
+  .righttext {
     width: 167px;
     height: 100%;
     justify-content: space-between;
@@ -195,6 +215,7 @@
     border-radius: 0px 10px 10px 0;
 
   }
+
   .rightcover {
     height: 240px !important;
     justify-content: space-between;
@@ -220,10 +241,10 @@
   }
 
   .lefttxt {
-    position: absolute;
+    position: relative;
     height: 100px;
     width: 400px;
-    top: 210px;
+    top: 145px;
     overflow: hidden;
     background-color: rgba(255, 251, 249, 0.56);
     border-radius: 0 0 10px 10px;
@@ -233,7 +254,7 @@
   .leftcover {
     width: 400px;
     height: 240px;
-    background-size: cover!important;
+    background-size: cover !important;
     object-fit: cover;
 
     /*background-color: orange;*/
@@ -266,7 +287,7 @@
 
   /*基础框架*/
   /*.content{*/
-    /*position: fixed;*/
+  /*position: fixed;*/
   /*}*/
   .father {
     display: flex;

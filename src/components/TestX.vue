@@ -1,12 +1,13 @@
 
 <template id="title1">
   <div>
-  <div v-for="i in range(aa.length)">
-    <h1>测试{{i}}</h1>
+  <div class="imageback">
+    <div class="imagebackcover" v-for="i in [2,4]">
+      这是一个测试文件
+    </div>
   </div>
+  <!--<div class="imagebackcover"></div>-->
   </div>
-
-
 </template>
 <!--复制模板-->
 
@@ -35,6 +36,14 @@ export default {
     }
   },
   created(){
+    var vm  = this
+    axios.get('http://127.0.0.1:8000/strategy/searchbysome/all/2/')
+      .then(function (response) {
+       console.log(response.data)
+      })
+      .catch(function (error) {
+        return error
+      })
     sessionStorage.setItem("token","congqianyouzuoshan")
     sessionStorage.setItem("id","1")
     this.token = "gzw"
@@ -60,4 +69,27 @@ export default {
 }
 </script>
 <style scoped>
+  .imageback{
+    height: 200px;
+    width: 160px;
+    border: 1px solid #333333;
+    background-image: url("https://n1-q.mafengwo.net/s12/M00/85/32/wKgED1u3BnmAUwvoAATY8Amfqrc33.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90%7CimageMogr2%2Fstrip%2Fquality%2F90");
+    background-size: cover;
+  }
+  .imagebackcover{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    opacity: 0;
+    background-color: rgba(205, 44, 45, 0.78);
+  }
+  .imagebackcover:hover{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    opacity: 1;
+    transition: opacity 0.8s;
+    background-color: indianred;
+  }
+
 </style>

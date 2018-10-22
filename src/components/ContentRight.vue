@@ -1,9 +1,8 @@
 <template id="content-right">
   <div class="col-md-8 post-window">
     <ul class="nav nav-tabs card">
-      <li role="presentation" @click='choose($event)'><router-link to="/hottravelnote"><a href="javascrapy:;">热门游记</a></router-link></li>
-      <li role="presentation" @click='choose($event)'><router-link to="/newest"><a href="javascrapy:;" @click="newest">最新发布</a></router-link></li>
-      <li role="presentation" @click='choose($event)'><router-link to="/newstrategy"><a href="javascrapy:;">新鲜攻略</a></router-link></li>
+      <li  @click='choose($event)' ref="hotravelnotes"><router-link to="/hottravelnote" ><a href="javascrapy:;">热门游记</a></router-link></li>
+      <li  @click='choose($event)' ref="newstrategys"><router-link to="/newstrategy"><a href="javascrapy:;">新鲜攻略</a></router-link></li>
     </ul>
     <!--热门游记-->
     <!--邮寄详情模态框-->
@@ -11,107 +10,46 @@
     <div class="father">
       <router-view/>
     </div>
-
-    <div class="stay">
-      <!--<div class="focus-top"><a href="####"><img src="../assets/images/回到顶部.png" alt=""></a></div>-->
-      <!--<div class="w-travelnotes"><a href="####"><img src="../assets/images/" alt=""></a></div>-->
-      <!--<div class="w-strategy"><a href="####"><img src="../assets/images/攻略.png" alt="" width="35px" height="35px"></a></div>-->
-    </div>
-    <!--<div class="container page">-->
-    <!--<button class="btn before-page">上一页</button>-->
-    <!--<div class="lin_page_index btn ">-->
-    <!--<a class="btn btn-default padding" href="####"></a>-->
-    <!--</div>-->
-    <!--<button class="btn next-page">下一页</button>-->
-    <!--<div class="btn ">共<span style="color: #549c55"></span>页</div>-->
-    <!--</div>-->
-
   </div>
 </template>
 
 <!--复制模板-->
 
 <script>
+  import axios from 'axios'
   export default {
     name: 'ContentRight',
     data() {
       return {
+        termtext:'hottravelnotes',
+        radiochange:false,
         travel: [],
         id: 1,
         aa: 1,
         bb: 0,
-        travelnoteid:'1',
         motaikuang:false,
         props: ["user", "token"],
-        travels:[{
-          "id":"1",
-          "title":"苏州，一座文化古城。。。。",
-          "imageurls":"https://b1-q.mafengwo.net/s12/M00/39/F7/wKgED1ujYTGAUH0zAAhVpG44zZE10.jpeg?imageMogr2%2Finterlace%2F1",
-          "content":"这里是简介",
-          "good":"231",
-          "view":"300",
-          "state":"苏州",
-          "cover_url":"https://p4-q.mafengwo.net/s12/M00/71/49/wKgED1vF6liAG23NAASqHYuzB4U99.jpeg?imageMogr2%2Finterlace%2F1",
-          "usericno":"https://b1-q.mafengwo.net/s12/M00/39/F7/wKgED1ujYTGAUH0zAAhVpG44zZE10.jpeg?imageMogr2%2Finterlace%2F1",
-        },
-        ],
-        travel1:[{
-          "id":"1",
-          "title":"开封，一座文化古城。。。。",
-          "imageurls":"https://b1-q.mafengwo.net/s12/M00/39/F7/wKgED1ujYTGAUH0zAAhVpG44zZE10.jpeg?imageMogr2%2Finterlace%2F1",
-          "content":"这里是简介",
-          "good":"231",
-          "view":"300",
-          "state":"苏州",
-          "cover_url":"https://b1-q.mafengwo.net/s12/M00/39/F7/wKgED1ujYTGAUH0zAAhVpG44zZE10.jpeg?imageMogr2%2Finterlace%2F1",
-          "usericno":"https://b1-q.mafengwo.net/s12/M00/39/F7/wKgED1ujYTGAUH0zAAhVpG44zZE10.jpeg?imageMogr2%2Finterlace%2F1",
-        },
-        ],
-        user: {
-          'id': '1',
-          "username": "棕色试剂瓶",
-          "usericno": "http://n3-q.mafengwo.net/s10/M00/0F/9B/wKgBZ1iUpFWAbScxAAC2Vfg46fo14.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90",
-          "sex": "男",
-          "mark": "15",
-          "birthday": "1997-6-2",
-          "state": "大庆",
-          "content": "起始",
-        },
-        msg: 'Welcome to Your Vue.js App'
       }
     },
     created() {
-      // sessionStorage.setItem("token", "congqianyouzuoshan")
-      // sessionStorage.setItem("id", "1")
-      // this.token = "gzw"
-      // console.log(this.props)
+      var vm = this
     },
-
-
     methods:{
-      // 点击最新发布
-      newest:function(){
-        var vm = this
-        vm.$set(vm.travels,vm.travel1,1)
-        // vm.travels = vm.travel1
-        // axios.get(' http://127.0.0.1:8000/travelnote/gettravelnotenewest/')
-        //   .then(function (response) {
-        //     // vm.some = response.data
-        //
-        //     console.log(vm.some)
-        //     // 获取所有数据
-        //     // vm.alldata = response.data
-        //   })
-        //   .catch(function (error) {
-        //     return error
-        //   })
-      },
       // 点击显示模态框
       choose(event){
-        event.target.className="active"
+        var vm = this
+        vm.$refs.hottravelnotes.style.backgroundColor = 'write ! importent'
+        vm.$refs.newstrategys.style.backgroundColor = 'write ! importent'
+        if (vm.radiochange){
+          event.currentTarge.style.backgroundColor = "green ! importent"
+          vm.radiochange = !vm.radiochange
+        }else{
+          event.currentTarge.style.backgroundColor = "white ! importent"
+          vm.termtext = event.c
+        }
+          event.currentTarge.style.backgroundColor = "green ! importent"
       },
       showthat(event){
-
         console.log(event.currentTarget); // event.currentTarget获取当前点击元素DOM
         this.travelnoteid = event.currentTarget.id
         console.log(event.currentTarget.id); // event.currentTarget获取当前点击元素DOM
@@ -123,26 +61,18 @@
         // 将其值修改为false
         that.motaikuang = ! that.motaikuang
       },
-      getalltravelnotes:function () {
-        var vm = this
-        axios.get(' http://127.0.0.1:8000/travelnote/getalltravelnote/')
-          .then(function (response) {
-            vm.some = response.data
-            console.log(vm.some)
-            // 获取所有数据
-            // vm.alldata = response.data
-          })
-          .catch(function (error) {
-            return error
-          })
-      }
+
+
 
     }
-
   }
 </script>
 
 <style scoped>
+  a{
+    text-decoration: none;
+    color:#333333;
+  }
   .active{
     border: rgba(34, 34, 34, 0.54) 1px solid;
     border-bottom: none;
@@ -191,6 +121,7 @@
   /*基础框架*/
   .father{
     display: flex;
+    min-height: 550px;
   }
   .boxleft{
     justify-content: space-between;
@@ -212,6 +143,7 @@
   }
   .post-window {
     height: auto;
+    min-height: 600px;
     display: block;
     padding-top: 10px;
     margin-bottom: 20px;
