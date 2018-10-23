@@ -154,7 +154,7 @@
     padding: 10px 15px;
     width: 700px;
     margin-left: 15px;
-    margin-top: 35px;
+    margin-top: 20px;
   }
 
   .collection {
