@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="container-fluid" style="padding: 0px; margin: 0px ;height: 58px">
-      <div class="col-md-3" id="logo-img"><router-link to="//u/87710821.html"><img src="../../assets/images/logoweight.png" alt="" height="40px" width="150px" ></router-link></div>
+      <div class="col-md-3" id="logo-img"><router-link to="/"><img src="../../assets/images/logoweight.png" alt="" height="50px" width="150px" ></router-link></div>
       <ul class="col-md-3" id="nav-list">
-        <router-link to="/hottravelnote"><li>首页</li></router-link>
+        <router-link to="/"><li>首页</li></router-link>
         <router-link to="/strategy"> <li>游记攻略</li></router-link>
         <router-link to="/write"><li>写游记</li></router-link>
       </ul>

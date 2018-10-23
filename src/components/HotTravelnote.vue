@@ -10,18 +10,18 @@
         <div class="leftcover" v-bind:style="{background:'url('+travels[i-1]['cover__url']+')' ,backgroundSize:'cover'}"
              :id="travels[i-1]['id']">
           <div class="lefttxt">
-            <div class="lefttitle" v-text="travels[i-1]['title']" @click="showthat" style="background-size: cover;">
+            <div class="lefttitle" v-text="travels[i-1]['title']" @click="showthat" style="background-size: cover; color: white">
               第一次来到苏州，感觉还不错
             </div>
             <div class="txt">
               <div class="usericno left">
                 <img class="usericno" :src="travels[i-1]['userid__icno__imageurl']" alt="" height="20px" width="20px">
               </div>
-              <div class="username left" :id="i" style="color: green" @click="showpage($event)"><a href="javascrip:;" v-text="travels[i-1]['userid__username']" ></a>
+              <div class="username left" :id="i" style="color: green" @click="showpage($event)"><a href="javascrip:;" v-text="travels[i-1]['userid__username']"  style="color:whitesmoke"></a>
               </div>
-              <div class="leftstate left" v-text="travels[i-1]['state']">地址</div>
-              <div class="leftgood left" v-text="travels[i-1]['good']">点赞</div>
-              <div class="leftview left" v-text="travels[i-1]['view']">浏览</div>
+              <div class="leftstate left" v-text="travels[i-1]['state']" style="color: #cbcbcb">地址</div>
+              <div class="leftgood left" v-text="travels[i-1]['good']" style="color: #cbcbcb">点赞</div>
+              <div class="leftview left" v-text="travels[i-1]['view']" style="color: #cbcbcb">浏览</div>
             </div>
           </div>
         </div>
@@ -35,8 +35,10 @@
       <div class="lin_page_index btn " v-for="i in pagecount">
         <a class="btn btn-default padding" href="javascript:;" v-text="i" :id="i" @click="showpage($event)" ></a>
       </div>
+      <a class="btn btn-default padding" href="javascript:;" v-if="morepage" :id="i" @click="countshow()" >...</a>
+
       <button class="btn next-page">下一页</button>
-      <div class="btn ">共<span style="color: #549c55" v-text="pagecount"></span>页</div>
+      <div class="btn ">共<span style="color: #549c55" v-text="countnum"></span>页</div>
     </div>
   </div>
 </template>
@@ -54,10 +56,13 @@
 
         // 分页相关
         pagecount:0,
-        pagesize:4,
+        pagesize:6,
         page:1,
-        pagelist:[1,2,3,4],
-
+        pagelist:[1,2,3,4,5,6],
+        morepage:false,
+        count:1,
+        nowcount:1,
+        countnum:0,
 
         travelnoteid: '1',
         motaikuang: false,
@@ -139,7 +144,15 @@
       // 获取游记条数进而确定页数
       getpages: function () {
         var vm = this
-        vm.pagecount = Math.ceil(vm.travels.length/vm.pagesize)
+        vm.countnum = Math.ceil(vm.travels.length/vm.pagesize)
+        vm.count = Math.ceil(vm.countnum/9)
+        if (vm.countnum>=9){
+          vm.pagecount = 9
+          vm.morepage = true
+        }else{
+          vm.pagecount = vm.countnum
+        }
+
         console.log(vm.pagecount)
       },
       showpage:function (event) {
@@ -147,14 +160,14 @@
         var newlist=[]
         vm.page = event.currentTarget.id
         if (vm.page*vm.pagesize<=vm.travels.length){
-          vm.pagesize = 4
-          for(let i =1; i<=4; i++){
-            newlist.push((vm.page-1)*4+i)
+          vm.pagesize = 6
+          for(let i =1; i<=6; i++){
+            newlist.push((vm.page-1)*6+i)
           }
         }else{
           vm.pagesize = vm.travels.length-((vm.page-1)*vm.pagesize)
           for(let i =1; i<=vm.pagesize; i++){
-            newlist.push((vm.page-1)*4+i)
+            newlist.push((vm.page-1)*6+i)
           }
         }
         vm.pagelist = newlist
@@ -166,13 +179,15 @@
   a,button,input{-webkit-tap-highlight-color:rgba(255,0,0,0);}
   .outbox{
     width: 100%;
-    min-height: 530px;
+    min-height: 800px;
     /*background-color: lime;*/
   }
   .page{
     width: 100%;
     display: block;
-    margin-top: 20px;
+    margin: auto;
+    margin-left: 40px;
+    margin-top: 40px;
   }
   body {
     position: fixed;
@@ -236,7 +251,7 @@
     width: 400px;
     top: 145px;
     overflow: hidden;
-    background-color: rgba(255, 251, 249, 0.56);
+    background-color: rgba(0, 0, 0, 0.25);
     border-radius: 0 0 10px 10px;
     padding: 5px 10px 10px 10px;
   }

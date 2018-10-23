@@ -4,8 +4,9 @@
     <!--<motaikuang></motaikuang>-->
     <!--<testx></testx>-->
     <router-view/>
-    <!--<footer></footer>-->
+
   </div>
+    <!--<footer1></footer1>-->
   </div>
 </template>
 
@@ -18,12 +19,12 @@ export default {
 </script>
 
 <style>
+  body{
+    /*background-color: #333333;*/
+  }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  /*-webkit-font-smoothing: antialiased;*/
-  /*-moz-osx-font-smoothing: grayscale;*/
-  /*text-align: center;*/
-  /*color: #2c3e50;*/
-  /*margin-top: 60px;*/
+  min-height: 1500px;
+  overflow: inherit;
 }
 </style>

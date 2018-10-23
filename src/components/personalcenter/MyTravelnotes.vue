@@ -4,77 +4,32 @@
     <motaikuang @hidden="hiddenshow" v-if="motaikuang"></motaikuang>
     <ul class="col-md-12 nopadding travelnotes-list" >
       <router-link to="/travel">
-      <li v-for="travelnote in this.travelnotes" >
-        <div class="col-md-12 nopadding">
-          <!--***********点击触发事件**********************************************************-->
-          <div class="col-md-5 nopadding img" @click="showthat"><img :src="travelnote['cover__url']" alt="" height="195px" width="300px"></div>
-          <div class="col-md-7">
-            <div class="margin">
-              <span class="h4 " v-text="travelnote['title']"></span>
-            </div>
-            <div>
-              <span class="time col-md-4" v-text="travelnote['time']"></span>
-              <span class="views col-md-4" >浏览量：<span v-text="travelnote['view']"></span></span>
-              <span class="good col-md-4" >点赞数：<span v-text="travelnote['good']"></span></span>
-            </div>
-            <div class="content">
-              <span>8月的一天，我辞去了ofo小黄车的工作。三天后，我开着我的本田XRV，驰骋在广袤的 内蒙古 高原。</span>
-            </div>
-            <div>
-              <span class="left identification" v-text="travelnote['condition__condition']"></span>
-              <div class="fix right btn btn-success bb">编辑</div>
-              <div class="fix right btn btn-danger bb" data-toggle="modal" data-target="#myModal">删除</div>
+        <li v-for="travelnote in travelnotes" >
+          <div class="col-md-12 nopadding">
+            <!--***********点击触发事件**********************************************************-->
+            <div class="col-md-5 nopadding img" @click="showthat"><img :src="travelnote['cover__url']" alt="" height="195px" width="300px"></div>
+            <div class="col-md-7">
+              <div class="margin">
+                <span class="h4 " v-text="travelnote['title']">标题</span>
+              </div>
+              <div>
+                <span class="time col-md-4" v-text="travelnote['time']">时间</span>
+                <span class="views col-md-4" >浏览量：<span v-text="travelnote['view']"></span></span>
+                <span class="good col-md-4" >点赞数：<span v-text="travelnote['good']"></span></span>
+              </div>
+              <!--简介-->
+              <div class="content">
+                <span v-text="travelnote['content']"></span>
+              </div>
+              <div>
+                <span class="left identification" v-text="travelnote['condition__condition']"></span>
+                <div class="fix right btn btn-success bb">编辑</div>
+                <div class="fix right btn btn-danger bb" data-toggle="modal" data-target="#myModal">删除</div>
+              </div>
             </div>
           </div>
-        </div>
-      </li>
+        </li>
       </router-link>
-      <li v-for="travelnote in this.travelnotes"  >
-        <div class="col-md-12 nopadding">
-          <div class="col-md-5 nopadding img"><img :src="travelnote['cover__url']" alt="" height="195px" width="300px"></div>
-          <div class="col-md-7">
-            <div class="margin">
-              <span class="h4 " v-text="travelnote['title']"></span>
-            </div>
-            <div>
-              <span class="time col-md-4" v-text="travelnote['time']"></span>
-              <span class="views col-md-4" >浏览量：<span v-text="travelnote['view']"></span></span>
-              <span class="good col-md-4" >点赞数：<span v-text="travelnote['good']"></span></span>
-            </div>
-            <div class="content">
-              <span>8月的一天，我辞去了ofo小黄车的工作。三天后，我开着我的本田XRV，驰骋在广袤的 内蒙古 高原。</span>
-            </div>
-            <div>
-              <span class="left identification" v-text="travelnote['condition__condition']"></span>
-              <div class="fix right btn btn-success bb">编辑</div>
-              <div class="fix right btn btn-danger bb" data-toggle="modal" data-target="#myModal">删除</div>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li v-for="travelnote in this.travelnotes"  >
-        <div class="col-md-12 nopadding">
-          <div class="col-md-5 nopadding img"><img :src="travelnote['cover__url']" alt="" height="195px" width="300px"></div>
-          <div class="col-md-7">
-            <div class="margin">
-              <span class="h4 " v-text="travelnote['title']"></span>
-            </div>
-            <div>
-              <span class="time col-md-4" v-text="travelnote['time']"></span>
-              <span class="views col-md-4" >浏览量：<span v-text="travelnote['view']"></span></span>
-              <span class="good col-md-4" >点赞数：<span v-text="travelnote['good']"></span></span>
-            </div>
-            <div class="content">
-              <span>8月的一天，我辞去了ofo小黄车的工作。三天后，我开着我的本田XRV，驰骋在广袤的 内蒙古 高原。</span>
-            </div>
-            <div>
-              <span class="left identification" v-text="travelnote['condition__condition']"></span>
-              <div class="fix right btn btn-success bb">编辑</div>
-              <div class="fix right btn btn-danger bb" data-toggle="modal" data-target="#myModal">删除</div>
-            </div>
-          </div>
-        </div>
-      </li>
     </ul>
     <router-view/>
     <!-- Modal -->
@@ -146,7 +101,7 @@
       gettravel:function () {
         var vm = this
         console.log(vm.id);
-        axios.get('http://127.0.0.1:8000/travelnote/searchbyuserid/' + vm.id + '/')
+        axios.get('http://127.0.0.1:8000/user/usertravelnotes/' + vm.id + '/')
           .then(function (response) {
             vm.travelnotes = response.data
             console.log(vm.travelnotes)

@@ -83,7 +83,7 @@
     <lunbotu></lunbotu>
     <contentleft></contentleft>
     <contentright></contentright>
-    <!--<footer></footer>-->
+    <footer1></footer1>
   </div>
 
 
@@ -199,6 +199,12 @@
   }
 </script>
 <style scoped>
+  contentright{
+    margin-bottom: 10px;
+  }
+  body{
+    background-color: #333333;
+  }
   /*搜索附近的单选按钮*/
   .radiosearch{
     height: 15px;

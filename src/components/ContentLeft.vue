@@ -5,17 +5,14 @@
     <div class="nav   city-title">热门城市</div>
     <!--<ul class="nav navbar navbar-default">-->
     <ul class="nav nav-pills nav-stacked">
-      <li><router-link :to="{name:'search',params:{index:this.index}}"><a href="javascript:;" @click="search($evnet)">北京</a></router-link></li>
-      <li><router-link :to="{name:'search',params:{index:this.index}}"><a href="javascript:;" @click="search($evnet)">北京</a></router-link></li>
-      <li><router-link :to="{name:'search',params:{index:this.index}}"><a href="javascript:;" @click="search($evnet)">北京</a></router-link></li>
-      <li><router-link :to="{name:'search',params:{index:this.index}}"><a href="javascript:;" @click="search($evnet)">北京</a></router-link></li>
+      <li @click="search($event)" v-for="item in hotcity"><router-link :to="{name:'search',query:{cityindex:item['cityname']}}" v-text="item['cityname']">北京</router-link></li>
     </ul>
     <div class="nav   city-title travels">热门景点</div>
     <ul class="nav nav-pills nav-stacked">
-      <li><router-link :to="{name:'search',params:{index:this.index}}"><a href="javascript:;" @click="search($evnet)">拙政园</a></router-link></li>
-      <li><router-link :to="{name:'search',params:{index:this.index}}"><a href="javascript:;" @click="search($evnet)">外滩</a></router-link></li>
-      <li><router-link :to="{name:'search',params:{index:this.index}}"><a href="javascript:;" @click="search($evnet)">西湖</a></router-link></li>
-      <li><router-link :to="{name:'search',params:{index:this.index}}"><a href="javascript:;" @click="search($evnet)">松花江</a></router-link></li>
+       <li @click="search($event)"><router-link :to="{name:'search',query:{cityindex:index}}">拙政园</router-link></li>
+       <li @click="search($event)"><router-link :to="{name:'search',query:{cityindex:index}}">外滩</router-link></li>
+       <li @click="search($event)"><router-link :to="{name:'search',query:{cityindex:index}}">西湖</router-link></li>
+       <li @click="search($event)"><router-link :to="{name:'search',query:{cityindex:index}}">松花江</router-link></li>
     </ul>
   </div>
   </div>
@@ -23,6 +20,7 @@
 <!--复制模板-->
 
 <script>
+  import axios from 'axios'
 export default {
   name: 'ContentLeft',
   // props:['user'],
@@ -34,6 +32,7 @@ export default {
 
       index:'',
       props:["user","token"],
+      hotcity:'',
       user:{
         'id':'1',
         "username":"棕色试剂瓶",
@@ -55,14 +54,27 @@ export default {
     // this.props.user = this.user
     console.log(this.props)
     // this.props.token = "123"
+    this.hotcityshow()
+
 },
 
-  method:{
+  methods:{
+    // 查询显示
+    hotcityshow:function(){
+      var vm  = this
+      axios.get('http://127.0.0.1:8000/user/hotcity/')
+        .then(function (response) {
+          vm.hotcity = response.data
+        })
+        .catch(function (error) {
+          return error
+        })
+    },
     // 点击导航
     search:function (event) {
       var vm = this
       vm.index = event.target.innerText
-      console.log(vm.index)
+      alert(event.target.innerText)
     }
   }
 
@@ -72,15 +84,12 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .middle {
-
     padding-top: 10px;
   }
 
   .city-list {
-
     height: 700px;
     width: 250px;
-    /*background-color: yellowgreen;*/
   }
 
   .city-list ul li {
