@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="container-fluid" style="padding: 0px; margin: 0px ;height: 58px">
-      <div class="col-md-3" id="logo-img"></div>
+      <div class="col-md-3" id="logo-img"><router-link class="col-md-3"><img src="../../assets/images/logoweight.png" alt="" height="40px" width="150px" ></router-link></div>
       <ul class="col-md-3" id="nav-list">
-        <router-link to="/"><li @click="shouye">首页</li></router-link>
+        <router-link to="/"><li>首页</li></router-link>
         <router-link to="/strategy"> <li>游记攻略</li></router-link>
         <router-link to="/write"><li>写游记</li></router-link>
       </ul>
@@ -12,12 +12,12 @@
       </div>
       <div class="col-md-2" id="user-img">
         <img
-          :src="travel['tcover__url']"
-          height="32" width="32" alt="">
+          :src="travel['userid__icno__imageurl']"
+          height="32" width="32" alt="" style="object-fit: cover">
       </div>
     </div>
 
-    <div id="set-bg-big">
+    <div id="set-bg-big" v-bind:style="{background:'url('+travel['cover__url']+')'}">
       <!--名字-->
       <h1 style="white-space: nowrap; overflow-wrap: normal;" v-text="travel['title']">
         无问南北西东，只愿你像风一样自由
@@ -45,10 +45,10 @@
 
       <!--收藏-->
       <div class="col-md-1" id="collect">
-        <a @click="collecttravelnote" href="" rel="nofollow" title="收藏" class="collect_num"
+        <a  href="javascript:;" rel="nofollow" title="收藏" class="collect_num"
            data-ctime="2018-09-01 14:01:56">
-          <i></i><br>
-          <span v-text="travel['view']">136</span>收藏
+          <i @click="collecttravelnote($event)" :id="travel['view']+'tcollect'" ></i><br>
+          <span v-text="travel['view']" @click.prevent.stop >136</span>收藏
         </a>
       </div>
 
@@ -76,9 +76,16 @@
     name: "TravelNotes",
     data() {
       return {
-        collect: 12,
+        collect: 0,
         praise: 25,
-        travel:'',
+        clickable:false,
+        travel:{
+          "id":'',
+          "title":"只有聪明恶人",
+          "view":0,
+          "good":0,
+
+        },
       }
 
     },
@@ -87,11 +94,20 @@
       console.log(this.travel)
     },
     methods: {
-      shouye: function () {
-      },
-      collecttravelnote: function () {
+
+      collecttravelnote: function (event) {
         var vm = this
-        vm.collect++
+        if (!vm.clickable){
+          let num = event.target.id
+          num = num.split("t")[0]
+          vm.travel.view = parseInt(num) + 1
+          vm.clickable=true
+
+          // 更新收藏
+
+        }else{
+          alert("你已经收藏过了")
+        }
       }
     },
     dianzan: function () {
@@ -116,7 +132,7 @@
   }
 
   #logo-img {
-    background-image: url("../../assets/travelnote/logoweight.png");
+    /*background-image: url("../../assets/travelnote/logoweight.png");*/
     height: 40px;
     width: 150px;
     background-repeat: no-repeat;
@@ -199,6 +215,7 @@
     background-image: url("../../assets/travelnote/set-bg-.png");
     width: 1400px;
     height: 470px;
+    background-size: cover;
     background-repeat: no-repeat;
   }
 
