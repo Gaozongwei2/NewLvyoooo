@@ -5,19 +5,17 @@
     <div class="nav   city-title">热门城市</div>
     <!--<ul class="nav navbar navbar-default">-->
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="####">北京</a></li>
-      <li><a href="####">北京</a></li>
-      <li><a href="####">北京</a></li>
-      <li><a href="####">北京</a></li>
+      <li><router-link :to="{name:'search',params:{index:this.index}}"><a href="javascript:;" @click="search($evnet)">北京</a></router-link></li>
+      <li><router-link :to="{name:'search',params:{index:this.index}}"><a href="javascript:;" @click="search($evnet)">北京</a></router-link></li>
+      <li><router-link :to="{name:'search',params:{index:this.index}}"><a href="javascript:;" @click="search($evnet)">北京</a></router-link></li>
+      <li><router-link :to="{name:'search',params:{index:this.index}}"><a href="javascript:;" @click="search($evnet)">北京</a></router-link></li>
     </ul>
-
     <div class="nav   city-title travels">热门景点</div>
-    <!--<ul class="nav navbar navbar-default">-->
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="####">拙政园</a></li>
-      <li><a href="####">外滩</a></li>
-      <li><a href="####">西湖</a></li>
-      <li><a href="####">松花江</a></li>
+      <li><router-link :to="{name:'search',params:{index:this.index}}"><a href="javascript:;" @click="search($evnet)">拙政园</a></router-link></li>
+      <li><router-link :to="{name:'search',params:{index:this.index}}"><a href="javascript:;" @click="search($evnet)">外滩</a></router-link></li>
+      <li><router-link :to="{name:'search',params:{index:this.index}}"><a href="javascript:;" @click="search($evnet)">西湖</a></router-link></li>
+      <li><router-link :to="{name:'search',params:{index:this.index}}"><a href="javascript:;" @click="search($evnet)">松花江</a></router-link></li>
     </ul>
   </div>
   </div>
@@ -33,6 +31,8 @@ export default {
       id:1,
       aa:1,
       bb:0,
+
+      index:'',
       props:["user","token"],
       user:{
         'id':'1',
@@ -58,7 +58,12 @@ export default {
 },
 
   method:{
-
+    // 点击导航
+    search:function (event) {
+      var vm = this
+      vm.index = event.target.innerText
+      console.log(vm.index)
+    }
   }
 
 }

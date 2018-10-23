@@ -143,7 +143,8 @@
     line-height: 36px;
     font-size: 14px;
     color: rgba(109, 109, 109, 0.59);
-    border-radius: 4%;
+    /*border-radius: 4%;*/
+    padding-left: 15px;
     margin-top: 15px;
   }
 

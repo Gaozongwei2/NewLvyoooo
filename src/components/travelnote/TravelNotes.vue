@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="container-fluid" style="padding: 0px; margin: 0px ;height: 58px">
-      <div class="col-md-3" id="logo-img"><router-link class="col-md-3"><img src="../../assets/images/logoweight.png" alt="" height="40px" width="150px" ></router-link></div>
+      <div class="col-md-3" id="logo-img"><router-link to="//u/87710821.html"><img src="../../assets/images/logoweight.png" alt="" height="40px" width="150px" ></router-link></div>
       <ul class="col-md-3" id="nav-list">
-        <router-link to="/"><li>首页</li></router-link>
+        <router-link to="/hottravelnote"><li>首页</li></router-link>
         <router-link to="/strategy"> <li>游记攻略</li></router-link>
         <router-link to="/write"><li>写游记</li></router-link>
       </ul>
@@ -47,8 +47,8 @@
       <div class="col-md-1" id="collect">
         <a  href="javascript:;" rel="nofollow" title="收藏" class="collect_num"
            data-ctime="2018-09-01 14:01:56">
-          <i @click="collecttravelnote($event)" :id="travel['view']+'tcollect'" ></i><br>
-          <span v-text="travel['view']" @click.prevent.stop >136</span>收藏
+          <i @click="collecttravelnote($event)" :id="this.collect+'tcollect'" ></i><br>
+          <span v-text="this.collect" @click.prevent.stop >136</span>收藏
         </a>
       </div>
 
@@ -57,7 +57,7 @@
 
       <div class="col-md-1">
         <a href="">
-          <div @cilck="praisenum" class=" praise">
+          <div @cilck="collectadd" class=" praise">
             <i></i> <br>
             <span v-text="travel['good']">25</span>点赞
           </div>
@@ -72,26 +72,40 @@
 </template>
 
 <script>
+  import axios from 'axios'
   export default {
     name: "TravelNotes",
     data() {
       return {
+
         collect: 0,
         praise: 25,
         clickable:false,
         travel:{
           "id":'',
-          "title":"只有聪明恶人",
+          "title":"只有聪明的人才能看到标题",
           "view":0,
           "good":0,
+          "collect":0,
 
         },
       }
 
     },
     created(){
-      this.travel = this.$route.params.travel
-      console.log(this.travel)
+      var vm = this
+      vm.travel = vm.$route.params.travel
+      // 计算游记被收藏数
+      console.log(vm.travel["id"])
+      axios.get('http://127.0.0.1:8000/user/numcollect/'+ vm.travel['id']+'/')
+        .then(function (response) {
+          vm.collect = response.data
+          console.log("收藏数"+ response.data)
+        })
+        .catch(function (error) {
+          return error
+        })
+
     },
     methods: {
 
@@ -100,11 +114,24 @@
         if (!vm.clickable){
           let num = event.target.id
           num = num.split("t")[0]
-          vm.travel.view = parseInt(num) + 1
+          vm.collect = parseInt(num) + 1
           vm.clickable=true
-
           // 更新收藏
+          var params = new URLSearchParams();
+          collect = {
+            "ctravelnote_id":vm.travel["id"],
+            "cuser_id":sessionStorage.getItem("id")
+          }
+          alert(collect)
+          console.log(collect)
+          params.append('usermessage',collect)
+          axios.post('http://127.0.0.1:8000/user/updatecollect/',params)
+            .then(
 
+            )
+            .catch(
+
+            );
         }else{
           alert("你已经收藏过了")
         }
@@ -112,7 +139,7 @@
     },
     dianzan: function () {
     },
-    praisenum: function () {
+    collectadd: function () {
       alert('ok')
     }
   }
@@ -216,7 +243,6 @@
     width: 1400px;
     height: 470px;
     background-size: cover;
-    background-repeat: no-repeat;
   }
 
   /*头像*/

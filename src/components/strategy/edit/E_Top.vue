@@ -11,18 +11,19 @@
           <!--<img  class="logo" src="../images/logo.png" alt="">-->
         </div>
 
-        <div class="col-lg-3 col-md-3 col-lg-offset-3">
-          <input type="text" maxlength="7" readonly="readonly" class="form-control text-center input-rename  float center-block"  value="洛阳发两日玩法" >
-          <a href="#" class="float rename">重命名</a>
+
+
+        <!--这里style改了-->
+        <div class="col-lg-3 col-md-3 col-lg-offset-3" style="margin-top: 1%;height: 10px">
+          <input type="text" maxlength="7" readonly="readonly" class="form-control text-center input-rename  float center-block"  value="洛阳发两日玩法" style="background-color: #ededed;border: none;outline:none;">
+          <a href="#" class="float rename" style="font-size: 13px;margin-left: 5px;color: #ff9e00;text-decoration:none;">重命名</a>
 
         </div>
 
         <!--发布按钮-->
-        <div class="col-lg-1 col-lg-offset-2 ">
-            <span class="input-group-btn">
-              <!--ref1111111-->
-                <button type="button" ref="upload" class="btn btn-warning" @clikc="">发 布</button>
-            </span>
+        <div class="col-lg-1 col-lg-offset-2 upbtn">
+              <!--这里style改了按钮大小 圆角-->
+          <button type="button" ref="upload" class="btn btn-circle upbtn" @clikc="" style="width: 130px;height: 35px">发 布</button>
         </div>
         <div class="col-lg-1  visible-lg"></div>
       </div>
@@ -41,29 +42,35 @@
             天
           </li>
         </ul>
-        <!--图片-->
-        <div class="add-day text-center btn-circle " id="add-div" @click="addbtn()">
-          +
-        </div>
+          <!--图片-->
+          <div class="add-day text-center btn-circle " id="add-div" @click="addbtn()" style="margin-left: 45%; margin-top: 10px">
+            <img src="../../../assets/strategy/添加.png" alt="" style="width: 20px">
+          </div>
+
+
 
       </div>
 
       <!--中间编辑-->
-      <div class="col-lg-8 bg-color-ff div-edit aaaa" ref="mybox" id="div-center-edit" >
-        <ul v-for="li in list" ref="ul">
+      <!--<div class="col-lg-8 bg-color-ff div-edit aaaa" ref="mybox" id="div-center-edit" >-->
+        <!--<ul v-for="li in list" ref="ul">-->
+      <div class="col-lg-8 bg-color-ff div-edit aaaa" id="div-center-edit" >
+        <ul class="list-unstyled">
+
           <li>
 
-
-
-
+            <!--上划线-->
+            <div class="div-border-bottom" style="width: 100%;height: 10px">
+            </div>
               <!--总结-->
-              <div class="div-border-bottom">
+              <div class="div-border-bottom" style="margin-top: 40px">
                 <!--总结标题-->
-                <span class="font-20">
-                      总结
-                  </span>
+                <!--这里style改了-->
+                <span class="font-20">优点</span>
                 <!--多文本输入框-->
-                <div class="form-group div-height center-block" contenteditable="true">
+                <!--这里style改了-->
+                <div class="form-group div-height1 center-block edit-div focusdiv"  contenteditable="true" style="margin-top: 10px">
+
                 </div>
               </div>
 
@@ -80,16 +87,68 @@
                   </div>
                   <!--景点地名-->
                   <div class="col-lg-8">
-                    <ul class="space-size list-unstyled" >
-                      <li></li>
-                    </ul>
+                      <ul class="space-size list-unstyled address-close" style="margin-top: 40px;margin-left: 20px">
+                        <li>
+                            <span class="place">
+                                <strong>成都</strong>
+                                <i class="i-line"></i>
+                                <i class="i-close"></i>
+                            </span>
+                        </li>
+
+                        <li>
+                            <span class="place">
+                                <strong>lalallalala</strong>
+                                <i class="i-line"></i>
+                                <i class="i-close"></i>
+                            </span>
+                        </li>
+
+
+
+                        <li>
+                            <span class="place">
+                                <strong>成都</strong>
+                                <i class="i-line"></i>
+                                <i class="i-close"></i>
+                            </span>
+                        </li>
+
+                        <li>
+                            <span class="place">
+                                <strong>成都</strong>
+                                <i class="i-line"></i>
+                                <i class="i-close"></i>
+                            </span>
+                        </li>
+
+                        <li>
+                            <span class="place">
+                                <strong>成都</strong>
+                                <i class="i-line"></i>
+                                <i class="i-close"></i>
+                            </span>
+                        </li>
+
+                      </ul>
+                    <div>
+
+
+                    </div>
+
+
                   </div>
+                  <div class="col-lg-1" style="margin-top: 60px">
+                    <!--添加目的地-->
+                    <!--删除本日-->
+                    <button type="button" class="btn btn-default btn-style" style="outline: none; margin-right:1px;width: 78px" >删除本日</button>
 
-
-                  <!--添加目的地-->
-                  <button type="button" class="btn btn-default btn-style col-lg-1" style="margin-top: 60px" >目的地</button>
-                  <!--删除本日-->
-                  <button type="button" class="btn btn-default btn-style col-lg-1  del-day" style="margin-top: 60px" >删除本日</button>
+                  </div>
+                  <div class="col-lg-1" style="margin-top: 60px">
+                    <!--添加目的地-->
+                    <button type="button" class="btn btn-default btn-style  " style="outline: none;width: 78px" >目的地</button>
+                    <!--删除本日-->
+                  </div>
 
                 </div>
               </div>
@@ -101,49 +160,31 @@
                 <div class="div-span-img-play float title-img"></div>
 
                 <!--游玩攻略title-->
-                <div class="title-size div-title-height"  >
-                  游玩攻略l
+                <div class="title-size div-title-height font-20"  >
+                  <img src="../../../assets/strategy/addresss.png" alt="">
+                  游玩攻略
                 </div>
 
                 <!--编写div文本框-->
-                <div class="form-group div-height1 center-block edit-div"  contenteditable="true">
-                      wwwwwwwwwwwweeeeeerrrrrrtttttttt
+                <div class="form-group div-height1 center-block edit-div focusdiv"  contenteditable="true">
+
                 </div>
 
                 <!--添加图片-->
                 <ul class="list-unstyled list-inline " id="ul">
                   <li class="li-space " style="margin-bottom: 20px;"  data-toggle="modal" data-target="#myModal">
                     <a href="javascript:;" class="div-img-size float"  @click="showmodel()"  data-toggle="modal" data-target="#myModal">
-                      +
+                      <!--<img src="../../../assets/images/strategy/add.png" alt="">-->
                     </a>
+                  </li>
+                </ul>
 
-                    <!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
-                      <!--<div class="modal-dialog" role="document">-->
-                        <!--<div class="modal-content">-->
-                          <!--<div class="modal-header">-->
-                            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-                            <!--<h4 class="modal-title" id="myModalLabel">Modal title</h4>-->
-                          <!--</div>-->
-                          <!--<div class="modal-body">-->
-                            <!--...-->
-                          <!--</div>-->
-                          <!--<div class="modal-footer">-->
-                            <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-                            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
-                          <!--</div>-->
-                        <!--</div>-->
-                      <!--</div>-->
-                    <!--</div>-->
 
-                  <!--</li>-->
 
-                <!--</ul>-->
-
-              <!--</div>-->
 
 
                 <!--模态框-->
-            <modelk @hidden="hiddenShow" :txt="text1" ></modelk>
+            <!--<modelk @hidden="hiddenShow" :txt="text1" ></modelk>-->
 
               <!--交通攻略-->
               <div class="div-border-bottom div-border-space">
@@ -151,13 +192,14 @@
                 <div class="div-span-img-play float title-img"></div>
 
                 <!--交通攻略title-->
-                <div class="title-size div-title-height" >
+                <div class="title-size div-title-height font-20" >
+                  <img src="../../../assets/strategy/addresss.png" alt="">
                   交通攻略
                 </div>
 
                 <!--编写div文本框-->
-                <div class="form-group div-height1 center-block edit-div" contenteditable="true">
-                  fdsmmmmmmmmkkkkkkkkkkoooooooo
+                <div class="form-group div-height1 center-block edit-div focusdiv" contenteditable="true">
+
                 </div>
               </div>
 
@@ -168,12 +210,13 @@
                 <div class="div-span-img-play float title-img"></div>
 
                 <!--门票攻略title-->
-                <div class="title-size div-title-height" >
+                <div class="title-size div-title-height font-20" >
+                  <img src="../../../assets/strategy/addresss.png" alt="">
                   门票攻略
                 </div>
 
                 <!--编写div文本框-->
-                <div class="form-group div-height1 center-block edit-div" contenteditable="true">
+                <div class="form-group div-height1 center-block edit-div focusdiv" contenteditable="true">
                   fds
                 </div>
               </div>
@@ -185,22 +228,26 @@
                 <div class="div-span-img-play float title-img"></div>
 
                 <!--餐饮攻略title-->
-                <div class="title-size div-title-height"  >
+                <div class="title-size div-title-height font-20"  >
+                  <img src="../../../assets/strategy/addresss.png" alt="">
                   餐饮攻略
                 </div>
 
                 <!--编写div文本框-->
-                <div class="form-group div-height1 center-block edit-div" contenteditable="true">
-                  yyyyyyyyyyyyyyyyyyyyyy
+                <div class="form-group div-height1 center-block edit-div  focusdiv" contenteditable="true">
+
                 </div>
 
                 <!--添加图片-->
                 <ul class="list-inline list-unstyled" id="ul1">
-                  <li class="li-space2"  >
-                    <a href="javascript:;" class="div-img-size" data-toggle="modal" data-target="#myModal1"></a>
+                  <li class="li-space"  >
+                    <a href="javascript:;" class="div-img-size" data-toggle="modal" data-target="#myModal1">
+
+                      <!--<img src="../../../assets/images/strategy/add.png" alt="">-->
+                    </a>
                   </li>
           <!--{{li}}-->
-        </ul>
+              </ul>
 
        </div>
 
@@ -208,8 +255,6 @@
 
               <!--&lt;!&ndash;模态框&ndash;&gt;-->
 
-             </li>
-            </ul>
 <!---->
           </div>
         </li>
@@ -358,6 +403,57 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .place{
+    display: inline-block;
+    margin-right: 10px;
+    padding-top: 9px;
+    border: 1px solid #f2f2f2;
+    background-color: #f5f5f5;
+    position: relative;
+    vertical-align: middle;
+    cursor: move;
+  }
+  strong{
+    display: inline-block;
+    height: 40px;
+    padding: 0 10px;
+    line-height: 40px;
+    font-size: 20px;
+    color: #333;
+    background-color: #fff;
+    font-weight: normal;
+  }
+  .i-line{
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    margin-left: -5px;
+    width: 9px;
+    height: 1px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    display: inline;
+  }
+  .i-close{
+    position: absolute;
+    right: -8px;
+    top: -5px;
+    width: 18px;
+    height: 18px;
+    background: url('../../../assets/strategy/取消.png') no-repeat ;
+    overflow: hidden;
+    display: inline;
+  }
+
+  .address-close>li{
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+
+  ul,lu{
+    margin: 0;
+    padding: 0;
+  }
   /*float*/
   .float{
     float: left;
@@ -385,12 +481,18 @@
     min-height: 80px;
   }
 
+  .upbtn:focus{
+    outline: none;
+    border: none;
+    box-shadow:none;
+  }
+
   /*模块间的下边框*/
   .div-border-bottom{
     border: 1px solid #f2f2f2;
     border-left: none;
     border-right: none;
-    border-top: none;
+    border-top:10px #888888;
   }
 
   /*边框和模块的间距*/
@@ -417,8 +519,8 @@
     width: 225px;
     height: 150px;
     background-color: #FFFFFF;
-    border: 1px darkgreen dashed;
-    /*background: url("../images/add_white.svg");*/
+    border: 1px #767581 dashed;
+    background: url("../../../assets/strategy/add.png");
     background-position: center;
     background-repeat: no-repeat;
   }
@@ -429,14 +531,22 @@
     margin-bottom: 10px;
   }
   /*悬浮*/
-  .li-space:hover{
-    background-color: rgba(9, 8, 9, 0.31);
+  .div-img-size:hover{
+    border: 1px #ff9e00 dashed;
+    background: url("../../../assets/strategy/addhover.png");
+    background-position: center;
+    background-repeat: no-repeat;
   }
   /*攻略重命名文本框*/
   .input-rename{
     font-size: 27px;
     background-color: #ffffff;
     width: 70%;
+  }
+
+  .input-rename:focus {
+    -webkit-box-shadow: 0 0 0 #fff;
+    -moz-box-shadow: 0 0 0 #fff;
   }
 
   /*圆圈天数的大小*/
@@ -547,5 +657,10 @@
     border-left: none;
     border-right: none;
     border-top: none;
+  }
+  /*div点击 边框变色*/
+  .focusdiv:focus{
+    outline-color: #ff9e00;
+    background-color:#ffffff ;
   }
 </style>

@@ -141,7 +141,6 @@
         var vm = this
         vm.pagecount = Math.ceil(vm.travels.length/vm.pagesize)
         console.log(vm.pagecount)
-
       },
       showpage:function (event) {
         var vm = this

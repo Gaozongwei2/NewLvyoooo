@@ -21,7 +21,7 @@
         <ul class="col-md-2 nav navbar navbar-right usericno ">
           <li ><router-link to="/usercenter"><a href="####"><img class="img-circle icno col-md-6"
                                                                  src="http://n2-q.mafengwo.net/s10/M00/6C/09/wKgBZ1nm_RuAcRY4AABeA1K-J9Y49.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90"
-                                                                 alt=""><span class="left col-md-6">棕色试剂瓶</span></a></router-link></li>
+                                                                 alt=""><span class="left col-md-6" v-text="user['username']" style="color: whitesmoke">棕色试剂瓶</span></a></router-link></li>
         </ul>
         <ul class="col-md-2 nav navbar navbar-right droplist">
           <li class="switch"></li>
@@ -73,7 +73,7 @@
         </div>
       </div>
       <div class="inputbox col-md-12">
-        <input class="col-md-11 searchinput" type="text" placeholder="请输入搜索内容" v-model="index"><div class="col-md-1 searchimg" @click="search"></div>
+        <input class="col-md-11 searchinput" type="text" placeholder="请输入搜索内容" v-model="index"><router-link :to="{name:'search', params:{index:index}}"><div class="col-md-1 searchimg" @click="search"></div></router-link>
       </div>
     </div>
     <!--万用搜索键-->
@@ -96,7 +96,6 @@
     name: 'HelloWorld',
     // props:['user'],
     data () {
-
       return {
         id:1,
         aa:true,
@@ -130,6 +129,18 @@
     },
 
     methods:{
+      //查询用户信息
+      getmymessage:function(){
+        var vm  = this
+        axios.get(' http://127.0.0.1:8000/user/getuser/')
+          .then(function (response) {
+            console.log(response.data)
+          })
+          .catch(function (error) {
+            return error
+          })
+      },
+
       // 显示热门游记
       getalltravelnotes:function(){
         var vm  = this
