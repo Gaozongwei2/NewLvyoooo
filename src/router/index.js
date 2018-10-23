@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import PersonalIndex from '../components/personalcenter/PersonalIndex'
 import TestX  from '../components/TestX'
 import TestRadioButton from '../components/TestRadioButton'
+import MoTaiKuang from '../components/MoTaiKuang'
 Vue.use(Router)
 // 导入二级路由
 import MyMessage from '../components/personalcenter/MyMessage'
@@ -81,7 +82,14 @@ export default new Router({
     {
       path:'/write',
       name:'writenotes',
-      component:WriteNotes
+      component:WriteNotes,
+      children:[{
+        path:'/write/motaikuangbox',
+        name:'motaikuangbox',
+        component:MoTaiKuang
+      }
+
+      ]
     },
     // 首页用户部分
     {

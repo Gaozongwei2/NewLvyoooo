@@ -20,19 +20,18 @@
     <div class="set_index">
       <!--中间添加图片部分---------------------------------->
       <div class="set_page">
-        <a role="button" class="set_add"></a>
+        <a role="button" class="set_add" @click="changecoverimg"></a>
         <h2>设置游记头图</h2>
         <p>图片建议选择尺寸大于1680px的高清大图，如相机原图</p>
       </div>
       <!--输入-->
-      <div class="set_title"><input type="text" placeholder="填写游记标题" maxlength="48"></div>
+      <div class="set_title"><input type="text" placeholder="填写游记标题" maxlength="48" ></div>
     </div>
 
     <!----------------------写游记---------------------------------->
     <div class="container">
-      <div class="col-md-9" id="write-notes">
+      <div class="col-md-9" id="write-notes" ref="content">
         <div contenteditable="true" id="write-notes-day">游记从这里开始.....</div>
-
       </div>
       <div class="col-md-3" id="web-side">
         <div class="click-list">
@@ -43,21 +42,59 @@
             <a role="button" class="add-btn"><i class="icon-title"></i>插入段落标题</a>
           </div>
 
-          <div><a class="btn-save" role="button"><i></i>保存草稿</a></div>
+          <div><a class="btn-save" role="button" @click="savenote"><i></i>保存草稿</a></div>
           <div><a class="btn-save" role="button"><i></i>预览</a></div>
-          <div><a class="btn-save" role="button"><i></i>发表游记</a></div>
+          <!--模态框弹出提示，填写地址-->
+          <!--发布成功，弹窗提示，积分增加-->
+          <div><a class="btn-save" role="button" @click="push"><i></i>发表游记</a></div>
         </div>
 
         <div class="btn-save">游记目录</div>
       </div>
     </div>
-
+    <motaikuangbox v-bind:pattern="pattern" v-on:disappear="disappear"></motaikuangbox>
   </div>
 </template>
 
 <script>
+  import axios from 'axios'
   export default {
-    name: "WriteNotes"
+    name: "WriteNotes",
+    data() {
+      return {
+        pattern:"motaikuang1",
+        id:sessionStorage.getItem("id"),
+        travel:{
+          "title":'',
+          "cover_url":"",
+          "content":"",
+          "condition":"",
+          "good":"0",
+          "view":"0",
+          "userid":this.id,
+        },
+      }
+    },
+    methods:{
+      push:function () {
+        var vm = this
+        vm.pattern = "motaikuang"
+      },
+      disappear:function(){
+        var vm = this
+        vm.pattern = "motaikuag1"
+      },
+
+      changecoverimg:function () {
+
+      },
+      savenote:function () {
+        
+      }
+
+    }
+
+
   }
 </script>
 

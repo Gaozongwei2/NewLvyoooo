@@ -104,10 +104,10 @@
       </div>
       <!--中间右半边-->
       <div class="middle-right col-md-7 ">
-        <router-link to="/edit"><div class="col-md-6 btn button1 button navbar-brand">写游记</div></router-link>
+        <router-link to="/write"><div class="col-md-6 btn button1 button navbar-brand">写游记</div></router-link>
 
         <!--在个人中心跳转到写攻略-->
-        <router-link to="/write">
+        <router-link to="/edit">
           <div class="col-md-6 btn button2 button right navbar-brand">写攻略</div>
         </router-link>
         <!--信息显示-->

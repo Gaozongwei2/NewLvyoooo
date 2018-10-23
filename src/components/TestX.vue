@@ -1,11 +1,15 @@
 
 <template id="title1">
   <div>
-  <div class="imageback">
-    <div class="imagebackcover" v-for="i in [2,4]">
-      这是一个测试文件
+    <div v-for="i in aa">
+      <h1>{{i}}</h1>
     </div>
-  </div>
+  <!--<div class="imageback">-->
+    <!--<div class="imagebackcover" v-for="i in aa">-->
+      <!--<h1>{{i}}</h1>-->
+      <!--这是一个测试文件-->
+    <!--</div>-->
+  <!--</div>-->
   <!--<div class="imagebackcover"></div>-->
   </div>
 </template>
@@ -19,7 +23,7 @@ export default {
   data () {
     return {
       id:1,
-      aa:[1,2,3,4,5],
+      aa:[2,3,4,5,6],
       bb:0,
       props:["user","token"],
       user:{

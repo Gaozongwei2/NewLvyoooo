@@ -16,6 +16,7 @@ import ContentLeft from './components/ContentLeft'
 import ContentRight from './components/ContentRight'
 import motaikuang from './components/personalcenter/moaikuang'
 import test from './components/personalcenter/test'
+import MoTaiKuang from './components/MoTaiKuang'
 // import Newest from './components/Newest'
 // import HotTravelnote from './components/HotTravelnote'
 
@@ -68,6 +69,7 @@ Vue.component("contentleft",ContentLeft);
 Vue.component("contentright",ContentRight);
 Vue.component('motaikuang',motaikuang);
 Vue.component('test1',test);
+Vue.component('motaikuangbox',MoTaiKuang)
 // Vue.component('newest',Newest);
 // Vue.component('hottravelnote',HotTravelnote);
 // 登录注册

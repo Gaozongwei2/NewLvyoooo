@@ -10,32 +10,47 @@
           <li><router-link to="/strategy"><a href="####">攻略</a></router-link></li>
           <li><router-link to="/travel"><a href="####">游记</a></router-link></li>
         </ul>
-        <ul class="col-md-2 nav navbar-nav navbar-right" v-if="true">
-          <li>
-            <router-link to="/login"><a href="####">登录</a></router-link>
-          </li>
-          <li>
-            <router-link to="/regist"><a href="####">注册</a></router-link>
-          </li>
+        <!--<ul class="col-md-2 nav navbar-nav navbar-right" v-if="true">-->
+          <!--<li>-->
+            <!--<router-link to="/login"><a href="####">登录</a></router-link>-->
+          <!--</li>-->
+          <!--<li>-->
+            <!--<router-link to="/regist"><a href="####">注册</a></router-link>-->
+          <!--</li>-->
+        <!--</ul>-->
+        <ul class="col-md-2 nav navbar navbar-right usericno ">
+          <li ><router-link to="/usercenter"><a href="####"><img class="img-circle icno col-md-6"
+                                                                 src="http://n2-q.mafengwo.net/s10/M00/6C/09/wKgBZ1nm_RuAcRY4AABeA1K-J9Y49.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90"
+                                                                 alt=""><span class="left col-md-6">棕色试剂瓶</span></a></router-link></li>
         </ul>
-        <div v-if="aa">
-          <div class="col-md-1"></div>
-          <ul class="col-md-2 nav navbar navbar-right usericno " v-if = 'false'>
-            <li ><router-link to="/usercenter"><a href="####"><img class="img-circle icno col-md-6"
-                                                                   src="http://n2-q.mafengwo.net/s10/M00/6C/09/wKgBZ1nm_RuAcRY4AABeA1K-J9Y49.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90"
-                                                                   alt=""><span class="left col-md-6">棕色试剂瓶</span></a></router-link></li>
-          </ul>
-          <ul class="col-md-2 nav navbar navbar-right droplist">
-            <li class="switch"></li>
-            <li><a href="####">我的关注</a></li>
-            <li><a href="####">我的收藏</a></li>
-            <li><a href="####">我的游记</a></li>
-            <li><a href="####">我的攻略</a></li>
-            <li><a href="####">写游记</a></li>
-            <li><a href="####">写攻略</a></li>
-            <li><a href="javascript:;" class="exit">退出</a></li>
-          </ul>
-        </div>
+        <ul class="col-md-2 nav navbar navbar-right droplist">
+          <li class="switch"></li>
+          <li><a href="####">我的关注</a></li>
+          <li><a href="####">我的收藏</a></li>
+          <li><a href="####">我的游记</a></li>
+          <li><a href="####">我的攻略</a></li>
+          <li><a href="####">写游记</a></li>
+          <li><a href="####">写攻略</a></li>
+          <li><a href="javascript:;" class="exit">退出</a></li>
+        </ul>
+        <!--<div v-if="aa">-->
+          <!--<div class="col-md-1"></div>-->
+          <!--<ul class="col-md-2 nav navbar navbar-right usericno " v-if = 'false'>-->
+            <!--<li ><router-link to="/usercenter"><a href="####"><img class="img-circle icno col-md-6"-->
+                                                                   <!--src="http://n2-q.mafengwo.net/s10/M00/6C/09/wKgBZ1nm_RuAcRY4AABeA1K-J9Y49.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90"-->
+                                                                   <!--alt=""><span class="left col-md-6">棕色试剂瓶</span></a></router-link></li>-->
+          <!--</ul>-->
+          <!--<ul class="col-md-2 nav navbar navbar-right droplist">-->
+            <!--<li class="switch"></li>-->
+            <!--<li><a href="####">我的关注</a></li>-->
+            <!--<li><a href="####">我的收藏</a></li>-->
+            <!--<li><a href="####">我的游记</a></li>-->
+            <!--<li><a href="####">我的攻略</a></li>-->
+            <!--<li><a href="####">写游记</a></li>-->
+            <!--<li><a href="####">写攻略</a></li>-->
+            <!--<li><a href="javascript:;" class="exit">退出</a></li>-->
+          <!--</ul>-->
+        <!--</div>-->
       </div>
     </div>
     <div class="searchbox container-fluid">
@@ -81,9 +96,10 @@
     name: 'HelloWorld',
     // props:['user'],
     data () {
+
       return {
         id:1,
-        aa:1,
+        aa:true,
         bb:0,
         termtext:'all',
         radiochange:false,

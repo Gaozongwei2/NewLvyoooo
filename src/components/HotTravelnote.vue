@@ -2,7 +2,7 @@
   <div>
     <motaikuang @hidden="hiddenshow" v-if="motaikuang" v-model="travelnoteid" :travelnoteid="travelnoteid"></motaikuang>
     <div class="outbox">
-    <div class="boxleft" v-for="i in pagesize">
+    <div class="boxleft" v-for="i in pagelist">
       <!--用来存id的隐藏div-->
       <router-link :to="{name:'travelnotes',params:{travel:travels[i-1]}}">
       <div :id="travels[i-1]['id']" @click='showthat($event)'>
@@ -56,7 +56,7 @@
         pagecount:0,
         pagesize:4,
         page:1,
-        pagelist:[0,1,2,3],
+        pagelist:[1,2,3,4],
 
 
         travelnoteid: '1',
@@ -152,22 +152,13 @@
           for(let i =1; i<=4; i++){
             newlist.push((vm.page-1)*4+i)
           }
-          alert(newlist)
-
         }else{
           vm.pagesize = vm.travels.length-((vm.page-1)*vm.pagesize)
           for(let i =1; i<=vm.pagesize; i++){
             newlist.push((vm.page-1)*4+i)
-
           }
         }
-        alert(newlist)
         vm.pagelist = newlist
-        // alert(vm.newlist)
-        // alert(vm.pagesize)
-        vm.pagelist = [5,6,7,8]
-        alert(vm.pagelist)
-
       }
     }
   }
