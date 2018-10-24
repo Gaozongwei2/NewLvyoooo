@@ -10,28 +10,28 @@
           <li><router-link to="/strategy"><a href="####">攻略</a></router-link></li>
           <li><router-link to="/travel"><a href="####">游记</a></router-link></li>
         </ul>
-        <!--<ul class="col-md-2 nav navbar-nav navbar-right" v-if="true">-->
-          <!--<li>-->
-            <!--<router-link to="/login"><a href="####">登录</a></router-link>-->
-          <!--</li>-->
-          <!--<li>-->
-            <!--<router-link to="/regist"><a href="####">注册</a></router-link>-->
-          <!--</li>-->
-        <!--</ul>-->
-        <ul class="col-md-2 nav navbar navbar-right usericno ">
+        <ul class="col-md-2 nav navbar-nav navbar-right" v-if="!bianmei">
+          <li>
+            <router-link to="/login"><a href="####">登录</a></router-link>
+          </li>
+          <li>
+            <router-link to="/regist"><a href="####">注册</a></router-link>
+          </li>
+        </ul>
+        <ul class="col-md-2 nav navbar navbar-right usericno" v-if="bianmei">
           <li ><router-link to="/usercenter"><a href="####"><img class="img-circle icno col-md-6"
                                                                  src="http://n2-q.mafengwo.net/s10/M00/6C/09/wKgBZ1nm_RuAcRY4AABeA1K-J9Y49.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90"
                                                                  alt=""><span class="left col-md-6" v-text="user['username']" style="color: whitesmoke">棕色试剂瓶</span></a></router-link></li>
         </ul>
         <ul class="col-md-2 nav navbar navbar-right droplist">
           <li class="switch"></li>
-          <li><a href="####">我的关注</a></li>
-          <li><a href="####">我的收藏</a></li>
-          <li><a href="####">我的游记</a></li>
-          <li><a href="####">我的攻略</a></li>
-          <li><a href="####">写游记</a></li>
-          <li><a href="####">写攻略</a></li>
-          <li><a href="javascript:;" class="exit">退出</a></li>
+          <li ><router-link to="/usercenter/mycollect"><a href="####" >我的关注</a></router-link></li>
+          <li><router-link to="/usercenter/myfocus"><a href="####">我的收藏</a></router-link></li>
+          <li><router-link to="/usercenter/mytravelnotes"><a href="####">我的游记</a></router-link></li>
+          <li><router-link to="/usercenter/mystrategys"><a href="####">我的攻略</a></router-link></li>
+          <li><router-link to="/write"><a href="####">写游记</a></router-link></li>
+          <li><router-link to="/edit"><a href="####">写攻略</a></router-link></li>
+          <li @click="loginout()"><router-link to="/"><a href="javascript:;" class="exit" >退出</a></router-link></li>
         </ul>
         <!--<div v-if="aa">-->
           <!--<div class="col-md-1"></div>-->
@@ -102,6 +102,7 @@
         bb:0,
         termtext:'all',
         radiochange:false,
+        bianmei:true,
         // 搜索框文字
         index:"",
         props:["user","token"],
@@ -129,6 +130,13 @@
     },
 
     methods:{
+
+      //点击退出
+      loginout:function(){
+        var vm = this
+        sessionStorage.setItem('token','0')
+        this.bianmei = false
+      },
       //查询用户信息
       getmymessage:function(){
         var vm  = this

@@ -163,7 +163,12 @@
         msg: 'Welcome to Your Vue.js App'
       }
     },
+
+    //默认个人中心背景图隐藏
     created() {
+      if(this.$route.path != "/usercenter"){
+        this.hide()
+      }
       // 判断token是否登录
 
       if (sessionStorage.getItem("token") == "congqianyouzuoshan") {

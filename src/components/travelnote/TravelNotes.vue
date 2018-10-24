@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container-fluid" style="padding: 0px; margin: 0px ;height: 58px">
-      <div class="col-md-3" id="logo-img"><router-link to="//u/87710821.html"><img src="../../assets/images/logoweight.png" alt="" height="40px" width="150px" ></router-link></div>
+      <div class="col-md-3" id="logo-img"><router-link to="/"><img src="../../assets/images/logo.png" alt="" height="40px" width="120px" ></router-link></div>
       <ul class="col-md-3" id="nav-list">
         <router-link to="/hottravelnote"><li>首页</li></router-link>
         <router-link to="/strategy"> <li>游记攻略</li></router-link>
@@ -39,7 +39,9 @@
           <img src="http://images.mafengwo.net/images/home/tweet/btn_sfollow.gif" width="38" height="13" border="0"
                title="关注TA">
           <span class="now_time" v-text="travel['time']">2018-09-01 14:01</span>
-          <span v-text="travel['view']"><i class="ico_view"></i>5754/44</span>
+          <!--浏览数量-->
+          <img src="../../assets/travelnote/浏览.png" alt="" class="look">
+          <span v-text="travel['view']">5754/44</span>
         </strong>
       </div>
 
@@ -52,9 +54,7 @@
         </a>
       </div>
 
-
       <!--点赞-->
-
       <div class="col-md-1">
         <a href="">
           <div @cilck="collectadd" class=" praise">
@@ -161,10 +161,11 @@
   #logo-img {
     /*background-image: url("../../assets/travelnote/logoweight.png");*/
     height: 40px;
-    width: 150px;
+    width: 130px;
     background-repeat: no-repeat;
     margin-left: 100px;
-    margin-top: 5px;
+    margin-top: 11px;
+    z-index: 18;
   }
 
   #nav-list {
@@ -188,32 +189,47 @@
     /*圆角*/
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-    background-color: #fafafa;
+    border-bottom-right-radius:5px;
+    border-bottom-left-radius:5px;
+    background-color:#EFEFEF;
     border: none;
-    width: 130px;
-    height: 28px;
-    transition: width .5s ease 0s;
+    width: 60%;
+    height: 30px;
+    transition: width 0.5s;
+    background-image: url("../../assets/strategy/search2.svg");
     background-repeat: no-repeat;
-    margin-left: 10px;
-    margin-top: 6px;
+    background-position: 95%;
+    margin-top: 5px;
+    padding-left: 20px;
   }
 
   #search-bar-input:focus {
     outline-style: none;
-    transition: width .5s ease 0s;
-    width: 375px;
+    transition: width 1s;
+    width: 400px;
     text-shadow: none;
     -webkit-appearance: none;
     -webkit-user-select: text;
     outline-color: transparent;
     box-shadow: none;
-    border: 1px solid #ff9d00;
+    border:1px solid #7cbd60;
+    background: url("../../assets/strategy/search22.png");
     background-position: 95%;
     background-repeat: no-repeat;
-    margin-left: 10px;
-    margin-top: 6px;
+    padding-left: 20px;
+  }
+
+  h1 {
+    width: 710px;
+    height: 80px;
+    font-size: 26px;
+    line-height: 80px;
+    overflow: hidden;
+    margin-left: 25%;
+    font-weight: bold;
+    color: #fff;
+    position: absolute;
+    margin-top: 28%;
   }
 
   h1 {
@@ -274,7 +290,7 @@
     color: #ff7200;
     font-size: 14px;
     font-weight: normal;
-    margin-left: -45%;
+    margin-left: -50%;
   }
 
   a.per_grade {
@@ -292,14 +308,14 @@
     display: inline;
     margin-left: 10px;
   }
-
-  span i {
+  /*浏览数量图片*/
+   .look {
     width: 18px;
-    height: 14px;
+    height: 15px;
     display: inline-block;
-    background: url(../../assets/travelnote/浏览.png);
+    /*background: url(../../assets/travelnote/浏览.png);*/
     background-repeat: no-repeat;
-    margin-right: 4px;
+    margin-right:4px;
     vertical-align: -2px;
   }
   span{
