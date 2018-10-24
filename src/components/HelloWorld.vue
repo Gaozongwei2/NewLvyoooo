@@ -6,22 +6,22 @@
         <ul class="col-md-4 nav navbar-nav">
           <li><a href="####">首页</a></li>
           <li>
-            <router-link to="/strategy"><a href="####">攻略</a></router-link>
+            <router-link to="/strategy">攻略</router-link>
           </li>
           <li>
-            <router-link to="/travel"><a href="####">游记</a></router-link>
+            <router-link to="/travel">游记</router-link>
           </li>
         </ul>
-        <!--<ul class="col-md-2 nav navbar-nav navbar-right" v-if="true">-->
-        <!--<li>-->
-        <!--<router-link to="/login"><a href="####">登录</a></router-link>-->
-        <!--</li>-->
-        <!--<li>-->
-        <!--<router-link to="/regist"><a href="####">注册</a></router-link>-->
-        <!--</li>-->
-        <!--</ul>-->
-        <ul class="col-md-2 nav navbar navbar-right usericno ">
-          <li>
+        <ul class="col-md-2 nav navbar-nav navbar-right" v-if="!bianmei">
+        <li>
+        <router-link to="/login"><a href="####">登录</a></router-link>
+        </li>
+        <li>
+        <router-link to="/regist"><a href="####">注册</a></router-link>
+        </li>
+        </ul>
+        <ul class="col-md-2 nav navbar navbar-right usericno " v-if="bianmei">
+          <li >
             <router-link to="/usercenter"><a href="####">
               <img class="img-circle icno col-md-6"src="http://n2-q.mafengwo.net/s10/M00/6C/09/wKgBZ1nm_RuAcRY4AABeA1K-J9Y49.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90" alt="">
               <span class="left col-md-6"v-text="user['username']"style="color: whitesmoke">棕色试剂瓶</span></a>
@@ -36,7 +36,7 @@
           <li><a href="####">我的攻略</a></li>
           <li><a href="####">写游记</a></li>
           <li><a href="####">写攻略</a></li>
-          <li><a href="javascript:;" class="exit">退出</a></li>
+          <li><a href="javascript:;" class="exit" @click="exit">退出</a></li>
         </ul>
         <!--<div v-if="aa">-->
         <!--<div class="col-md-1"></div>-->
@@ -80,7 +80,7 @@
         </div>
         <div class=" col-md-3">
           <div class="col-md-3">
-            <div class="radiosearch" id="user" ref="user" @click="term($event)"></div>
+            <div class="radiosearch" id="users" ref="user" @click="term($event)"></div>
           </div>
           <span class="col-md-7 searchtxt">用户</span>
         </div>
@@ -120,8 +120,11 @@
         bb: 0,
         termtext: 'all',
         radiochange: false,
+        //切换登录状态
+        bianmei:true,
         // 搜索框文字
         index: "",
+        msg:'',
         props: ["user", "token"],
         user: {
           'id': '1',
@@ -133,7 +136,6 @@
           "state": "大庆",
           "content": "起始",
         },
-        msg: 'Welcome to Your Vue.js App'
       }
     },
     created() {
@@ -199,10 +201,17 @@
           event.currentTarget.style.backgroundColor = "green"
           vm.termtext = event.currentTarget.id
         }
+
       },
       // 搜索方法
       search: function () {
         var vm = this
+      },
+
+      // 退出方法
+      exit:function () {
+        sessionStorage.setItem("token","0")
+        this.bianmei=false
       }
     }
   }

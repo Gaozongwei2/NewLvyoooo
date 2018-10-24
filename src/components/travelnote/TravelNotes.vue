@@ -56,12 +56,10 @@
       <!--点赞-->
 
       <div class="col-md-1">
-        <a href="">
-          <div @cilck="collectadd" class=" praise">
-            <i></i> <br>
-            <span v-text="travel['good']">25</span>点赞
+          <div  class=" praise">
+            <i @cilck="good"></i> <br>
+            <span v-model="goodnum" @click="good"></span>点赞
           </div>
-        </a>
       </div>
     </div>
     <!--界面名字：TravelMian-->
@@ -87,8 +85,8 @@
           "view":0,
           "good":0,
           "collect":0,
-
         },
+        goodnum:travel['good']
       }
 
     },
@@ -135,6 +133,13 @@
         }else{
           alert("你已经收藏过了")
         }
+      },
+  // 点赞方法
+      good:function () {
+        var vm = this
+        vm.goodnum ++
+        // vm.travel['good'] = vm.travel['good'] + 1
+
       }
     },
     dianzan: function () {

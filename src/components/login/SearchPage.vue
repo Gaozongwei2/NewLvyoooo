@@ -44,19 +44,6 @@
         </div>
       </div>
 
-      <div class="col-md-10">
-        <h2 class="left">马拉西亚Malaylsa</h2>
-
-        <div class="jieshao">
-          <img src="../../assets/login/malaixiya.png" alt="" calss="jingdian-img">
-
-          <p>马来西亚是东南亚的国家之一，1957年8月31日独立。<br>
-            马来西亚是一个由十三州和三个联邦直辖区组成的联邦体制国家，<br>
-            首都为吉隆坡，政治中心位于布城，是东南亚国家联盟的创始国之一。<br>
-            与此同时，马来西亚也是一个自...</p>
-        </div>
-      </div>
-
 
       <!--侧边栏-->
       <div class="col-md-2">
@@ -265,6 +252,9 @@
     height: 150px;
     background: #3c3c3c;
     float: left;
+  }
+  .ul-list li:hover{
+    color: limegreen;
   }
 </style>
 

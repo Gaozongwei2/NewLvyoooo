@@ -139,14 +139,16 @@
       }
     },
     created() {
-      // 判断token是否登录
 
+      if(this.$route.path != "/usercenter"){
+        this.hide()
+      }
+      // 判断token是否登录
       if (sessionStorage.getItem("token") == "congqianyouzuoshan") {
         this.getsomemessage()
         this.getstrategy()
         this.gettravelnote()
       } else {
-
         this.$router.push({path: '/'})
       }
     },

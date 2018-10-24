@@ -11,7 +11,7 @@
         <div class="col-md-12 top1 nopadding">
           <span class="title1" v-text="travel['title']">念念清风起，步步莲花生——斯里兰卡行走记</span>
         </div>
-        <div class="col-md-3 img" :style="{background:'url('+travel['cover__url']+')', backgroundSize:cover}"></div>
+        <div class="col-md-3 img" :style="{background:'url('+travel['cover__url']+')', backgroundSize:'cover'}"></div>
         <div class="col-md-9 txt">
           <div class="content" v-text="travel['content']">
             引言 2016年倏尔起念，去膜拜 敦煌 莫高窟，在满洞霓裳翩翩的飞天神女下，静立，神仰。 或许，那时即在心田深处播下了种子， 缘结，今年冥冥中成行的 吴哥窟 之旅。 一如既往的几次旅行，最...
