@@ -68,6 +68,8 @@
           Day 3: 南湾海鲜街 <br>
           <img src="../../assets/travelnote/food.png" alt="">
         </p>
+        <!--评论-->
+        <discusstravel></discusstravel>
       </div>
     </div>
 
@@ -178,4 +180,21 @@
     margin-top: 55px;
     font-size: 16px;
   }
+
+  /*评论*/
+  .discuss {
+    /*background: #dfdfdf;*/
+    width: 700px;
+    height: 120px;
+    font-size: 12px;
+    line-height: 20px;
+    margin-bottom: 24px;
+  }
+  a {
+    background-color: transparent;
+    text-decoration: none;
+    color: #ff9d00;
+    cursor: pointer;
+  }
+
 </style>

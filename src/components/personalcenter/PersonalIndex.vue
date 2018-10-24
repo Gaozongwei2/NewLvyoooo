@@ -8,7 +8,7 @@
           <a href="####" class="col-md-2 nav navbar-header logo"><img src="../../assets/images/logoweight.png" alt=""></a>
         </router-link>
         <ul class="col-md-4 nav navbar-nav">
-          <li><a href="####">首页</a></li>
+          <li><a href="/">首页</a></li>
           <li><a href="####">攻略</a>
           <li><a href="####">游记</a></li>
         </ul>
@@ -158,13 +158,11 @@
         this.hide()
       }
       // 判断token是否登录
-
       if (sessionStorage.getItem("token") == "congqianyouzuoshan") {
         this.getsomemessage()
         this.getstrategy()
         this.gettravelnote()
       } else {
-
         this.$router.push({path: '/'})
       }
     },

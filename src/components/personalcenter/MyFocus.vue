@@ -75,6 +75,8 @@
       }
     },
     created() {
+      // this.scshowita()
+      this.strategy()
       this.scshowita()
     },
 
@@ -109,6 +111,17 @@
         vm.$refs.def.style.borderBottomColor = "white"
         event.currentTarget.style.borderBottomColor = "#fa0"
 
+        axios.get('http://127.0.0.1:8000/user/coltravelnote/' + vm.id + '/')
+          .then(function (response) {
+            vm.travels = response.data
+            console.log(vm.travels)
+          })
+          .catch(function (error) {
+            return error
+          })
+      },
+      strategy:function(){
+        var vm = this
         //  展示游记收藏
         axios.get('http://127.0.0.1:8000/user/coltravelnote/' + vm.id + '/')
           .then(function (response) {
@@ -141,6 +154,7 @@
 
   .content-img{
     height: 136px;
+    background-size: cover;
   }
 
   .myfocus {

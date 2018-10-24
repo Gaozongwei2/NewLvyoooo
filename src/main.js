@@ -66,17 +66,17 @@ import MyAchieve from './components/personalcenter/MyAchieve'
 
 // import Footer from './components/Footer'
 
+// 搜索结果
+import SearchTravelnote from './components/travelnote/SearchTravelnote'
+import SearchStrategy from './components/travelnote/SearchStrategy'
+import SearchUser from './components/travelnote/SearchUser'
+// 评论
+import DiscussTravel from './components/DiscussTravel'
 // 测试组件
 Vue.component("testx",TestX)
 Vue.component('testradiobutton',TestRadioButton)
 // 注册全局组件
 Vue.component("mymessage",MyMessage);
-Vue.component("mytravltop",MyTravelTop);
-Vue.component("mycomment",MyComment);
-Vue.component("myletter",MyLetter);
-Vue.component("myachieve",MyAchieve);
-
-
 Vue.component("lunbotu",Lunbotu);
 Vue.component("contentleft",ContentLeft);
 Vue.component("contentright",ContentRight);
@@ -90,6 +90,10 @@ Vue.component('footer1',Footer1)
 Vue.component('login',Login);
 Vue.component('regist',Regist);
 
+// 搜索结果
+Vue.component('searchtravelnote',SearchTravelnote)
+Vue.component('searchstrategy',SearchStrategy)
+Vue.component('searchuser',SearchUser)
 
 // 游记部分(梁雨田)
 Vue.component('login-main',LoginMain)
@@ -123,6 +127,9 @@ Vue.component('hello',HelloWorld)
 
 //模态框
 Vue.component('modelk',moaikuang)
+
+//评论
+Vue.component('discusstravel',DiscussTravel)
 
 // Vue.component("footer",Footer);
 Vue.config.productionTip = false
