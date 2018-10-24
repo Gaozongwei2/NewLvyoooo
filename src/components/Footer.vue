@@ -35,7 +35,7 @@
 
 <script>
 export default {
-  name: 'Footer',
+  name: 'Footer1',
   data () {
     return {
     }
@@ -48,6 +48,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .footer {
+    float: bottom;
+    margin-top: 1000px;
     display: block;
     height: 300px;
     background-color: #333333;

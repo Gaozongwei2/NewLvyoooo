@@ -14,7 +14,7 @@
               <span class="good col-md-4" >点赞数：<span v-text="strategy['good']"></span></span>
             </div>
             <div class="content">
-              <span>8月的一天，我辞去了ofo小黄车的工作。三天后，我开着我的本田XRV，驰骋在广袤的 内蒙古 高原。</span>
+              <span v-text="strategy['content']"></span>
             </div>
             <div>
               <span class="left identification" v-text="strategy['condition__condition']">已发布</span>
@@ -47,7 +47,7 @@
       // 获取我的游记信息
       gettravel:function () {
         var vm = this
-        axios.get('http://127.0.0.1:8000/strategy/searchbyuserid/' + vm.id + '/')
+        axios.get('http://127.0.0.1:8000/user/userstrategy/' + vm.id + '/')
           .then(function (response) {
             vm.strategys = response.data
             console.log(vm.strategys)

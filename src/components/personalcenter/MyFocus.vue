@@ -1,36 +1,57 @@
+<!--我的收藏-->
 <template>
   <div>
     <ul class="myfocus container-fluid">
-      <li class="nav navbar navbar-nav col-md-4  card">
-        <!--<div class="col-md-12  margin icno">-->
-        <!--<div class="row">-->
-        <!--<div class="col-md-3"></div>-->
-        <!--<div class="focus-icon col-md-6"><a href="####"><img class="img-circle"-->
-        <!--src="http://n3-q.mafengwo.net/s10/M00/0F/9B/wKgBZ1iUpFWAbScxAAC2Vfg46fo14.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90"-->
-        <!--height="80" width="80"></a></div>-->
-        <!--<div class="col-md-3"></div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="name col-md-12">旧时心语</div>-->
+      <li class="nav navbar navbar-nav col-md-4  card" style="contenteditable:true">
+        <!--游记收藏-->
+        <div class="col-md-3 collection " ref="abc"  @click="trshowita($event)">游记收藏</div>
+        <!--攻略收藏-->
+        <div class="col-md-3 collection" ref="def" @click="scshowita($event)" >攻略收藏</div>
 
-        <!--<div class="hei col-md-12 margin">-->
-        <!--<div class="col-md-3 nopadding"><p>10</p><a href="####">粉丝</a></div>-->
-        <!--<div class="col-md-6 nopadding"><p>2345</p><a href="####">游记</a></div>-->
-        <!--<div class="col-md-3 nopadding"><p>23</p><a href="####">攻略</a></div>-->
-        <!--</div>-->
-        <div class="col-md-6 collection">攻略收藏</div>
-        <div class="col-md-6">取消收藏</div>
-        <div class="col-md-12 collection-content">攻略收藏内容</div>
+        <!--游记详情-->
+        <!--<div v-if="!this.showit">-->
+        <div  ref="trtest">
+
+          <!--循环-->
+          <div class="col-md-12" style="margin-top: 20px" v-for="travel in travels">
+            <div class="col-md-4 content-img" :style="{background:'url('+travel['ctravelnote__cover__url']+')'}"></div>
+            <div class="col-md-8">
+              <a href="">
+                <h3 style="margin-top: 0;color: #fa0" >
+                  <button type="button" class="btn-collect" style="color:#fa0"  >取消收藏</button>
+                </h3>
+              </a>
+
+              <p style="color: #666" >
+                <img src="http://n3-q.mafengwo.net/s12/M00/ED/22/wKgED1vEm1GAJYGdAA4JRgRT65c86.jpeg?
+                imageMogr2%2Fthumbnail%2F%21196x140r%2Fgravity%2FCenter%2Fcrop%2F%21196x140%2Fquality%2F90"
+                     style="width: 16px;height: 16px">
+                作者:
+                <span  v-text="travel['ctravelnote__userid__username']"></span>
+              </p>
+              <p style="font-size: 14px;color: #666" v-text="travel['ctravelnote__content']"></p>
+            </div>
+          </div>
+        </div>
 
 
-        <div class="col-md-12 collection">游记收藏</div>
-        <div class="col-md-6">取消收藏</div>
-        <div class="col-md-12 collection-content">攻略收藏内容</div>
-        <!--<div class="col-md-12 anniu">-->
-        <!--<div class="btn  col-md-5 cancel">取消收藏</div>-->
+        <!--攻略详情-->
+        <!--<div v-if="this.showit">-->
+        <div ref="sctest">
+          <div class="col-md-12" style="margin-top: 20px"  v-for="strate in strates">
+            <div class="col-md-4 content-img" :style="{background:'url('+strate['cstrategy__scover__url']+')'}"></div>
+            <div class="col-md-8">
+              <a href="">
+                <h3 style="margin-top:0;text-decoration: none;font-size: 18px">
+                  <button type="button" class="btn-collect" style="margin-left: 200px;color:#fa0">取消收藏</button>
+                </h3>
+              </a>
 
-        <!--&lt;!&ndash;<div class="btn  col-md-5 message">私信</div>&ndash;&gt;-->
-        <!--</div>-->
+              <p style="color: #666" v-text="strate['cstrategy__title']"> </p>
+              <p v-text="strate['cstrategy__content']"></p>
+            </div>
+          </div>
+        </div>
       </li>
       <li class="nav navbar navbar-nav col-md-4"></li>
       <li class="nav navbar navbar-nav col-md-4"></li>
@@ -39,33 +60,84 @@
 
 </template>
 
-<!--复制模板-->
-
 <script>
+  import axios from 'axios'
   export default {
     name: 'MyFocus',
     // props:['user'],
     data() {
-      return {}
+
+      return {
+        // showit: false,
+        travels: [],
+        strates:[],
+        id:sessionStorage.getItem("id")
+      }
     },
     created() {
-
-      // this.props.user = this.user
-
-      // this.props.token = "123"
+      // this.scshowita()
+      this.strategy()
+      this.scshowita()
     },
 
-    method: {
+    methods: {
+      // 攻略
+      scshowita: function (event) {
+        var vm = this
+        vm.$refs.trtest.style.display = "none"
+        vm.$refs.sctest.style.display = "block"
+        vm.$refs.abc.style.borderBottomColor = "white"
+        vm.$refs.def.style.borderBottomColor = "white"
+        event.currentTarget.style.borderBottomColor = "#fa0"
+        alert("haha")
 
+        //  展示攻略收藏
+        axios.get('http://127.0.0.1:8000/user/colstrategy/' + vm.id + '/')
+          .then(function (response) {
+            vm.strates = response.data
+            console.log(vm.strates)
+          })
+          .catch(function (error) {
+            return error
+          })
+      },
+
+      //游记
+      trshowita: function (event) {
+        var vm = this
+        vm.$refs.sctest.style.display= 'none'
+        vm.$refs.trtest.style.display= 'block'
+        vm.$refs.abc.style.borderBottomColor = "white"
+        vm.$refs.def.style.borderBottomColor = "white"
+        event.currentTarget.style.borderBottomColor = "#fa0"
+
+        axios.get('http://127.0.0.1:8000/user/coltravelnote/' + vm.id + '/')
+          .then(function (response) {
+            vm.travels = response.data
+            console.log(vm.travels)
+          })
+          .catch(function (error) {
+            return error
+          })
+      },
+      strategy:function(){
+        var vm = this
+        //  展示游记收藏
+        axios.get('http://127.0.0.1:8000/user/coltravelnote/' + vm.id + '/')
+          .then(function (response) {
+            vm.travels = response.data
+            console.log(vm.travels)
+          })
+          .catch(function (error) {
+            return error
+          })
+      },
       // 获取关注人信息
       getmessage: function () {
         var vm = this
-        var id = sessionStorage.getItem("id")
-        axios.get(' http://127.0.0.1:8000/user/myfocus/' + id + '/')
+        axios.get(' http://127.0.0.1:8000/user/myfocus/' + vm.id + '/')
           .then(function (response) {
             vm.some = response.data
-            // 获取所有数据
-            // vm.alldata = response.data
           })
           .catch(function (error) {
             return error
@@ -76,13 +148,13 @@
 </script>
 
 <style scoped>
-  /*默认显示*/
   ul, li {
     list-style: none;
   }
 
-  .icno {
-    /*background-color: rgba(169, 169, 169, 0.31);*/
+  .content-img{
+    height: 136px;
+    background-size: cover;
   }
 
   .myfocus {
@@ -91,77 +163,52 @@
     align-items: center;
   }
 
-
   .card {
     border: rgba(0, 0, 0, 0.2) 1px solid;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 10px 1px;
     padding: 10px 15px;
-    width: 500px;
-    height: 520px;
+    width: 700px;
+    margin-left: 15px;
+    margin-top: 20px;
   }
 
   .collection {
     height: 35px;
-    font-size: 18px;
+    font-size: 17px;
     margin-top: 10px;
-    background: gray;
-  }
-  .collection-content{
-    height: 200px;
-    background: #d0bcff;
-  }
-
-  .name {
-    width: 100%;
+    margin-left: 95px;
+    border-bottom: 2px white solid;
     text-align: center;
-    height: 20px;
-    font-size: 20px;
-    font-weight: bold;
-    margin: 10px auto;
+
   }
 
-  .nopadding {
-    padding: 0px !important;
+  .collection-img img {
+    background-repeat: no-repeat;
   }
 
-  .hei {
-    text-align: center;
+  h3 a {
+    font-size: 18px;
+    color: #fa0;
+  }
+
+  .btn-collect {
+    font-size: 12px;
+    margin-left: 75px;
+    line-height: 8px;
+    margin-top: 2px;
+    border: 0px;
+    background: #faf8ff;
   }
 
   p {
-    font-weight: bolder;
     margin-bottom: 0px;
-
   }
 
   a {
-    font-weight: bold;
+    /*font-weight: bold;*/
     color: darkgrey;
+    text-decoration: none;
   }
 
-  .cancel {
-    background-color: darkgrey;
-    text-align: center;
-    padding: 0px;
-    height: 34px;
-    line-height: 32px;
-
-  }
-
-  .message {
-    border: 1px solid darkgrey;
-    color: darkgrey;
-    margin-left: 29.875px;
-  }
-
-  .message:hover {
-    color: white;
-    background-color: darkgrey;
-    transition: background-color 0.2s, color 0.3s;
-  }
-
-  .anniu {
-    margin: 10px 0px;
-  }
 </style>

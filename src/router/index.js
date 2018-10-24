@@ -5,9 +5,20 @@ import PersonalIndex from '../components/personalcenter/PersonalIndex'
 import TestX  from '../components/TestX'
 import TestRadioButton from '../components/TestRadioButton'
 import MoTaiKuang from '../components/MoTaiKuang'
+
+
+
 Vue.use(Router)
 // 导入二级路由
 import MyMessage from '../components/personalcenter/MyMessage'
+import MyComment from '../components/personalcenter/MyComment'
+import MyLetter from '../components/personalcenter/MyLetter'
+import MyAchieve from '../components/personalcenter/MyAchieve'
+//我的顶部旅程
+import MyTravelTop from '../components/personalcenter/MyTravelTop'
+
+
+
 import MyCollect from '../components/personalcenter/MyCollect'
 import MyFocus from '../components/personalcenter/MyFocus'
 import MyTravelnotes from '../components/personalcenter/MyTravelnotes'
@@ -113,6 +124,8 @@ export default new Router({
 
       ]
     },
+
+    //个人中心
     {
       path:'/usercenter',
       name:"personalindex",
@@ -121,6 +134,18 @@ export default new Router({
         { path:"/usercenter/mymessage",
           name:"mymessage",
           component:MyMessage
+        },
+        {path:"/usercenter/mytraveltop",
+          name:"mytraveltop",
+          component:MyTravelTop
+        },
+        {path:"/usercenter/mycomment",
+          name:"mycomment",
+          component:MyComment
+        },
+        {path:"/usercenter/myletter",
+          name:"myletter",
+          component:MyLetter
         },
         {
           path:"/usercenter/mycollect",
@@ -131,6 +156,11 @@ export default new Router({
           path:"/usercenter/myfocus",
           name:"myfocus",
           component:MyFocus
+        },
+        {
+          path:"/usercenter/myachieve",
+          name:"myachieve",
+          component:MyAchieve
         },
         {
           path:"/usercenter/mytravelnotes",

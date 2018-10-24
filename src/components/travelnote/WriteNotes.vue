@@ -25,7 +25,10 @@
         <p>图片建议选择尺寸大于1680px的高清大图，如相机原图</p>
       </div>
       <!--输入-->
-      <div class="set_title"><input type="text" placeholder="填写游记标题" maxlength="48" ></div>
+
+      <div class="set_title" ref="content">
+        <input type="text" placeholder="填写游记标题" maxlength="48" >
+      </div>
     </div>
 
     <!----------------------写游记---------------------------------->
@@ -39,7 +42,7 @@
             <a role="button" class="add-btn"><i class="icon-photo"></i>插入图片</a>
           </div>
           <div id="second">
-            <a role="button" class="add-btn"><i class="icon-title"></i>插入段落标题</a>
+            <a role="button" class="add-btn" @click="addtext"><i class="icon-title"></i>插入段落标题</a>
           </div>
 
           <div><a class="btn-save" role="button" @click="savenote"><i></i>保存草稿</a></div>
@@ -52,7 +55,7 @@
         <div class="btn-save">游记目录</div>
       </div>
     </div>
-    <motaikuangbox v-bind:pattern="pattern" v-on:disappear="disappear"></motaikuangbox>
+    <motaikuangbox :pattern="this.pattern" @htitle="htitle"></motaikuangbox>
   </div>
 </template>
 
@@ -73,15 +76,27 @@
           "view":"0",
           "userid":this.id,
         },
+        title:'',
       }
     },
     methods:{
       push:function () {
         var vm = this
+        vm.pattern = "motaikuang1"
+        vm.pattern = "motaikuang"
+      },
+      addtext:function(){
+        var vm = this
         vm.pattern = "motaikuang"
       },
       disappear:function(){
         var vm = this
+        vm.pattern = "motaikuag1"
+      },
+      htitle:function(){
+        var vm = this
+        vm.title = title
+        alert(vm.title)
         vm.pattern = "motaikuag1"
       },
 

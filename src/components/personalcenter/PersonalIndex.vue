@@ -12,7 +12,6 @@
           <li><a href="####">首页</a></li>
 
           <li><a href="####">攻略</a>
-
           <li><a href="####">游记</a></li>
         </ul>
         <ul class="nav navbar navbar-right usericno ">
@@ -34,12 +33,18 @@
       <div class="col-md-4"></div>
       <div class="col-md-8 choose-top">
         <ul class="nav navbar col-md-11 choose-top">
-          <li class="col-md-3 nav navbar navbar-nav" @click="hide">
-            <router-link to="/usercenter/mymessage"><a href="javascrip:;" @click.prevent.stop>我的信息</a></router-link>
+          <li class="col-md-4 nav navbar navbar-nav" @click="hide">
+            <router-link to="/usercenter/mymessage">我的信息</router-link>
           </li>
-          <li class="col-md-3 nav navbar navbar-nav"><a href="####">我的旅程</a></li>
-          <li class="col-md-3 nav navbar navbar-nav"><a href="####">我的评论</a></li>
-          <li class="col-md-3 nav navbar navbar-nav"><a href="####">私信</a></li>
+          <li class="col-md-4 nav navbar navbar-nav">
+            <router-link to="/usercenter/mytraveltop">我的旅程</router-link>
+          </li>
+          <!--<li class="col-md-3 nav navbar navbar-nav">-->
+            <!--<router-link to="/usercenter/mycomment">我的评论</router-link>-->
+          <!--</li>-->
+          <li class="col-md-4 nav navbar navbar-nav">
+            <router-link to="/usercenter/myletter">私信</router-link>
+            </li>
         </ul>
       </div>
     </div>
@@ -60,11 +65,9 @@
           </div>
           <div class="myspan col-md-12 bottom">
             <div class="col-md-4">足迹 <span class="col-md-12" v-text="some['focus']">12</span></div>
-            <div class="col-md-4" style="border-right: thin solid darkgrey; border-left: thin solid darkgrey">粉丝 <span
-              class="col-md-12" v-text="some['fans']"></span></div>
+            <div class="col-md-4">足迹 <span class="col-md-12" v-text="some['focus']">12</span></div>
+            <div class="col-md-4" style="border-right: thin solid darkgrey; border-left: thin solid darkgrey" >粉丝 <span class="col-md-12" v-text="some['fans']"></span></div>
             <div class="col-md-4">积分 <span class="col-md-12">12</span></div>
-
-
             <!--<div class="  "><a href="####">关注</a><span class="badge" v-text="some.focus"></span></div>-->
             <!--<div class="  "><a href="####">粉丝</a><span class="badge"v-text="some.fans"></span></div>-->
             <!--<div class=" "><a href="####">积分</a><span class="badge" v-text="user.mark"></span></div>-->
@@ -73,43 +76,31 @@
 
         <ul class="rlist">
           <!--<li><a style="display: none" href="####">我的收藏</a></li>-->
-          <li @click="hide">
-            <router-link to="/usercenter/mycollect">
-              <div class="rbtn"><span>我的关注</span><span class="badge badgepart">12</span></div>
-            </router-link>
-          </li>
-          <li @click="hide">
-            <router-link to="/usercenter/myfocus">
-              <div class="rbtn"><span>我的收藏</span><span class="badge badgepart">22</span></div>
-            </router-link>
-          </li>
-          <li @click="hide">
-            <router-link to="/usercenter">
-              <div class="rbtn"><span>我的成就</span></div>
-            </router-link>
-          </li>
-          <li @click="hide">
-            <router-link to="/usercenter/mytravelnotes">
-              <div class="rbtn"><span>我的游记</span><span class="badge badgepart">212</span></div>
-            </router-link>
-          </li>
-          <li @click="hide">
-            <router-link to="/usercenter/mystrategys">
-              <div class="rbtn"><span>我的攻略</span><span class="badge badgepart">212</span></div>
-            </router-link>
-          </li>
+          <li @click="hide"><router-link to="/usercenter/mycollect"><div class="rbtn"><span>我的关注</span><span class="badge badgepart" v-text="some['focus']"></span></div></router-link></li>
+          <li @click="hide1"><router-link to="/usercenter/myfocus"><div class="rbtn"><span>我的收藏</span><span class="badge badgepart">22</span></div></router-link></li>
+          <li @click="hide"><router-link to="/usercenter/myachieve"><div class="rbtn"><span>我的成就</span></div></router-link></li>
+          <li @click="hide"><router-link to="/usercenter/mytravelnotes"><div class="rbtn"><span>我的游记</span><span class="badge badgepart" v-text="travelnote"></span></div></router-link></li>
+          <li @click="hide"><router-link to="/usercenter/mystrategys"><div class="rbtn"><span>我的攻略</span><span class="badge badgepart" v-text="strategy"></span></div></router-link></li>
+
 
           <!--<li><a href="####">北京</a></li>-->
         </ul>
       </div>
       <!--中间右半边-->
       <div class="middle-right col-md-7 ">
-        <router-link to="/write"><div class="col-md-6 btn button1 button navbar-brand">写游记</div></router-link>
 
-        <!--在个人中心跳转到写攻略-->
-        <router-link to="/edit">
-          <div class="col-md-6 btn button2 button right navbar-brand">写攻略</div>
-        </router-link>
+        <!--写游记 写攻略-->
+
+        <!--<router-link to="/write"><div class="col-md-6 btn button1 button navbar-brand">写游记</div></router-link>-->
+
+        <!--&lt;!&ndash;在个人中心跳转到写攻略&ndash;&gt;-->
+        <!--<router-link to="/edit">-->
+          <!--<div class="col-md-6 btn button2 button right navbar-brand">写攻略</div>-->
+        <!--</router-link>-->
+
+
+
+
         <!--信息显示-->
         <div class="content">
           <div class="default" v-if="showcontent == 'index'">
@@ -140,7 +131,6 @@
 
 <script>
   import axios from 'axios'
-
   export default {
     name: 'PersonalIndex',
     data() {
@@ -150,6 +140,7 @@
         showcontent: "index",
         some: {},
         token: '',
+        travels:'',
         user: {
           'id': '1',
           "username": "棕色试剂瓶",
@@ -166,16 +157,16 @@
 
     //默认个人中心背景图隐藏
     created() {
+
       if(this.$route.path != "/usercenter"){
         this.hide()
       }
       // 判断token是否登录
-
       if (sessionStorage.getItem("token") == "congqianyouzuoshan") {
-
         this.getsomemessage()
+        this.getstrategy()
+        this.gettravelnote()
       } else {
-
         this.$router.push({path: '/'})
       }
     },
@@ -208,12 +199,58 @@
             return error
           })
       },
+      // 获取攻略数量
+      getstrategy:function () {
+        var vm = this
+        console.log(vm.id);
+        axios.get('http://127.0.0.1:8000/strategy/searchcount/' + vm.user.id + '/')
+          .then(function (response) {
+            vm.strategy = response.data
+            // console.log(vm.strategy)
+          })
+          .catch(function (error) {
+            return error
+          })
+      },
+      // 获取游记数量
+      gettravelnote:function () {
+        var vm = this
+        console.log(vm.id);
+        axios.get('http://127.0.0.1:8000/travelnote/searchcount/' + vm.user.id + '/')
+          .then(function (response) {
+            vm.travelnote = response.data
+            // console.log(vm.travelnote)
+          })
+          .catch(function (error) {
+            return error
+          })
+      },
+      //获取收藏数量
+      getcount:function () {
+        var vm = this
+        console.log(vm.id);
+        axios.get('http://127.0.0.1:8000/user/focus/' + vm.user.id + '/')
+          .then(function (response) {
+            vm.count = response.data
+            console.log(vm.count.length)
+          })
+          .catch(function (error) {
+            return error
+          })
+      },
       // 隐藏默认显示
       hide: function () {
         // 可以加动画*********************************************************
         this.showcontent = "noindex"
+      },
+      // 隐藏默认显示+显示游记收藏
+      hide1:function () {
+        //游记
+        var vm = this
+        vm.showcontent = "noindex"
+
+        },
       }
-    },
   }
 </script>
 

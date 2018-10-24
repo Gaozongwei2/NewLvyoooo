@@ -1,5 +1,3 @@
-
-
 <template id="title1">
   <div>
     <div class="nav navbar navigation navbar-default title1">
@@ -7,8 +5,12 @@
         <a href="####" class="col-md-2 nav navbar-header logo"><img src="../assets/images/logo.png" alt=""></a>
         <ul class="col-md-4 nav navbar-nav">
           <li><a href="####">首页</a></li>
-          <li><router-link to="/strategy"><a href="####">攻略</a></router-link></li>
-          <li><router-link to="/travel"><a href="####">游记</a></router-link></li>
+          <li>
+            <router-link to="/strategy">攻略</router-link>
+          </li>
+          <li>
+            <router-link to="/travel">游记</router-link>
+          </li>
         </ul>
         <ul class="col-md-2 nav navbar-nav navbar-right" v-if="!bianmei">
           <li>
@@ -34,46 +36,58 @@
           <li @click="loginout()"><router-link to="/"><a href="javascript:;" class="exit" >退出</a></router-link></li>
         </ul>
         <!--<div v-if="aa">-->
-          <!--<div class="col-md-1"></div>-->
-          <!--<ul class="col-md-2 nav navbar navbar-right usericno " v-if = 'false'>-->
-            <!--<li ><router-link to="/usercenter"><a href="####"><img class="img-circle icno col-md-6"-->
-                                                                   <!--src="http://n2-q.mafengwo.net/s10/M00/6C/09/wKgBZ1nm_RuAcRY4AABeA1K-J9Y49.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90"-->
-                                                                   <!--alt=""><span class="left col-md-6">棕色试剂瓶</span></a></router-link></li>-->
-          <!--</ul>-->
-          <!--<ul class="col-md-2 nav navbar navbar-right droplist">-->
-            <!--<li class="switch"></li>-->
-            <!--<li><a href="####">我的关注</a></li>-->
-            <!--<li><a href="####">我的收藏</a></li>-->
-            <!--<li><a href="####">我的游记</a></li>-->
-            <!--<li><a href="####">我的攻略</a></li>-->
-            <!--<li><a href="####">写游记</a></li>-->
-            <!--<li><a href="####">写攻略</a></li>-->
-            <!--<li><a href="javascript:;" class="exit">退出</a></li>-->
-          <!--</ul>-->
+        <!--<div class="col-md-1"></div>-->
+        <!--<ul class="col-md-2 nav navbar navbar-right usericno " v-if = 'false'>-->
+        <!--<li ><router-link to="/usercenter"><a href="####"><img class="img-circle icno col-md-6"-->
+        <!--src="http://n2-q.mafengwo.net/s10/M00/6C/09/wKgBZ1nm_RuAcRY4AABeA1K-J9Y49.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90"-->
+        <!--alt=""><span class="left col-md-6">棕色试剂瓶</span></a></router-link></li>-->
+        <!--</ul>-->
+        <!--<ul class="col-md-2 nav navbar navbar-right droplist">-->
+        <!--<li class="switch"></li>-->
+        <!--<li><a href="####">我的关注</a></li>-->
+        <!--<li><a href="####">我的收藏</a></li>-->
+        <!--<li><a href="####">我的游记</a></li>-->
+        <!--<li><a href="####">我的攻略</a></li>-->
+        <!--<li><a href="####">写游记</a></li>-->
+        <!--<li><a href="####">写攻略</a></li>-->
+        <!--<li><a href="javascript:;" class="exit">退出</a></li>-->
+        <!--</ul>-->
         <!--</div>-->
       </div>
     </div>
     <div class="searchbox container-fluid">
       <div class="searchlogo col-md-12">
         <div class="col-md-3">
-          <div class="col-md-3"><div class="radiosearch all" id="all" ref="all" @click="term($event)"></div></div>
+          <div class="col-md-3">
+            <div class="radiosearch all" id="all" ref="all" @click="term($event)"></div>
+          </div>
           <span class="col-md-7 searchtxt">全部</span>
         </div>
         <div class="col-md-3">
-          <div class="col-md-3"><div class="radiosearch" id="travelnote" ref="travelnote" @click="term($event)"></div></div>
+          <div class="col-md-3">
+            <div class="radiosearch" id="travelnote" ref="travelnote" @click="term($event)"></div>
+          </div>
           <span class="col-md-7 searchtxt">游记</span>
         </div>
         <div class="col-md-3">
-          <div class="col-md-3"><div class="radiosearch" id="strategy" ref="strategy" @click="term($event)"></div></div>
+          <div class="col-md-3">
+            <div class="radiosearch" id="strategy" ref="strategy" @click="term($event)"></div>
+          </div>
           <span class="col-md-7 searchtxt">攻略</span>
         </div>
         <div class=" col-md-3">
-          <div class="col-md-3"><div class="radiosearch" id="user" ref="user" @click="term($event)"></div></div>
+          <div class="col-md-3">
+            <div class="radiosearch" id="users" ref="user" @click="term($event)"></div>
+          </div>
           <span class="col-md-7 searchtxt">用户</span>
         </div>
       </div>
       <div class="inputbox col-md-12">
-        <input class="col-md-11 searchinput" type="text" placeholder="请输入搜索内容" v-model="index"><router-link :to="{name:'search', params:{index:index}}"><div class="col-md-1 searchimg" @click="search"></div></router-link>
+
+        <input class="col-md-11 searchinput" type="text" placeholder="请输入搜索内容" v-model="index" @keyup.enter="search">
+        <router-link :to="{name:'search', params:{index:index}}">
+          <div class="col-md-1 searchimg" ref="abc" @click="search"></div>
+        </router-link>
       </div>
     </div>
     <!--万用搜索键-->
@@ -92,38 +106,40 @@
 
 <script>
   import axios from 'axios'
+
   export default {
     name: 'HelloWorld',
     // props:['user'],
-    data () {
+    data() {
       return {
-        id:1,
-        aa:true,
-        bb:0,
-        termtext:'all',
-        radiochange:false,
+        id: 1,
+        aa: true,
+        bb: 0,
+        termtext: 'all',
+        radiochange: false,
+        //切换登录状态
         bianmei:true,
         // 搜索框文字
-        index:"",
-        props:["user","token"],
-        user:{
-          'id':'1',
-          "username":"棕色试剂瓶",
-          "usericno":"http://n3-q.mafengwo.net/s10/M00/0F/9B/wKgBZ1iUpFWAbScxAAC2Vfg46fo14.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90",
-          "sex":"男",
-          "mark":"15",
-          "birthday":"1997-6-2",
-          "state":"大庆",
-          "content":"起始",
+        index: "",
+        msg:'',
+        props: ["user", "token"],
+        user: {
+          'id': '1',
+          "username": "棕色试剂瓶",
+          "usericno": "http://n3-q.mafengwo.net/s10/M00/0F/9B/wKgBZ1iUpFWAbScxAAC2Vfg46fo14.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90",
+          "sex": "男",
+          "mark": "15",
+          "birthday": "1997-6-2",
+          "state": "大庆",
+          "content": "起始",
         },
-        msg: 'Welcome to Your Vue.js App'
       }
     },
     created(){
       var vm = this
       vm.$refs.all.style.backgroundColor = "green"
-      sessionStorage.setItem("token","congqianyouzuoshan")
-      sessionStorage.setItem("id","1")
+      sessionStorage.setItem("token", "congqianyouzuoshan")
+      sessionStorage.setItem("id", "1")
       this.token = "gzw"
       console.log(this.props)
       this.showtrvelnotes()
@@ -191,22 +207,27 @@
         }
       },
       // 搜索方法
-      search:function () {
+      search: function () {
         var vm = this
-        console.log(vm.index)
-        console.log(vm.termtext)
-        axios.get(' http://127.0.0.1:8000/stragety/searchbysome/'+ vm.termtext + '/' + vm.index + '/')
-          .then(function (response) {
-            console.log(response.data)
-          })
-          .catch(function (error) {
-            return error
-          })
+      },
+
+      // 退出方法
+      exit:function () {
+        sessionStorage.setItem("token","0")
+        this.bianmei=false
       }
     }
   }
 </script>
 <style scoped>
+  contentright {
+    margin-bottom: 10px;
+  }
+
+  body {
+    background-color: #333333;
+  }
+
   /*搜索附近的单选按钮*/
   .radiosearch{
     height: 15px;
