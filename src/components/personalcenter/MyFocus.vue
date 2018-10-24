@@ -75,6 +75,7 @@
       }
     },
     created() {
+      this.scshowita()
     },
 
     methods: {
@@ -86,6 +87,7 @@
         vm.$refs.abc.style.borderBottomColor = "white"
         vm.$refs.def.style.borderBottomColor = "white"
         event.currentTarget.style.borderBottomColor = "#fa0"
+        alert("haha")
 
         //  展示攻略收藏
         axios.get('http://127.0.0.1:8000/user/colstrategy/' + vm.id + '/')

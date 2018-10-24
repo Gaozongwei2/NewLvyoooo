@@ -11,6 +11,7 @@ import TestX from './components/TestX'
 import TestRadioButton from './components/TestRadioButton'
 // 导入组件
 import MyMessage from './components/personalcenter/MyMessage'
+import MyTravelTop from './components/personalcenter/MyTravelTop'
 import Lunbotu from './components/lunbotu'
 import ContentLeft from './components/ContentLeft'
 import ContentRight from './components/ContentRight'
@@ -54,17 +55,28 @@ import Mtravelnote from './components/travelnote/Mtravelnote'
 
 //讨论文本
 import Discuss from './components/strategy/check/Discuss'
+//我的评论
+import MyComment from './components/personalcenter/MyComment'
+//我的私信
+import MyLetter from './components/personalcenter/MyLetter'
+//我的成就
+import MyAchieve from './components/personalcenter/MyAchieve'
+
 
 
 // import Footer from './components/Footer'
-// import MyTravelnotes from './components/personalcenter/MyTravelnotes'
-
 
 // 测试组件
 Vue.component("testx",TestX)
 Vue.component('testradiobutton',TestRadioButton)
 // 注册全局组件
 Vue.component("mymessage",MyMessage);
+Vue.component("mytravltop",MyTravelTop);
+Vue.component("mycomment",MyComment);
+Vue.component("myletter",MyLetter);
+Vue.component("myachieve",MyAchieve);
+
+
 Vue.component("lunbotu",Lunbotu);
 Vue.component("contentleft",ContentLeft);
 Vue.component("contentright",ContentRight);
