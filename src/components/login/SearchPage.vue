@@ -191,7 +191,9 @@
     padding: 0 20px;
     margin-left: 15px;
   }
-
+  .container-fluid .nav-list .ul-list li:hover{
+    color: limegreen;
+  }
   .container {
     height: 1000px;
     margin-top: 30px;

@@ -54,12 +54,12 @@ import Mtravelnote from './components/travelnote/Mtravelnote'
 
 //讨论文本
 import Discuss from './components/strategy/check/Discuss'
-
-
-// import Footer from './components/Footer'
-// import MyTravelnotes from './components/personalcenter/MyTravelnotes'
-
-
+// 搜索结果
+import SearchTravelnote from './components/travelnote/SearchTravelnote'
+import SearchStrategy from './components/travelnote/SearchStrategy'
+import SearchUser from './components/travelnote/SearchUser'
+// 评论
+import DiscussTravel from './components/DiscussTravel'
 // 测试组件
 Vue.component("testx",TestX)
 Vue.component('testradiobutton',TestRadioButton)
@@ -78,6 +78,10 @@ Vue.component('footer1',Footer1)
 Vue.component('login',Login);
 Vue.component('regist',Regist);
 
+// 搜索结果
+Vue.component('searchtravelnote',SearchTravelnote)
+Vue.component('searchstrategy',SearchStrategy)
+Vue.component('searchuser',SearchUser)
 
 // 游记部分(梁雨田)
 Vue.component('login-main',LoginMain)
@@ -111,6 +115,9 @@ Vue.component('hello',HelloWorld)
 
 //模态框
 Vue.component('modelk',moaikuang)
+
+//评论
+Vue.component('discusstravel',DiscussTravel)
 
 // Vue.component("footer",Footer);
 Vue.config.productionTip = false
