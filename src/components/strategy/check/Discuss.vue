@@ -2,10 +2,8 @@
  <div>
    <!--评论-->
    <!--暂时指定高度-->
-
    <!--每一个用户-->
    <ul class="list-unstyled " >
-
 
      <!--新写的信息-->
      <li class="line" v-for="ulist in ulists"   style="border:  1px solid #fafafa">
@@ -15,6 +13,7 @@
            <div class="col-lg-1 ">
              <!--<img :src="i['url']" alt="" class="img-circle img-responsive center-block face-col-center" style="width: 48px;height: 48px">-->
            </div>
+
            <!--用户名，引用，回复-->
            <div class="col-lg-11 row-span-content" >
 
@@ -147,8 +146,6 @@ export default {
     saveinfo:function () {
 
     }
-
-
 
   }
 

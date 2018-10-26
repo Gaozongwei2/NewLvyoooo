@@ -66,14 +66,19 @@
           <img src="../../assets/travelnote/day2.png" alt="">
         </p>
 
-        <h1>4.游记美食</h1>
+        <h1 id="six">4.游记美食</h1>
         <p>
           Day 3: 南湾海鲜街 <br>
           <img src="../../assets/travelnote/food.png" alt="">
         </p>
-        <!--评论-->
-        <discusstravel></discusstravel>
+
+
+        <!--评论(存储到数据库 但未显示用户评论)-->
+        <route-discuss :tt="this.id"></route-discuss>
+        <!--<discusstravel id="seven"></discusstravel>-->
+        <!--<discusstravel></discusstravel>-->
       </div>
+
     </div>
 
     <div class="col-md-3" id="web-side">
@@ -83,6 +88,7 @@
       <a href="#four"><h5>2.关于住宿</h5></a>
       <a href="#five"><h5>3.游记行程</h5></a>
       <a href="#six"><h5>4.游记美食</h5></a>
+      <a href="#seven"><h5>5.结尾</h5></a>
     </div>
   </div>
 </template>
@@ -93,11 +99,11 @@
     props: ["travels"],
     data() {
       return {
-
+        id:this.travels['id']
       }
     },
     created() {
-
+        // alert(this.id)
 
     },
     methods: {
