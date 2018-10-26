@@ -18,6 +18,7 @@ import TestX from './components/TestX'
 import TestRadioButton from './components/TestRadioButton'
 // 导入组件
 import MyMessage from './components/personalcenter/MyMessage'
+import MyTravelTop from './components/personalcenter/MyTravelTop'
 import Lunbotu from './components/lunbotu'
 import ContentLeft from './components/ContentLeft'
 import ContentRight from './components/ContentRight'
@@ -57,6 +58,17 @@ import HelloWorld from './components/strategy/check/HelloWorld'
 import Mtravelnote from './components/travelnote/Mtravelnote'
 //讨论文本
 import Discuss from './components/strategy/check/Discuss'
+//我的评论
+import MyComment from './components/personalcenter/MyComment'
+//我的私信
+import MyLetter from './components/personalcenter/MyLetter'
+//我的成就
+import MyAchieve from './components/personalcenter/MyAchieve'
+
+
+
+// import Footer from './components/Footer'
+
 // 搜索结果
 import SearchTravelnote from './components/travelnote/SearchTravelnote'
 import SearchStrategy from './components/travelnote/SearchStrategy'

@@ -31,12 +31,18 @@
       <div class="col-md-4"></div>
       <div class="col-md-8 choose-top">
         <ul class="nav navbar col-md-11 choose-top">
-          <li class="col-md-3 nav navbar navbar-nav" @click="hide">
-            <router-link to="/usercenter/mymessage"><a href="javascrip:;" @click.prevent.stop>我的信息</a></router-link>
+          <li class="col-md-4 nav navbar navbar-nav" @click="hide">
+            <router-link to="/usercenter/mymessage">我的信息</router-link>
           </li>
-          <li class="col-md-3 nav navbar navbar-nav"><a href="####">我的旅程</a></li>
-          <li class="col-md-3 nav navbar navbar-nav"><a href="####">我的评论</a></li>
-          <li class="col-md-3 nav navbar navbar-nav"><a href="####">私信</a></li>
+          <li class="col-md-4 nav navbar navbar-nav">
+            <router-link to="/usercenter/mytraveltop">我的旅程</router-link>
+          </li>
+          <!--<li class="col-md-3 nav navbar navbar-nav">-->
+            <!--<router-link to="/usercenter/mycomment">我的评论</router-link>-->
+          <!--</li>-->
+          <li class="col-md-4 nav navbar navbar-nav">
+            <router-link to="/usercenter/myletter">私信</router-link>
+            </li>
         </ul>
       </div>
     </div>
@@ -70,7 +76,7 @@
           <!--<li><a style="display: none" href="####">我的收藏</a></li>-->
           <li @click="hide"><router-link to="/usercenter/mycollect"><div class="rbtn"><span>我的关注</span><span class="badge badgepart" v-text="some['focus']"></span></div></router-link></li>
           <li @click="hide1"><router-link to="/usercenter/myfocus"><div class="rbtn"><span>我的收藏</span><span class="badge badgepart">22</span></div></router-link></li>
-          <li @click="hide"><router-link to="/usercenter"><div class="rbtn"><span>我的成就</span></div></router-link></li>
+          <li @click="hide"><router-link to="/usercenter/myachieve"><div class="rbtn"><span>我的成就</span></div></router-link></li>
           <li @click="hide"><router-link to="/usercenter/mytravelnotes"><div class="rbtn"><span>我的游记</span><span class="badge badgepart" v-text="travelnote"></span></div></router-link></li>
           <li @click="hide"><router-link to="/usercenter/mystrategys"><div class="rbtn"><span>我的攻略</span><span class="badge badgepart" v-text="strategy"></span></div></router-link></li>
 
@@ -80,12 +86,19 @@
       </div>
       <!--中间右半边-->
       <div class="middle-right col-md-7 ">
-        <router-link to="/write"><div class="col-md-6 btn button1 button navbar-brand">写游记</div></router-link>
 
-        <!--在个人中心跳转到写攻略-->
-        <router-link to="/edit">
-          <div class="col-md-6 btn button2 button right navbar-brand">写攻略</div>
-        </router-link>
+        <!--写游记 写攻略-->
+
+        <!--<router-link to="/write"><div class="col-md-6 btn button1 button navbar-brand">写游记</div></router-link>-->
+
+        <!--&lt;!&ndash;在个人中心跳转到写攻略&ndash;&gt;-->
+        <!--<router-link to="/edit">-->
+          <!--<div class="col-md-6 btn button2 button right navbar-brand">写攻略</div>-->
+        <!--</router-link>-->
+
+
+
+
         <!--信息显示-->
         <div class="content">
           <div class="default" v-if="showcontent == 'index'">
@@ -125,6 +138,7 @@
         showcontent: "index",
         some: {},
         token: '',
+        travels:'',
         user: {
           'id': '1',
           "username": "棕色试剂瓶",
@@ -227,9 +241,12 @@
       },
       // 隐藏默认显示+显示游记收藏
       hide1:function () {
-        this.showcontent = "noindex"
+        //游记
+        var vm = this
+        vm.showcontent = "noindex"
+
+        },
       }
-    },
   }
 </script>
 
