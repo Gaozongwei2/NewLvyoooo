@@ -23,12 +23,18 @@
         handler(newValue, oldValue) {
           //父组件param对象改变会触发此函数
           this.war = "motaikuang"
+          var t;
+          clearTimeout(t)
+          t = setTimeout(function (){
+            this.Hidden()
+          }, 1000);
+
         },
         deep: true
       }
     },
     created() {
-      // alert(this.par)
+
     },
     methods: {
       // 点击空白处消失

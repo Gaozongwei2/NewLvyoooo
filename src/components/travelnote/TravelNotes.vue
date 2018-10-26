@@ -36,8 +36,11 @@
         <strong>
           <a href="/u/87710821.html" target="_blank" class="per_name" title="采蘑菇的juju佩奇" v-text="travel['title']">采蘑菇的juju佩奇</a>
           <a href="/u/87710821.html" target="_blank" class="per_grade" title="LV.11">LV.11</a>
-          <img src="http://images.mafengwo.net/images/home/tweet/btn_sfollow.gif" width="38" height="13" border="0"
-               title="关注TA">
+          <div  style="width: 48px;height: 13px;border: 0px ;background-color: limegreen ;font-size: 11px;position: relative;top: 5%"  @click="changefocus" ref="focus">
+            关注他
+          </div>
+          <!--<img src="http://images.mafengwo.net/images/home/tweet/btn_sfollow.gif" width="38" height="13" border="0"-->
+               <!--title="关注TA">-->
           <span class="now_time" v-text="travel['time']">2018-09-01 14:01</span>
           <span v-text="travel['view']"><i class="ico_view"></i>5754/44</span>
         </strong>
@@ -134,6 +137,19 @@
           alert("你已经收藏过了")
         }
       },
+      // 取消关注
+      changefocus:function () {
+        if(this.$refs.focus.innerHTML=="取消关注"){
+            this.$refs.focus.innerHTML='已关注'
+
+
+
+        }
+        else{
+          this.$refs.focus.innerHTML='取消关注'
+        }
+      },
+
   // 点赞方法
       good:function () {
         var vm = this
@@ -145,10 +161,16 @@
     dianzan: function () {
     },
     collectadd: function () {
-      alert('ok')
+
     }
+
   }
 </script>
+
+
+
+
+
 
 <style scoped>
   body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td {

@@ -76,6 +76,7 @@
         cityshow:false,
         warning:false,
         condition:1,
+        marks:15,
         id:sessionStorage.getItem("id"),
         travel:{
           "title":'',
@@ -102,6 +103,17 @@
     },
 
     methods:{
+      //积分更新
+      markupdate:function(){
+        var vm = this
+        axios.get('http://127.0.0.1:8000/user/updatemark/'+vm.id+'/'+vm.marks+'/')
+          .then(function (response) {
+            vm.warning = !vm.warnimg
+          })
+          .catch(function (error) {
+            return error
+          })
+      },
       // 显示成功提示框
       justshow:function(){
         var vm = this
@@ -171,7 +183,7 @@
         let utime = year+'-'+month+'-'+day
         var params = new URLSearchParams();
         params.append('title', vm.title)
-        params.append('state', city["area"])
+        params.append('state', city)
         params.append('content', vm.contentx.split("<h1>")[0])
         params.append('time', utime)
         params.append('cover_id', 3)
@@ -183,10 +195,8 @@
         axios.post('http://127.0.0.1:8000/travelnote/savetravelnote/', params)
           .then(function (response) {
             console.log(response.data)
-            alert(response.data)
             if (response.data == "chenggong"){
-              alert(response.data)
-              vm.warning = !vm.warnimg
+              vm.markupdate()
             }
           })
           .catch(
