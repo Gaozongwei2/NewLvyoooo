@@ -3,6 +3,7 @@
   <div id="app">
     <!--<motaikuang></motaikuang>-->
     <!--<testx></testx>-->
+    <!--<mwarning></mwarning>-->
     <router-view/>
 
   </div>
