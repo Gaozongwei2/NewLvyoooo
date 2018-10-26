@@ -98,7 +98,8 @@ export default new Router({
         path:'/write/motaikuangbox',
         name:'motaikuangbox',
         component:MoTaiKuang
-      }
+      },
+
 
       ]
     },

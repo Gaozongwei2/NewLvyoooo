@@ -9,9 +9,10 @@
           <li class="cost" style=" background-position: -22px -66px;">人均费用<span>/</span>4000RMB</li>
         </ul>
       </div>
-
-      <div id="content">
-        <h1>游记简介</h1>
+      <div class="savedata btn" @click="savedata">保存数据</div>
+      <div class="savedata btn" @click="getdata">获取数据</div>
+      <div id="content" ref = content >
+        <div @click="red" :class="color">游记简介</div>
         <p>
           简单介绍一下自己的属性，本人属“懒”，很“懒”的“懒”，一般旅游完毕以后就发发朋友圈，
           打卡打卡微博就了事，绝对没有想认真写游记的打算，但这次我为什么要写，是真觉得有必
@@ -20,7 +21,7 @@
           将心比心，希望我摸索着游玩的经验能帮到大家。
         </p>
 
-        <h1>1.关于交通</h1>
+        <h1 class="title">1.关于交通</h1>
         <p>
           【机票】<br>
 
@@ -85,11 +86,19 @@
 </template>
 
 <script>
+  import axios from 'axios'
   export default {
     name: "TravelMain",
     props:["travels"],
     data(){
       return{
+
+          "contentt":'',
+          "tid_id":"1",
+          color:'',
+          content:'',
+
+
       }
     },
     created(){
@@ -97,6 +106,38 @@
 
     },
     methods:{
+      red:function(){
+        var vm = this
+        alert("change")
+        vm.color = "change"
+      },
+
+      savedata:function () {
+        var vm = this
+        var params = new URLSearchParams();
+        params.append('content', vm.$refs.content.innerHTML)
+        axios.post('http://127.0.0.1:8000/travelnote/savecontent/', params)
+          .then(
+
+          )
+          .catch(
+
+          )
+      },
+      getdata:function () {
+        var vm = this
+        axios.get('http://127.0.0.1:8000/travelnote/getcontent/20/')
+          .then(function (response) {
+            // 获取帖子详细信息
+            console.log(response.data["contentt"])
+            vm.content = response.data["contentt"]
+
+          })
+          .catch(function (error) {
+            return error
+          })
+
+      }
 
     }
 
@@ -104,6 +145,9 @@
 </script>
 
 <style scoped>
+  .change{
+    color:red;
+  }
   /*游记详情*/
   .container {
     height: 700px;
