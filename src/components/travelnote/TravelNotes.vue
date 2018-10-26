@@ -141,9 +141,6 @@
       changefocus:function () {
         if(this.$refs.focus.innerHTML=="取消关注"){
             this.$refs.focus.innerHTML='已关注'
-
-
-
         }
         else{
           this.$refs.focus.innerHTML='取消关注'
