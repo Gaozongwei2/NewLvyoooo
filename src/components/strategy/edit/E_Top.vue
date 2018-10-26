@@ -11,12 +11,9 @@
           <!--<img  class="logo" src="../images/logo.png" alt="">-->
         </div>
 
-
-
-        <!--这里style改了-->
         <div class="col-lg-3 col-md-3 col-lg-offset-3" style="margin-top: 1%;height: 10px">
-          <input type="text" maxlength="7" readonly="readonly" class="form-control text-center input-rename  float center-block"  value="洛阳发两日玩法" style="background-color: #ededed;border: none;outline:none;">
-          <a href="#" class="float rename" style="font-size: 13px;margin-left: 5px;color: #ff9e00;text-decoration:none;">重命名</a>
+          <input type="text" maxlength="7" :readonly="readonly"  class="form-control text-center input-rename  float center-block"  value="洛阳发两日玩法" style="background-color: #ededed;border: none;outline:none;">
+          <a href="#" class="float rename" style="font-size: 13px;margin-left: 5px;color: #ff9e00;text-decoration:none;" @click="rename">重命名</a>
 
         </div>
 
@@ -30,20 +27,24 @@
     </div>
 
 
+
+    <!---------------------------------左侧导航------------------------------->
+
+
     <div class="container-fluid bg-color-f5" id="contain" style="padding: 0">
       <!--左边导航-->
-      <div class="col-lg-2 bg-color-f5" >
+      <div class="col-lg-2 bg-color-f5 leftnav" >
 
         <!--追加天数-->
         <ul class="list-unstyled div-left" ref="ul" id="day-ul-li">
-          <li v-for="i in msg" @click="routeday($event,i)" class="add-day text-center btn-circle" style="margin-top: 10px">
+          <li v-for="i in msg" @click="left($event)"   :id="i"  class="add-day text-center btn-circle" style="margin-top: 10px" >
             第
-            <span>{{i}}</span>
+            <span >{{i}}</span>
             天
           </li>
         </ul>
           <!--图片-->
-          <div class="add-day text-center btn-circle " id="add-div" @click="addbtn()" style="margin-left: 45%; margin-top: 10px">
+          <div class="add-day text-center btn-circle " id="add-div" @click="addevent" style="margin-left: 45%; margin-top: 10px">
             <img src="../../../assets/strategy/添加.png" alt="" style="width: 20px">
           </div>
 
@@ -54,7 +55,14 @@
       <!--中间编辑-->
       <!--<div class="col-lg-8 bg-color-ff div-edit aaaa" ref="mybox" id="div-center-edit" >-->
         <!--<ul v-for="li in list" ref="ul">-->
-      <div class="col-lg-8 bg-color-ff div-edit aaaa" id="div-center-edit" >
+
+      <!------------------循环添加模版-------------------->
+
+      <div style="background-color: rebeccapurple" v-for="moban in leftday" id="moban" v-if=" moban == newtest" >
+
+
+
+      <div class="col-lg-8 bg-color-ff div-edit aaaa" id="div-center-edit" :id="i">
         <ul class="list-unstyled">
 
           <li>
@@ -78,10 +86,11 @@
                 <div class="row ">
                   <!--添加目的地-->
                   <div class="div-day-circle-top  div-border-space col-lg-1">
-                    <!--圆圈天数-->
+
+                    <!---------------------------------圆圈天数-------------------------------->
                     <div class="img-circle div-day-size list-inline text-center div-day-margin ">
                       <span>第</span>
-                      <span class="day" v-text="msg"></span>
+                      <span class="day" v-text="moban" ref="day"></span>
                       <span>天</span>
                     </div>
                   </div>
@@ -95,45 +104,8 @@
                                 <i class="i-close"></i>
                             </span>
                         </li>
-
-                        <li>
-                            <span class="place">
-                                <strong>lalallalala</strong>
-                                <i class="i-line"></i>
-                                <i class="i-close"></i>
-                            </span>
-                        </li>
-
-
-
-                        <li>
-                            <span class="place">
-                                <strong>成都</strong>
-                                <i class="i-line"></i>
-                                <i class="i-close"></i>
-                            </span>
-                        </li>
-
-                        <li>
-                            <span class="place">
-                                <strong>成都</strong>
-                                <i class="i-line"></i>
-                                <i class="i-close"></i>
-                            </span>
-                        </li>
-
-                        <li>
-                            <span class="place">
-                                <strong>成都</strong>
-                                <i class="i-line"></i>
-                                <i class="i-close"></i>
-                            </span>
-                        </li>
-
                       </ul>
                     <div>
-
-
                     </div>
 
 
@@ -153,8 +125,10 @@
                 </div>
               </div>
 
-              <!--详细攻略start-->
-              <!--游玩攻略-->
+              <!---------------------------------------详细攻略start-------------------------------------->
+
+
+              <!--****************************游玩攻略********************************-->
               <div class="div-border-bottom div-border-space">
                 <!--图片-->
                 <div class="div-span-img-play float title-img"></div>
@@ -166,7 +140,7 @@
                 </div>
 
                 <!--编写div文本框-->
-                <div class="form-group div-height1 center-block edit-div focusdiv"  contenteditable="true">
+                <div class="form-group div-height1 center-block edit-div focusdiv" v-on:blur="reftext($event)" @click="brgorereftext()" contenteditable="true" ref="ywgl" v-html="mms">
 
                 </div>
 
@@ -198,7 +172,7 @@
                 </div>
 
                 <!--编写div文本框-->
-                <div class="form-group div-height1 center-block edit-div focusdiv" contenteditable="true">
+                <div class="form-group div-height1 center-block edit-div focusdiv"  ref="aaa" contenteditable="true">
 
                 </div>
               </div>
@@ -262,6 +236,13 @@
       <!--右边回到顶部-->
           <div class="col-lg-2 bg-color-f5" ></div>
         </div>
+
+
+
+      </div>
+
+
+
       </div>
   </div>
 </template>
@@ -275,6 +256,7 @@
   name: 'E_Top',
   data () {
     return {
+      jj:"iuuinini",
       msg: 1,
       //新添加的模版个数
       lis:1,
@@ -288,61 +270,190 @@
     //  模态框
       show:false,
       a:'',
+      text1:'11',
 
-      text1:'11'
+
+    //  -------------------------new--------------------------
+    //  左侧导航按钮的天数
+      whichday:'',
+    //  左侧天数从1开始存入数组
+      leftday:[],
+
+      //新建的模版存放的空数组
+      savemodel:[],
+
+      // 标题readonly属性
+      readonly:true,
+
+      newtest:'1',
+
+
+
+      //--------------文本-----------------
+      //优点
+      good :[],
+      //游玩攻略
+      play:[],
+      //交通攻略
+      traffic:'',
+      //门票攻略
+      trick:'',
+      //餐饮攻略
+      food:'',
+
+      //存放每天的游记攻略
+      playday:[],
+
+
+
+      //测试========
+      messagelist:[],
+      mms:'',
+      day:'',
     }
   },
 
-  mounted(){
-    this.text=this.$refs.mybox.innerHTML
-    console.log(this.text)
-
-  //从数据库中取出空模版
-    let vm = this;
-      axios.get('http://0.0.0.0:8000/strategy/insertdetail/')
-        .then(function (response) {
-          vm.list.push(response.data);
-          console.log(response.data[0].content)
-          console.log(11111)
-          console.log(vm.list[0])
-        })
-        .catch(function (error) {
-          console.log(error);
-        })
-
-
+  created(){
+    // this.addevent()
+    //隐藏第二天的按钮
+    this.leftday.push(this.msg)
+    var day={
+      "playt":''
+    }
+    this.messagelist.push(day)
+    console.log(day)
   },
+  watch:{
+    gao:function(newd,oldd) {
+      alert(newd)
+    }
+  },
+
   methods: {
-  //点击➕添加btn
-    addbtn:function(){
-        var vm = this;
-        vm.msg++;
-
-    //并把新加载的页面存到列表里
-    //    newlist.push()
-    //    console.log(newlist)
+    rename:function(){
+      var vm = this
+      vm.readonly = false
     },
-    //点击弹出模态框
-    showmodel:function(){
-      this.show = true
-    },
-    hiddenShow:function(){
-      let that = this;
-      that.show = false
+  //左侧导航按钮上的天数
+    clickone:function(){
+      var vm = this
+      // vm.newtest= 1
 
     },
-    //点击侧导航栏就跳转到对应页
-    routeday:function (e) {
-      //
+
+
+    left:function(event){
+      var vm = this
+
+      //取出当前页面显示的数据
+      var playt= vm.$refs.ywgl[0].innerHTML
+      var daym={
+        "playt":playt
+      }
+        //取出当前显示界面的天数
+      var day = this.$refs.day[0].innerHTML
+      //更新当前显示界面的数据
+      vm.messagelist[day-1] = daym
+      //从列表中取出点击天数的数据
+      var nowday = event.target.id
+      var nowdayms = vm.messagelist[nowday-1]
+      vm.mms = nowdayms['playt']
+      console.log(vm.messagelist)
+
+      vm.newtest= event.target.id
+      //获取当前按钮的天数
+      vm.whichday = event.target.innerText.charAt(2)
+
+    },
+    //点击加号将新的模版添加到模版数组里
+    addevent:function () {
+      var vm = this
+
+      //获取并更新当前数据===================
+      var playt= vm.$refs.ywgl[0].innerHTML
+      alert(playt)
+      var daym={
+        "playt":playt
+      }
+      //取出当前显示界面的天数
+      var day = this.$refs.day[0].innerHTML
+      //更新当前显示界面的数据
+      vm.messagelist[day-1] = daym
       //获取第几天
-      // alert(e.target.innerText.charAt(2))
+      vm.msg++
+      //新建第几天的按钮和模版
+      vm.leftday.push(vm.msg)
+      vm.newtest = vm.msg
 
-      // 发送ajax
-      // getdata({"id":e})
-      // 获取第e天的静态页面html1
-      // 查出来的静态页面赋值给html
-      // this.html=html1
+      // 获取新表数据===========================
+      var playt= ''
+      var daym={
+        "playt":playt
+      }
+      vm.messagelist.push(daym)
+      console.log(vm.messagelist)
+
+      // alert(vm.$refs.aa[0].innerHTML)
+
+
+
+
+
+      //获取当前是第几天
+      //将总共有几个li存到数组里
+      // vm.leftday.push(vm.msg)
+
+      //显示第二天的按钮
+      //将添加的天数存到数组里
+      // console.log(vm.leftday)
+
+
+      // 将新建的每天的div存入对应的数组中
+       vm.play.push('')
+        alert(vm.play.length)
+
+
     },
+    //点击其他按钮时将文本存入数组中
+    saveplay:function (event) {
+      this.playday.push(event.target.innerHTML)
+    },
+
+
+    //点击div时判断这是第几天的div
+    brgorereftext:function(){
+      // alert(this.newtest)
+    },
+
+    //div失去焦点时获取文本框中的内容
+    reftext:function f(event) {
+
+      // //如果文本框中的文本为空，就将空值填入数组
+      // if(event.target.innerHTML.trim()==''){
+      //   this.play.push('')
+      //   alert(this.play[0])
+      // }
+      // else{
+      //   this.play.push(event.target.innerHTML)
+      //   alert(this.play[1])
+        // }
+      var day = this.$refs.day[0].innerHTML
+      // alert(day)
+
+      this.play[1] = event.target.innerHTML
+      // alert(this.play[1])
+      }
+
+    }
+
+
+
+
+
+
+
+
+
 
     //获取到的html传递到后台
     // sendhtml:function(){
@@ -384,17 +495,9 @@
 
 
 
-    },
+    }
 
-    //模态框添加图片
-    // addphoto:function () {
-    //
-    //   this.model = !this.model;
-    //   $('#myModel').modal(options)
-    // }
 
-  // }，
-}
 
 
 
@@ -403,6 +506,13 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .leftnav{
+    min-height: 1374px;
+  }
+  .aaaa{
+    position: absolute;
+    left: 18%;
+  }
   .place{
     display: inline-block;
     margin-right: 10px;
@@ -543,6 +653,8 @@
     background-color: #ffffff;
     width: 70%;
   }
+
+
 
   .input-rename:focus {
     -webkit-box-shadow: 0 0 0 #fff;

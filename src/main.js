@@ -45,7 +45,7 @@ import SowingMap from './components/strategy/check/SowingMap'
 //路线讨论
 import RouteDiscuss from './components/strategy/check/RouteDiscuss'
 //分页
-import PageIndex from './components/strategy/check/PageIndex'
+// import PageIndex from './components/strategy/check/PageIndex'
 import HelloWorld from './components/strategy/check/HelloWorld'
 
 //模态框
@@ -64,6 +64,10 @@ import MyAchieve from './components/personalcenter/MyAchieve'
 
 
 
+import test1 from './components/test1'
+
+
+
 // import Footer from './components/Footer'
 
 // 搜索结果
@@ -73,6 +77,17 @@ import SearchUser from './components/travelnote/SearchUser'
 // 评论
 import DiscussTravel from './components/DiscussTravel'
 // 测试组件
+//分页
+import PageIndex from './components/PageIndex'
+
+
+
+
+Vue.component('test',test1)
+
+
+
+
 Vue.component("testx",TestX)
 Vue.component('testradiobutton',TestRadioButton)
 // 注册全局组件

@@ -3,7 +3,7 @@
   <div :class="pattern" ref="abc" @click="Hidden">
     <div class="show" ref="abc" @click.prevent.stop>
       <input class="col-md-9 title" placeholder="请输入段落标题" v-model="title" >
-      <div class="col-md-2 submit" @click="title">确定</div>
+      <div class="col-md-2 submit" @click="biaoti">确定</div>
     </div>
   </div>
 </template>
@@ -40,9 +40,11 @@
         // vm.$emit("disappear",vm.pattern)
 
       },
-      title:function () {
+      biaoti:function () {
         var vm = this
+
         vm.pattern = "motaikuang1"
+        // alert(vm.pattern)
         vm.$emit("htitle",vm.title)
       },
 

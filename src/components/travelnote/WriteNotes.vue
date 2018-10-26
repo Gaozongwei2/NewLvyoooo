@@ -88,16 +88,18 @@
       addtext:function(){
         var vm = this
         vm.pattern = "motaikuang"
+        vm.$refs.content.innerHTML+=`
+        <h1>Hello World</h1>
+        `
       },
       disappear:function(){
         var vm = this
         vm.pattern = "motaikuag1"
       },
-      htitle:function(){
+      htitle:function(title){
         var vm = this
         vm.title = title
-        alert(vm.title)
-        vm.pattern = "motaikuag1"
+
       },
 
       changecoverimg:function () {

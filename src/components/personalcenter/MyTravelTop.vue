@@ -8,6 +8,9 @@
         </li>
       </ul>
 
+
+    <!--分页-->
+    <page-index ></page-index>
     <!--</div>-->
 
 

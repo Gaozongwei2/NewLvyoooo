@@ -48,7 +48,7 @@ Vue.component('sowing-map',SowingMap)
 //路线讨论区
 Vue.component('route-discuss',RouteDiscuss)
 //分页
-Vue.component('page-index',PageIndex)
+// Vue.component('page-index',PageIndex)
 //讨论文本
 Vue.component('discuss',Discuss)
 Vue.component('hello',HelloWorld)
