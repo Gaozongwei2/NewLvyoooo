@@ -74,7 +74,7 @@
     width: 100%;
     z-index: 20;
     border:none;
-    box-shadow: whitesmoke 1px 1px 5px 1px;
+    /*box-shadow: whitesmoke 1px 1px 5px 1px;*/
     transition: opacity 0.5s, top 0.5s, height 0.5s;
   }
 

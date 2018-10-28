@@ -14,7 +14,25 @@
 import Footer from "./components/Footer";
 export default {
   name: 'App',
-  components: {Footer}
+  provide(){
+    return{
+      reload:this.reload
+    }
+  },
+  data(){
+    return{
+      isRouterAlive:true
+    }
+  },
+  components: {Footer},
+  methods:{
+    reload(){
+      this.isRouterAlive = false
+      this.$nextTick(function () {
+        this.isRouterAlive = true
+      })
+    }
+  }
 }
 </script>
 
@@ -23,7 +41,8 @@ export default {
     /*background-color: #333333;*/
   }
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Apple Color Emoji !important";
+  /*font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
   min-height: 1500px;
   overflow: inherit;
 }

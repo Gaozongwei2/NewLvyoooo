@@ -2,10 +2,15 @@
 <template>
   <div :class="war" ref="abc" @click="Hidden">
     <div class="show" ref="abc" @click.prevent.stop>
-      <div class="showmessage container-fluid" v-text="text">
-        <div class="col-md-12">是否删除本游记？？？</div>
-        <div class="btn col-md-4">确认</div>
-        <div class="btn col-md-4">取消</div>
+      <div class="showmessage container-fluid" >
+        <div class="col-md-12 txt">是否删除本游记？？？</div>
+        <div class="box">
+          <div class="btn col-md-1"></div>
+          <div class="btn col-md-4 but" style="background-color: red; color: white" @click="deletetravel">确认</div>
+          <div class="col-md-2"></div>
+          <div class="btn col-md-4 but" @click="Hidden">取消</div>
+          <div class="btn col-md-1"></div>
+        </div>
 
       </div>
 
@@ -21,7 +26,7 @@
     data() {
       return {
         war:"motaikuang1",
-        // text:'',
+        text:'',
       }
     },
     // 监听传值动态
@@ -44,12 +49,51 @@
         vm.war = "motaikuang1"
         // vm.$emit("htitlepush", vm.text)
       },
+      deletetravel:function () {
+        alert("删除")
+        this.Hidden()
+
+        this.$emit("htitlepush", this.text)
+      }
 
     },
   }
 </script>
 
 <style lang="css" scoped>
+  .but{
+    border-radius: 10px;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-family: "Apple Color Emoji";
+    font-size: 15px;
+  }
+  .but:hover{
+    background-color: rgba(50, 205, 50, 0.13);
+    height: 40px;
+    line-height: 40px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  .box{
+    height: 60px;
+    width: 100%;
+    line-height: 60px;
+  }
+  .box div{
+
+  }
+  .txt{
+    height: 140px;
+    line-height: 140px;
+    font-size: 18px;
+    border-bottom: rgba(165, 169, 164, 0.53) 1px solid;
+    font-family: "Apple Color Emoji";
+
+    text-align: center;
+  }
   .showmessage{
 
   }
@@ -60,8 +104,8 @@
     width: 100%;
     z-index: 20;
     border:none;
-    background-color: #3f9f5f;
-    box-shadow: whitesmoke 1px 1px 5px 1px;
+    /*background-color: #3f9f5f !important;*/
+    /*box-shadow: whitesmoke 1px 1px 5px 1px;*/
     transition: opacity 0.5s, top 0.5s, height 0.5s;
   }
 
