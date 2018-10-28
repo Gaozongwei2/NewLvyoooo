@@ -5,6 +5,17 @@ import App from './App'
 import router from './router'
 import $ from 'jquery'
 import axios from 'axios'
+// 模态框
+import Mpush from './components/Mpush'
+import motaikuang from './components/personalcenter/moaikuang'
+import MoTaiKuang from './components/MoTaiKuang'
+import moaikuang from './components/strategy/edit/moaikuang'
+import Mwarning from './components/MWarning'
+import Mwarning2 from './components/Mwarning2'
+
+import motaikuangdelete from './components/personalcenter/motaikuangdelete'
+
+
 
 // 测试组件
 import TestX from './components/TestX'
@@ -15,9 +26,7 @@ import MyTravelTop from './components/personalcenter/MyTravelTop'
 import Lunbotu from './components/lunbotu'
 import ContentLeft from './components/ContentLeft'
 import ContentRight from './components/ContentRight'
-import motaikuang from './components/personalcenter/moaikuang'
 import test from './components/personalcenter/test'
-import MoTaiKuang from './components/MoTaiKuang'
 import Footer1 from './components/Footer'
 // import Newest from './components/Newest'
 // import HotTravelnote from './components/HotTravelnote'
@@ -45,14 +54,12 @@ import SowingMap from './components/strategy/check/SowingMap'
 //路线讨论
 import RouteDiscuss from './components/strategy/check/RouteDiscuss'
 //分页
-import PageIndex from './components/strategy/check/PageIndex'
+// import PageIndex from './components/strategy/check/PageIndex'
 import HelloWorld from './components/strategy/check/HelloWorld'
 
 //模态框
-import moaikuang from './components/strategy/edit/moaikuang'
 // 游记详情
 import Mtravelnote from './components/travelnote/Mtravelnote'
-
 //讨论文本
 import Discuss from './components/strategy/check/Discuss'
 //我的评论
@@ -72,7 +79,21 @@ import SearchStrategy from './components/travelnote/SearchStrategy'
 import SearchUser from './components/travelnote/SearchUser'
 // 评论
 import DiscussTravel from './components/DiscussTravel'
+
+//模态框
+Vue.component('motaikuang',motaikuang);
+Vue.component('motaikuangbox',MoTaiKuang)
+Vue.component('modelk',moaikuang)
+Vue.component('mpush',Mpush)
+Vue.component('mwarning',Mwarning)
+Vue.component('mwarning2',Mwarning2)
+Vue.component('motaikuangdelete',motaikuangdelete)
+
 // 测试组件
+//分页
+import PageIndex from './components/PageIndex'
+
+Vue.component('test',test1)
 Vue.component("testx",TestX)
 Vue.component('testradiobutton',TestRadioButton)
 // 注册全局组件
@@ -80,21 +101,17 @@ Vue.component("mymessage",MyMessage);
 Vue.component("lunbotu",Lunbotu);
 Vue.component("contentleft",ContentLeft);
 Vue.component("contentright",ContentRight);
-Vue.component('motaikuang',motaikuang);
 Vue.component('test1',test);
-Vue.component('motaikuangbox',MoTaiKuang)
 Vue.component('footer1',Footer1)
 // Vue.component('newest',Newest);
 // Vue.component('hottravelnote',HotTravelnote);
 // 登录注册
 Vue.component('login',Login);
 Vue.component('regist',Regist);
-
 // 搜索结果
 Vue.component('searchtravelnote',SearchTravelnote)
 Vue.component('searchstrategy',SearchStrategy)
 Vue.component('searchuser',SearchUser)
-
 // 游记部分(梁雨田)
 Vue.component('login-main',LoginMain)
 Vue.component('regist-main',RegistMian)
@@ -104,7 +121,6 @@ Vue.component('write-notes',WriteNotes)
 Vue.component('travel-main',TravelMian)
 // 游记模态框
 Vue.component('mtravelnote',Mtravelnote)
-
 //攻略部分(姜)
 // 注册全局组件
 Vue.component('nav-top',NavTop)
@@ -124,10 +140,7 @@ Vue.component('page-index',PageIndex)
 //讨论文本
 Vue.component('discuss',Discuss)
 Vue.component('hello',HelloWorld)
-
 //模态框
-Vue.component('modelk',moaikuang)
-
 //评论
 Vue.component('discusstravel',DiscussTravel)
 

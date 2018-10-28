@@ -614,6 +614,7 @@
 
   .middle-right {
     height: 100%;
+    padding-bottom: 20px;
     overflow: hidden;
 
     /*background-color: #4cae4c;*/

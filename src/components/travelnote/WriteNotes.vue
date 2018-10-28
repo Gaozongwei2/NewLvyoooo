@@ -25,16 +25,19 @@
         <p>图片建议选择尺寸大于1680px的高清大图，如相机原图</p>
       </div>
       <!--输入-->
-
-      <div class="set_title" ref="content">
-        <input type="text" placeholder="填写游记标题" maxlength="48" >
+      <div class="set_title" ref="content" >
+        <input type="text" placeholder="填写游记标题" maxlength="48" ref="title" v-model="title">
       </div>
     </div>
 
     <!----------------------写游记---------------------------------->
     <div class="container">
-      <div class="col-md-9" id="write-notes" ref="content">
-        <div contenteditable="true" id="write-notes-day">游记从这里开始.....</div>
+      <div class="col-md-9" id="write-notes" >
+        <!--内容区域——————————————————————————————————————-->
+        <div contenteditable="true" id="write-notes-day" ref="content" v-html="content" >
+          游记从这里开始.....
+        </div>
+        <!--内容区域——————————————————————————————————————-->
       </div>
       <div class="col-md-3" id="web-side">
         <div class="click-list">
@@ -44,18 +47,23 @@
           <div id="second">
             <a role="button" class="add-btn" @click="addtext"><i class="icon-title"></i>插入段落标题</a>
           </div>
-
           <div><a class="btn-save" role="button" @click="savenote"><i></i>保存草稿</a></div>
-          <div><a class="btn-save" role="button"><i></i>预览</a></div>
+          <div><a class="btn-save" role="button" @click="justshow"><i></i>预览</a></div>
           <!--模态框弹出提示，填写地址-->
           <!--发布成功，弹窗提示，积分增加-->
           <div><a class="btn-save" role="button" @click="push"><i></i>发表游记</a></div>
         </div>
-
         <div class="btn-save">游记目录</div>
       </div>
     </div>
-    <motaikuangbox :pattern="this.pattern" @htitle="htitle"></motaikuangbox>
+    <!--新建标题-->
+    <motaikuangbox :pattern="pattern" @htitle="htitle"></motaikuangbox>
+    <!--选择城市-->
+    <mpush :getcity="cityshow" @htitlepush = "htitlepush"></mpush>
+    <!--操作提示-->
+    <mwarning :warning="warning"></mwarning>
+    <!--信息不全提示-->
+    <mwarning2 :warning2="warning2" :text="warntext"></mwarning2>
   </div>
 </template>
 
@@ -65,51 +73,193 @@
     name: "WriteNotes",
     data() {
       return {
-        pattern:"motaikuang1",
+        // 模态框状态
+        pattern:false,
+        cityshow:false,
+        warning:false,
+        warning2:false,
+        warntext:'',
+        savestatus:false,
+        condition:1,
+        marks:15,
         id:sessionStorage.getItem("id"),
         travel:{
           "title":'',
+          "time":'',
           "cover_url":"",
           "content":"",
-          "condition":"",
+          "condition_id":"",
           "good":"0",
           "view":"0",
           "userid":this.id,
+          "cover_id":37,
+          "user_id":this.id,
         },
         title:'',
+        contentx:'',
+        state:'北京',
+        // 存放内容HTML
+        content:'先简单介绍一下你的游记吧......',
+        // 内容id
+        contentid:'',
       }
     },
+    created(){
+    },
+
+    // 组件内导航钩子，处理未保存退出的情况
+    // beforeRouteLeave: function(to, from , next){
+    //   if(!this.savestatus){
+    //     // next(false)
+    //     // if()
+    //     // this.$confirm('您还未保存简介，确定需要提出吗?', '提示', {
+    //     //   confirmButtonText: '确定',
+    //     //   cancelButtonText: '取消',
+    //     //   type: 'warning'
+    //     // }).then(() => {
+    //     //   // 选择确定
+    //     //   next()
+    //     // })
+    //   }
+    // },
+
     methods:{
+      //积分更新
+      markupdate:function(){
+        var vm = this
+        axios.get('http://127.0.0.1:8000/user/updatemark/'+vm.id+'/'+vm.marks+'/')
+          .then(function (response) {
+            vm.warning = !vm.warnimg
+          })
+          .catch(function (error) {
+            return error
+          })
+      },
+      // 显示成功提示框
+      justshow:function(){
+        var vm = this
+        vm.warning = !vm.warning
+      },
+      // 控制发表游记模态框
       push:function () {
         var vm = this
-        vm.pattern = "motaikuang1"
-        vm.pattern = "motaikuang"
+        vm.cityshow = !vm.cityshow
       },
+      // 控制添加段落标题模态框
       addtext:function(){
         var vm = this
-        vm.pattern = "motaikuang"
+        vm.pattern = !vm.pattern
       },
-      disappear:function(){
-        var vm = this
-        vm.pattern = "motaikuag1"
-      },
-      htitle:function(){
-        var vm = this
-        vm.title = title
-        alert(vm.title)
-        vm.pattern = "motaikuag1"
+      htitle2:function(title){
+        vm.pattern = "motaikuang1"
       },
 
+      // 被动调用，保存预览标题
+      htitle:function(title){
+        var vm = this
+        // 内容合并
+        vm.contentx = title
+        vm.content = vm.$refs.content.innerHTML
+        // 标题样式模板
+        vm.content = vm.content + "<h1 style='font-size: 25px; font-weight: bold; height: 35px; line-height: 35px; '>"+title+"</h1><br><img src=\"https://n3-q.mafengwo.net/s12/M00/2D/DE/wKgED1vQmGSAIXMPAAa7vBs-6aI31.jpeg?imageMogr2%2Finterlace%2F1\" alt=\"\" height='400px' width='400px'>"
+        // 内容显示
+        vm.$refs.content.innerHTML = vm.content
+        // 1. 判断标题和内容是否为空
+        vm.savenote()
+        if (vm.title.length>0 && vm.content.length>0){
+          // 初步存储信息
+          let date = new Date()
+          var params = new URLSearchParams();
+          params.append('title', vm.title)
+          params.append('state', city["area"])
+          params.append('content', vm.contentx.split("<h1>")[0])
+          params.append('time', date)
+          params.append('cover_id', 3)
+          params.append('condition_id', 1)
+          params.append('content_id', vm.contentid)
+          params.append('good', 0)
+          params.append('view', 0)
+          params.append('userid_id', vm.id)
+          axios.post('http://127.0.0.1:8000/travelnote/savetravelnote/', params)
+            .then(function (response) {
+              console.log(response.data)
+              vm.savestatus = true
+            })
+            .catch(
+            )
+        }else{
+
+        }
+
+      },
+      // 获取地点信息
+      // 执行存储方法
+      htitlepush:function(city){
+        var vm = this
+        // alert(vm.title)
+        if (vm.title && city){
+          vm.savenote()
+          let date = new Date()
+          //系统当前时间
+          let year = date.getFullYear();
+          let month = date.getMonth()+1;//js中是从0开始所以要加1
+          let day = date.getDate();
+          let utime = year+'-'+month+'-'+day
+          var params = new URLSearchParams();
+          params.append('title', vm.title)
+          params.append('state', city)
+          params.append('content', vm.contentx.split("<h1>")[0])
+          params.append('time', utime)
+          params.append('cover_id', 3)
+          params.append('condition_id', 2)
+          params.append('content_id', vm.contentid)
+          params.append('good', 0)
+          params.append('view', 0)
+          params.append('userid_id', vm.id)
+          axios.post('http://127.0.0.1:8000/travelnote/savetravelnote/', params)
+            .then(function (response) {
+              console.log(response.data)
+              if (response.data == "chenggong"){
+                vm.markupdate()
+              }
+            })
+            .catch(
+            )
+        }
+        else{
+          if (!vm.title){
+            vm.warntext = "有标题的游记更受欢迎哦，添加完标题再发布吧"
+          }else{
+            vm.warntext = "带有地点让才能更容易让大家看到，快去添加吧"
+          }
+          vm.warning2 = !vm.warning2
+        }
+
+
+      },
+      // 保存
+      hsave:function(){
+        var vm  = this
+        vm.travel['title'] = vm.title
+      },
+
+      // 添加标题
       changecoverimg:function () {
-
       },
+      // 保存内容，返回内容id
       savenote:function () {
-        
+        var vm = this
+        // 存储内容
+        var params = new URLSearchParams();
+        params.append('content', vm.content)
+        axios.post('http://127.0.0.1:8000/travelnote/savecontent/', params)
+          .then(function (response) {
+            vm.contentid = response.data
+          })
+          .catch(
+          )
       }
-
     }
-
-
   }
 </script>
 

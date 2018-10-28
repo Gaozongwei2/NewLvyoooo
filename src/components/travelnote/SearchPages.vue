@@ -72,12 +72,10 @@
         sort:"all",
         login:false,
         id:0,
-
         strategys:'',
         travelnotes:'',
         users:'',
         changecolor:'',
-
         // 用来空值分类筛选
         choose:"all",
 
@@ -89,12 +87,7 @@
       }
       if(this.$route.params.index){
         this.indextxt = this.$route.params.index
-        // this.indextxt = (this.$route.params.index).split("&&",0)
-        // this.choose = (this.$route.params.index).split("&&",1)
-        // // this.choose = this.$route.params.index["termtext"]
-        // console.log((this.$route.params.index).split("&&"))
       }
-      // this.index = this.$route.params.index
 
       console.log("searchpage"+this.index)
         this.id = sessionStorage.getItem("id")

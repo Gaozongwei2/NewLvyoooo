@@ -13,17 +13,20 @@
           </li>
         </ul>
         <ul class="col-md-2 nav navbar-nav navbar-right" v-if="!bianmei">
-          <li>
-            <router-link to="/login"><a href="####">登录</a></router-link>
-          </li>
-          <li>
-            <router-link to="/regist"><a href="####">注册</a></router-link>
-          </li>
+        <li>
+        <router-link to="/login"><a href="####">登录</a></router-link>
+        </li>
+        <li>
+        <router-link to="/regist"><a href="####">注册</a></router-link>
+        </li>
         </ul>
-        <ul class="col-md-2 nav navbar navbar-right usericno" v-if="bianmei">
-          <li ><router-link to="/usercenter"><a href="####"><img class="img-circle icno col-md-6"
-                                                                 src="http://n2-q.mafengwo.net/s10/M00/6C/09/wKgBZ1nm_RuAcRY4AABeA1K-J9Y49.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90"
-                                                                 alt=""><span class="left col-md-6" v-text="user['username']" style="color: whitesmoke">棕色试剂瓶</span></a></router-link></li>
+        <ul class="col-md-2 nav navbar navbar-right usericno " v-if="bianmei">
+          <li >
+            <router-link to="/usercenter"><a href="####">
+              <img class="img-circle icno col-md-6"src="http://n2-q.mafengwo.net/s10/M00/6C/09/wKgBZ1nm_RuAcRY4AABeA1K-J9Y49.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90" alt="">
+              <span class="left col-md-6"v-text="user['username']"style="color: whitesmoke">棕色试剂瓶</span></a>
+            </router-link>
+          </li>
         </ul>
         <ul class="col-md-2 nav navbar navbar-right droplist">
           <li class="switch"></li>
@@ -92,12 +95,12 @@
     </div>
     <!--万用搜索键-->
     <div class="thegadofsearch">
-      <a href="javascript:;">搜</a>
+      <router-link to="/write"><a href="javascript:;">写</a></router-link>
     </div>
     <lunbotu></lunbotu>
     <contentleft></contentleft>
     <contentright></contentright>
-    <!--<footer></footer>-->
+    <footer1></footer1>
   </div>
 
 
@@ -135,7 +138,7 @@
         },
       }
     },
-    created(){
+    created() {
       var vm = this
       vm.$refs.all.style.backgroundColor = "green"
       sessionStorage.setItem("token", "congqianyouzuoshan")
@@ -154,8 +157,8 @@
         this.bianmei = false
       },
       //查询用户信息
-      getmymessage:function(){
-        var vm  = this
+      getmymessage: function () {
+        var vm = this
         axios.get(' http://127.0.0.1:8000/user/getuser/')
           .then(function (response) {
             console.log(response.data)
@@ -166,8 +169,8 @@
       },
 
       // 显示热门游记
-      getalltravelnotes:function(){
-        var vm  = this
+      getalltravelnotes: function () {
+        var vm = this
         axios.get(' http://127.0.0.1:8000/user/myfocusnum/')
           .then(function (response) {
             console.log(response.data)
@@ -178,8 +181,8 @@
       },
 
       // 查询游记详情
-      showtrvelnotes:function () {
-        var vm  = this
+      showtrvelnotes: function () {
+        var vm = this
         axios.get(' http://127.0.0.1:8000/user/myfocusnum/' + vm.user.id + '/')
           .then(function (response) {
             console.log(response.data)
@@ -190,7 +193,7 @@
       },
 
       // 点击查询条件
-      term:function (event) {
+      term: function (event) {
         var vm = this
         // 将所有按钮置为白色
         vm.$refs.all.style.backgroundColor = "white"
@@ -198,10 +201,10 @@
         vm.$refs.strategy.style.backgroundColor = "white"
         vm.$refs.user.style.backgroundColor = "white"
         // 判定选中按钮
-        if (vm.radiochange){
+        if (vm.radiochange) {
           event.currentTarget.style.backgroundColor = "white"
           vm.radiochange = !vm.radiochange
-        }else{
+        } else {
           event.currentTarget.style.backgroundColor = "green"
           vm.termtext = event.currentTarget.id
         }
@@ -229,7 +232,7 @@
   }
 
   /*搜索附近的单选按钮*/
-  .radiosearch{
+  .radiosearch {
     height: 15px;
     width: 15px;
     border-radius: 50%;
@@ -334,12 +337,12 @@
   }
   .title1 a {
     color: whitesmoke !important;
-    font-size: 15px !important;
+    font-size: 17px !important;
+    text-decoration: none!important;
   }
 
   .title1 a:hover {
-    color: lawngreen !important;
-
+    color: #448700 !important;
     transition: color 0.2s;
   }
 
@@ -451,26 +454,35 @@
   .droplist {
     display: none;
     padding: 0;
-    color: #222222 !important;
+    color: #fcfcfc !important;
     border-radius: 5px;
     width: 150px!important;
+    width: 200px !important;
     position: absolute;
     left: 1052px;
     top: 53px;
     z-index: 3;
-    background-color: rgba(250, 251, 255, 0.82);
+    background-color: rgba(0, 0, 0, 0.45);
   }
-  .droplist li a{
-    color:black!important;
+
+  .droplist li a {
+    color: #fefefe !important;
+  }
+  .droplist li:hover + .droplist li a{
+    color: #3c3c3c!important;
   }
   .droplist .switch {
     height: 5px;
     opacity: 0;
   }
-
+  .switch a{
+    text-decoration: none!important;
+    width: 100%;
+    height: 100%;
+  }
   .droplist:hover {
     display: block;
-    z-index: 10!important;
+    color: black!important;
+    z-index: 10 !important;
   }
-
 </style>
