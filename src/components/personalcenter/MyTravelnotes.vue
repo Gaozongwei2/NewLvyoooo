@@ -4,62 +4,63 @@
     <!--<motaikuang @hidden="hiddenshow" v-if="motaikuang"></motaikuang>-->
     <ul class="col-md-12 nopadding travelnotes-list">
 
-      <li v-for="travelnote in travelnotes">
+      <li v-for="i in travelnotes.length">
 
         <div class="col-md-12 nopadding">
           <!--***********点击触发事件**********************************************************-->
           <router-link to="/travel">
-            <div class="col-md-5 nopadding img" @click="showthat"><img :src="travelnote['cover__url']" alt=""
+            <div class="col-md-5 nopadding img" @click="showthat"><img :src="travelnotes[travelnotes.length-i]['cover__url']" alt=""
                                                                        height="195px" width="300px"></div>
             <div class="col-md-7">
               <div class="margin">
-                <span class="h4 " v-text="travelnote['title']">标题</span>
+                <span class="h4 " v-text="travelnotes[travelnotes.length-i]['title']">标题</span>
               </div>
               <div>
-                <span class="time col-md-4" v-text="travelnote['time']">时间</span>
-                <span class="views col-md-4">浏览量：<span v-text="travelnote['view']"></span></span>
-                <span class="good col-md-4">点赞数：<span v-text="travelnote['good']"></span></span>
+                <span class="time col-md-4" v-text="travelnotes[travelnotes.length-i]['time']">时间</span>
+                <span class="views col-md-4">浏览量：<span v-text="travelnotes[travelnotes.length-i]['view']"></span></span>
+                <span class="good col-md-4">点赞数：<span v-text="travelnotes[travelnotes.length-i]['good']"></span></span>
               </div>
               <!--简介-->
               <div class="content">
-                <span v-text="travelnote['content']"></span>
+                <span v-text="travelnotes[travelnotes.length-i]['content']"></span>
               </div>
             </div>
 
 
-
           </router-link>
           <div>
-            <span class="left identification" v-text="travelnote['condition__condition']"></span>
-            <div class="fix right btn btn-success bb" @click="edit($event)" :id="travelnote['id']">编辑</div>
-            <div class="fix right btn btn-danger bb" :id="travelnote['id']" @click="shanchu($event)">删除</div>
+            <span class="left identification" v-text="travelnotes[travelnotes.length-i]['condition__condition']"></span>
+            <div class="fix right btn btn-success bb" @click="edit($event)" :id="travelnotes[travelnotes.length-i]['id']">编辑</div>
+            <div class="fix right btn btn-danger bb" :id="travelnotes[travelnotes.length-i]['id']" @click="shanchu($event)">删除</div>
           </div>
-        </div>>
-  </li>
+        </div>
 
-  </ul>
-    <motaikuangdelete :del="deletes" @deletes="deletes"></motaikuangdelete>
+      </li>
+
+    </ul>
 
     <router-view/>
-  <!-- Modal -->
-  <!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
-  <!--<div class="modal-dialog" role="document">-->
-  <!--<div class="modal-content">-->
-  <!--<div class="modal-header">-->
-  <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-  <!--<h4 class="modal-title" id="myModalLabel">Modal title</h4>-->
-  <!--</div>-->
-  <!--<div class="modal-body">-->
-  <!--...-->
-  <!--</div>-->
-  <!--<div class="modal-footer">-->
-  <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-  <!--<button type="button" class="btn btn-primary">Save changes</button>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--模态框-->
+    <motaikuangdelete :del="deletes" @htitlepush="deletetravel"></motaikuangdelete>
+
+    <!-- Modal -->
+    <!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
+    <!--<div class="modal-dialog" role="document">-->
+    <!--<div class="modal-content">-->
+    <!--<div class="modal-header">-->
+    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+    <!--<h4 class="modal-title" id="myModalLabel">Modal title</h4>-->
+    <!--</div>-->
+    <!--<div class="modal-body">-->
+    <!--...-->
+    <!--</div>-->
+    <!--<div class="modal-footer">-->
+    <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--模态框-->
   </div>
 </template>
 
@@ -71,11 +72,13 @@
   import axios from 'axios'
 
   export default {
+    inject:['reload'],
     name: 'MyTravelnotes',
     data() {
       return {
         deletes: false,
         motaikuang: false,
+        tid:'',
         travelnotes: '',
         id: sessionStorage.getItem("id")
       }
@@ -92,8 +95,8 @@
       shanchu: function (event) {
         var vm = this
         vm.deletes = !vm.deletes
-        // let tid = event.target.id
-        // 弹出删除确认模态框
+        vm.tid = event.target.id
+
       },
       // 点击显示模态框
       showthat() {
@@ -129,7 +132,24 @@
             return error
           })
       },
-    }
+      // 删除游记信息
+      deletetravel:function (text) {
+        alert("删除游记")
+        var vm = this
+        axios.get('http://127.0.0.1:8000/travelnote/deletetravelnote/' + vm.tid + '/')
+          .then(function (response) {
+            console.log(response.data)
+          })
+          .catch(function (error) {
+            return error
+          })
+        vm.gettravel()
+        // vm.reload()
+
+      },
+
+    },
+
   }
 </script>
 

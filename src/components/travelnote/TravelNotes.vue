@@ -11,9 +11,24 @@
         <input type="search" id="search-bar-input" placeholder="搜索目的地">
       </div>
       <div class="col-md-2" id="user-img">
-        <img
-          :src="travel['userid__icno__imageurl']"
-          height="32" width="32" alt="" style="object-fit: cover">
+        <ul class="col-md-2 nav navbar navbar-right usericno " v-if="bianmei">
+          <li >
+            <router-link to="/usercenter"><a href="####">
+              <img class="img-circle icno col-md-6"src="http://n2-q.mafengwo.net/s10/M00/6C/09/wKgBZ1nm_RuAcRY4AABeA1K-J9Y49.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90" alt="">
+              <span class="left col-md-6"v-text="user['username']"style="color: whitesmoke">棕色试剂瓶</span></a>
+            </router-link>
+          </li>
+        </ul>
+        <ul class="col-md-2 nav navbar navbar-right droplist">
+          <li class="switch"></li>
+          <li><router-link to="/usercenter/mycollect"><a href="####">我的关注</a></router-link></li>
+          <li><router-link to="/usercenter/myfocus"><a href="####">我的收藏</a></router-link></li>
+          <li><router-link to="/usercenter/mytravelnotes"><a href="####">我的游记</a></router-link></li>
+          <li><router-link to="/usercenter/mystrategys"><a href="####">我的攻略</a></router-link></li>
+          <li><router-link to="/write"><a href="####">写游记</a></router-link></li>
+          <li><router-link to="/edit"><a href="####">写攻略</a></router-link></li>
+          <li><a href="javascript:;" class="exit" @click="exit">退出</a></li>
+        </ul>
       </div>
     </div>
 
@@ -370,4 +385,153 @@
     margin-left: 30px;
   }
 
+
+
+  /*用户中心下拉列表*/
+
+
+  .usericno {
+    margin: 0;
+    height: 54px;
+    width: 200px;
+  }
+
+  .usericno .icno {
+    height: 45px !important;
+    width: 45px !important;
+    padding: 0;
+    margin-top: 5px;
+    background-image: url("http://n2-q.mafengwo.net/s10/M00/6C/09/wKgBZ1nm_RuAcRY4AABeA1K-J9Y49.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90");
+    object-fit: cover;
+    vertical-align: center;
+  }
+
+  .username {
+    font-size: small !important;
+    line-height: 54px;
+    vertical-align: center;
+  }
+
+  .usermessage {
+    display: none;
+    border-radius: 4px;
+    min-height: 500px;
+    width: 100%;
+    background-color: yellowgreen;
+  }
+
+  .notes-del-confirm {
+    width: 480px;
+    text-align: center;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 501;
+    margin: -130px 0px 0px -240px;
+  }
+
+  .notes-del-confirm {
+    width: 480px;
+    text-align: center;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 501;
+    margin: -130px 0px 0px -240px;
+  }
+
+  /*title2*/
+
+  .title2 {
+    box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 5px 3px;
+    /*display: none;*/
+  }
+
+  .title2-left li:active {
+    background-color: rgba(76, 174, 76, 0.75) !important;
+    transition: background-color 0.3s;
+    color: whitesmoke;
+  }
+
+  .usericno .icno {
+    height: 45px !important;
+    width: 45px !important;
+    padding: 0;
+    margin-top: 5px;
+    background-image: url("http://n2-q.mafengwo.net/s10/M00/6C/09/wKgBZ1nm_RuAcRY4AABeA1K-J9Y49.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90");
+    object-fit: cover;
+    vertical-align: center;
+  }
+
+  .usericno li a:hover {
+    background-color: rgba(250, 0, 255, 0) !important;
+  }
+
+  .usericno li {
+    height: 54px;
+  }
+
+  .usericno li a {
+    height: 53px;
+    padding: 0 !important;
+    vertical-align: center;
+  }
+
+  .usericno li a span {
+    height: 53px;
+    color: #222222;
+    line-height: 54px;
+    font-size: small;
+    padding-left: 10px;
+    padding-right: 0;
+  }
+
+  .usericno {
+    margin: 0;
+    height: 54px;
+    width: 190px;
+  }
+
+  .nologin {
+    display: none;
+  }
+
+  .usericno:hover + .droplist {
+    display: block !important;
+  }
+
+  .droplist {
+    display: none;
+    padding: 0;
+    color: #fcfcfc !important;
+    border-radius: 5px;
+    width: 200px !important;
+    position: absolute;
+    left: 1052px;
+    top: 53px;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.45);
+  }
+
+  .droplist li a {
+    color: #fefefe !important;
+  }
+  .droplist li:hover + .droplist li a{
+    color: #3c3c3c!important;
+  }
+
+  .droplist .switch {
+    height: 5px;
+    opacity: 0;
+  }
+  .switch a{
+    text-decoration: none!important;
+    width: 100%;
+    height: 100%;
+  }
+  .droplist:hover {
+    display: block;
+    color: black!important;
+    z-index: 10 !important;
+  }
 </style>
