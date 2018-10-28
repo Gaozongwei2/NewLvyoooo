@@ -11,6 +11,10 @@ import motaikuang from './components/personalcenter/moaikuang'
 import MoTaiKuang from './components/MoTaiKuang'
 import moaikuang from './components/strategy/edit/moaikuang'
 import Mwarning from './components/MWarning'
+import Mwarning2 from './components/Mwarning2'
+
+import motaikuangdelete from './components/personalcenter/motaikuangdelete'
+
 
 
 // 测试组件
@@ -86,19 +90,14 @@ Vue.component('motaikuangbox',MoTaiKuang)
 Vue.component('modelk',moaikuang)
 Vue.component('mpush',Mpush)
 Vue.component('mwarning',Mwarning)
+Vue.component('mwarning2',Mwarning2)
+Vue.component('motaikuangdelete',motaikuangdelete)
 
 // 测试组件
 //分页
 import PageIndex from './components/PageIndex'
 
-
-
-
 Vue.component('test',test1)
-
-
-
-
 Vue.component("testx",TestX)
 Vue.component('testradiobutton',TestRadioButton)
 // 注册全局组件

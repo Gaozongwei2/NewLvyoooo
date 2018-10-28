@@ -62,6 +62,8 @@
     <mpush :getcity="cityshow" @htitlepush = "htitlepush"></mpush>
     <!--操作提示-->
     <mwarning :warning="warning"></mwarning>
+    <!--信息不全提示-->
+    <mwarning2 :warning2="warning2" :text="warntext"></mwarning2>
   </div>
 </template>
 
@@ -75,6 +77,9 @@
         pattern:false,
         cityshow:false,
         warning:false,
+        warning2:false,
+        warntext:'',
+        savestatus:false,
         condition:1,
         marks:15,
         id:sessionStorage.getItem("id"),
@@ -101,6 +106,22 @@
     },
     created(){
     },
+
+    // 组件内导航钩子，处理未保存退出的情况
+    // beforeRouteLeave: function(to, from , next){
+    //   if(!this.savestatus){
+    //     // next(false)
+    //     // if()
+    //     // this.$confirm('您还未保存简介，确定需要提出吗?', '提示', {
+    //     //   confirmButtonText: '确定',
+    //     //   cancelButtonText: '取消',
+    //     //   type: 'warning'
+    //     // }).then(() => {
+    //     //   // 选择确定
+    //     //   next()
+    //     // })
+    //   }
+    // },
 
     methods:{
       //积分更新
@@ -145,7 +166,7 @@
         vm.$refs.content.innerHTML = vm.content
         // 1. 判断标题和内容是否为空
         vm.savenote()
-        if (vm.title && vm.content){
+        if (vm.title.length>0 && vm.content.length>0){
           // 初步存储信息
           let date = new Date()
           var params = new URLSearchParams();
@@ -154,7 +175,7 @@
           params.append('content', vm.contentx.split("<h1>")[0])
           params.append('time', date)
           params.append('cover_id', 3)
-          params.append('condition_id', 2)
+          params.append('condition_id', 1)
           params.append('content_id', vm.contentid)
           params.append('good', 0)
           params.append('view', 0)
@@ -162,6 +183,7 @@
           axios.post('http://127.0.0.1:8000/travelnote/savetravelnote/', params)
             .then(function (response) {
               console.log(response.data)
+              vm.savestatus = true
             })
             .catch(
             )
@@ -174,40 +196,51 @@
       // 执行存储方法
       htitlepush:function(city){
         var vm = this
-        vm.savenote()
-        let date = new Date()
-        //系统当前时间
-        let year = date.getFullYear();
-        let month = date.getMonth()+1;//js中是从0开始所以要加1
-        let day = date.getDate();
-        let utime = year+'-'+month+'-'+day
-        var params = new URLSearchParams();
-        params.append('title', vm.title)
-        params.append('state', city)
-        params.append('content', vm.contentx.split("<h1>")[0])
-        params.append('time', utime)
-        params.append('cover_id', 3)
-        params.append('condition_id', vm.condition)
-        params.append('content_id', vm.contentid)
-        params.append('good', 0)
-        params.append('view', 0)
-        params.append('userid_id', vm.id)
-        axios.post('http://127.0.0.1:8000/travelnote/savetravelnote/', params)
-          .then(function (response) {
-            console.log(response.data)
-            if (response.data == "chenggong"){
-              vm.markupdate()
-            }
-          })
-          .catch(
-          )
+        // alert(vm.title)
+        if (vm.title && city){
+          vm.savenote()
+          let date = new Date()
+          //系统当前时间
+          let year = date.getFullYear();
+          let month = date.getMonth()+1;//js中是从0开始所以要加1
+          let day = date.getDate();
+          let utime = year+'-'+month+'-'+day
+          var params = new URLSearchParams();
+          params.append('title', vm.title)
+          params.append('state', city)
+          params.append('content', vm.contentx.split("<h1>")[0])
+          params.append('time', utime)
+          params.append('cover_id', 3)
+          params.append('condition_id', 2)
+          params.append('content_id', vm.contentid)
+          params.append('good', 0)
+          params.append('view', 0)
+          params.append('userid_id', vm.id)
+          axios.post('http://127.0.0.1:8000/travelnote/savetravelnote/', params)
+            .then(function (response) {
+              console.log(response.data)
+              if (response.data == "chenggong"){
+                vm.markupdate()
+              }
+            })
+            .catch(
+            )
+        }
+        else{
+          if (!vm.title){
+            vm.warntext = "有标题的游记更受欢迎哦，添加完标题再发布吧"
+          }else{
+            vm.warntext = "带有地点让才能更容易让大家看到，快去添加吧"
+          }
+          vm.warning2 = !vm.warning2
+        }
+
 
       },
       // 保存
       hsave:function(){
         var vm  = this
         vm.travel['title'] = vm.title
-        vm.travel['']
       },
 
       // 添加标题

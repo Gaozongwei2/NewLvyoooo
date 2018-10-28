@@ -61,7 +61,7 @@
       <div class="col-md-1">
           <div  class=" praise">
             <i @cilck="good"></i> <br>
-            <span v-model="goodnum" @click="good"></span>点赞
+            <span  @click="good" v-text="goodnum"></span>
           </div>
       </div>
     </div>
@@ -82,14 +82,15 @@
         collect: 0,
         praise: 25,
         clickable:false,
+        goodnum:'点赞',
         travel:{
           "id":'',
+
           "title":"只有聪明的人才能看到标题",
           "view":0,
           "good":0,
           "collect":0,
         },
-        goodnum:travel['good']
       }
 
     },

@@ -28,7 +28,7 @@
       }
     },
     created() {
-      this.travelnotedetail()
+      // this.travelnotedetail()
     },
 
     methods: {

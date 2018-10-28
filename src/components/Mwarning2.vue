@@ -2,7 +2,7 @@
 <template>
   <div :class="war" ref="abc" @click="Hidden">
     <div class="show" ref="abc" @click.prevent.stop>
-      <div class="showmessage">发布成功，积分 + <span style="color:red">15</span> </div>
+      <div class="showmessage" v-text="text">{{text}}<span style="color:orange">^_^</span> </div>
     </div>
   </div>
 </template>
@@ -10,16 +10,17 @@
 <script>
   import axios from 'axios'
   export default {
-    name:'mwarning',
-    props: ['warning'],
+    name:'mwarning2',
+    props: ['warning2',"warntext"],
     data() {
       return {
         war:"motaikuang1",
+        text:'',
       }
     },
     // 监听传值动态
     watch: {
-      warning: {
+      warning2: {
         handler(newValue, oldValue) {
           //父组件param对象改变会触发此函数
           this.war = "motaikuang"
@@ -28,6 +29,15 @@
           t = setTimeout(function (){
             this.Hidden()
           }, 1000);
+
+        },
+        deep: true
+      },
+      warntext: {
+        handler(newValue, oldValue) {
+          //父组件param对象改变会触发此函数
+         this.text = newValue
+          alert("hello"+this.text)
 
         },
         deep: true
@@ -41,6 +51,7 @@
       Hidden: function () {
         var vm = this
         vm.war = "motaikuang1"
+        vm.$emit("htitlepush", vm.text)
       },
     },
   }
@@ -53,7 +64,7 @@
     width: 100%;
     text-align: center;
     line-height: 78px;
-    /*border: #3f9f5f 10px solid;*/
+    border: #3f9f5f 10px solid;
     background-color: whitesmoke;
   }
   .motaikuang {

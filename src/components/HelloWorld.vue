@@ -30,12 +30,12 @@
         </ul>
         <ul class="col-md-2 nav navbar navbar-right droplist">
           <li class="switch"></li>
-          <li><a href="####">我的关注</a></li>
-          <li><a href="####">我的收藏</a></li>
-          <li><a href="####">我的游记</a></li>
-          <li><a href="####">我的攻略</a></li>
-          <li><a href="####">写游记</a></li>
-          <li><a href="####">写攻略</a></li>
+          <li><router-link to="/usercenter/mycollect"><a href="####">我的关注</a></router-link></li>
+          <li><router-link to="/usercenter/myfocus"><a href="####">我的收藏</a></router-link></li>
+          <li><router-link to="/usercenter/mytravelnotes"><a href="####">我的游记</a></router-link></li>
+          <li><router-link to="/usercenter/mystrategys"><a href="####">我的攻略</a></router-link></li>
+          <li><router-link to="/write"><a href="####">写游记</a></router-link></li>
+          <li><router-link to="/edit"><a href="####">写攻略</a></router-link></li>
           <li><a href="javascript:;" class="exit" @click="exit">退出</a></li>
         </ul>
         <!--<div v-if="aa">-->
@@ -95,7 +95,7 @@
     </div>
     <!--万用搜索键-->
     <div class="thegadofsearch">
-      <a href="javascript:;">搜</a>
+      <router-link to="/write"><a href="javascript:;">写</a></router-link>
     </div>
     <lunbotu></lunbotu>
     <contentleft></contentleft>
@@ -344,12 +344,12 @@
 
   .title1 a {
     color: whitesmoke !important;
-    font-size: 15px !important;
+    font-size: 17px !important;
+    text-decoration: none!important;
   }
 
   .title1 a:hover {
-    color: lawngreen !important;
-
+    color: #448700 !important;
     transition: color 0.2s;
   }
 
@@ -466,28 +466,35 @@
   .droplist {
     display: none;
     padding: 0;
-    color: #222222 !important;
+    color: #fcfcfc !important;
     border-radius: 5px;
-    width: 150px !important;
+    width: 200px !important;
     position: absolute;
     left: 1052px;
     top: 53px;
     z-index: 3;
-    background-color: rgba(250, 251, 255, 0.82);
+    background-color: rgba(0, 0, 0, 0.45);
   }
 
   .droplist li a {
-    color: black !important;
+    color: #fefefe !important;
+  }
+  .droplist li:hover + .droplist li a{
+    color: #3c3c3c!important;
   }
 
   .droplist .switch {
     height: 5px;
     opacity: 0;
   }
-
+  .switch a{
+    text-decoration: none!important;
+    width: 100%;
+    height: 100%;
+  }
   .droplist:hover {
     display: block;
+    color: black!important;
     z-index: 10 !important;
   }
-
 </style>

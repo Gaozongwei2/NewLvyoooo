@@ -2,7 +2,13 @@
 <template>
   <div :class="war" ref="abc" @click="Hidden">
     <div class="show" ref="abc" @click.prevent.stop>
-      <div class="showmessage">发布成功，积分 + <span style="color:red">15</span> </div>
+      <div class="showmessage container-fluid" v-text="text">
+        <div class="col-md-12">是否删除本游记？？？</div>
+        <div class="btn col-md-4">确认</div>
+        <div class="btn col-md-4">取消</div>
+
+      </div>
+
     </div>
   </div>
 </template>
@@ -10,28 +16,23 @@
 <script>
   import axios from 'axios'
   export default {
-    name:'mwarning',
-    props: ['warning'],
+    name:'motaikuangdelete',
+    props: ['del'],
     data() {
       return {
         war:"motaikuang1",
+        // text:'',
       }
     },
     // 监听传值动态
     watch: {
-      warning: {
+      del: {
         handler(newValue, oldValue) {
           //父组件param对象改变会触发此函数
           this.war = "motaikuang"
-          var t;
-          clearTimeout(t)
-          t = setTimeout(function (){
-            this.Hidden()
-          }, 1000);
-
         },
         deep: true
-      }
+      },
     },
     created() {
 
@@ -41,20 +42,16 @@
       Hidden: function () {
         var vm = this
         vm.war = "motaikuang1"
+        // vm.$emit("htitlepush", vm.text)
       },
+
     },
   }
 </script>
 
 <style lang="css" scoped>
   .showmessage{
-    font-size: 15px;
-    height: 100%;
-    width: 100%;
-    text-align: center;
-    line-height: 78px;
-    /*border: #3f9f5f 10px solid;*/
-    background-color: whitesmoke;
+
   }
   .motaikuang {
     position: fixed;
@@ -63,6 +60,7 @@
     width: 100%;
     z-index: 20;
     border:none;
+    background-color: #3f9f5f;
     box-shadow: whitesmoke 1px 1px 5px 1px;
     transition: opacity 0.5s, top 0.5s, height 0.5s;
   }
@@ -75,15 +73,19 @@
     transition: opacity 0.5s, top 0.4s, height 0.6s;
     overflow: hidden;
   }
+  .showmessage{
+    border-radius: 7px;
+    background-color: white;
 
+  }
   .show {
     position: absolute;
-    top:35%;
-    width: 20%;
-    left: 50%;
-    height: 100px;
-    background-color: #2a86ac;
-    border-radius: 4px;
+    top:20%;
+    width: 30%;
+    left: 10%;
+    height: 200px;
+    background-color: white;
+    border-radius: 7px;
     border:1px solid rgba(75, 75, 75, 0.31);
     box-shadow: rgba(75, 75, 75, 0.3) 1px 1px 10px 1px;
     transform: translate(-50%, 0);
