@@ -5,6 +5,7 @@ import PersonalIndex from '../components/personalcenter/PersonalIndex'
 import TestX  from '../components/TestX'
 import TestRadioButton from '../components/TestRadioButton'
 import MoTaiKuang from '../components/MoTaiKuang'
+import HelloWorldAll from '../components/strategy/check/all'
 
 
 
@@ -55,6 +56,16 @@ export default new Router({
       component:TestRadioButton
     },
     // 攻略部分
+    {
+      path:'/all',
+      name:'HelloWorldAll',
+      component:all
+    },
+    {
+      path:'/testradio',
+      name:'testradio',
+      component:TestRadioButton
+    },
     //查看攻略
     {
       path: '/strategy',

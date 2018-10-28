@@ -52,9 +52,7 @@
 
   export default {
     name: 'RouteDiscuss',
-
     props: ["tt"],
-
     data() {
       return {
         condition: '',
@@ -63,21 +61,26 @@
         pagesize: 0,
         //commig列表
         commitlist: [],
-        id: this.tt,
-        uid: ''
+        id: this.tt['id'],
+        uid: '',
+        //设定flag=1时，改该方法用于游记，否则就是攻略
+        flag:this.tt['flag']
       }
     },
     components: {
       Discuss
+    },
+    created(){
+      console.log(this.tt)
     },
     mounted: function () {
       //获取userid
       this.uid = sessionStorage.getItem('id')
       // alert(this.uid)
       // alert(this.id)
-      this.getData();
+      // this.getData();
 
-      this.getPageSize();
+      // this.getPageSize();
 
       this.searchData()
 
@@ -92,6 +95,7 @@
       //写评论
       up() {
         var vm = this
+        alert(vm.flag)
         //定义变量
         var a = 0
         //  用户名，时间，评论内容
@@ -110,38 +114,71 @@
         //封装到一个新的字典中
 
         if (discusstxt.value.trimLeft() != '') {
+          alert(1)
           let dict = {
             // uface:"1111",
             // username:uname,
-            datatime: utime,
+            datetime: utime,
             content: discusstxt.value,
             tid_id: this.id,
+            sid_id: this.id,
             userid_id: this.uid
           }
 
           // 存到lists中
           vm.lists.push(dict)
           console.log(vm.lists)
-          // alert(vm.lists)
+          alert(vm.lists)
 
         }
-        //存储用户评论
-        var params = new URLSearchParams();
-        params.append('date', time)
-        params.append('content', discusstxt.value)
-        params.append('tid_id', this.id)
-        params.append('userid_id', this.uid)
-        console.log(params)
 
-        axios.post('http://localhost:8000/travelnote/storagereview/' + this.id + '/' + this.uid + '/', params)
-          .then(function (response) {
-            vm.review = response.data
-            console.log(vm.review)
-            vm.getpages()
-          })
-          .catch(function (error) {
-            return error
-          })
+        //存储游记用户评论
+        //根据不同的flag值进入不同的ajax中
+        if(vm.tt['flag']==1){
+          alert("游记")
+          var params = new URLSearchParams();
+          params.append('date', time)
+          params.append('content', discusstxt.value)
+          params.append('tid_id', vm.id)
+          params.append('userid_id', vm.uid)
+          console.log(params)
+
+          axios.post('http://localhost:8000/travelnote/storagereview/' + vm.id + '/' + vm.uid + '/', params)
+            .then(function (response) {
+              vm.review = response.data
+              console.log(vm.review)
+              vm.getpages()
+            })
+            .catch(function (error) {
+              return error
+            })
+
+
+        // 存储攻略评论
+        }else if(vm.tt['flag'] == 2){
+          alert("攻略")
+          var params = new URLSearchParams();
+          params.append('date', time)
+          params.append('content', discusstxt.value)
+          params.append('sid_id', this.id)
+          params.append('userid_id', this.uid)
+          console.log(params)
+
+          axios.post('http://localhost:8000/strategy/storagereview/' + this.id + '/' + this.uid + '/', params)
+            .then(function (response) {
+              vm.sreview = response.data
+              console.log(vm.sreview)
+              vm.getpages()
+            })
+            .catch(function (error) {
+              return error
+            })
+
+        }else{
+          alert("判断出错")
+        }
+
+
         // 清空文本框
         discusstxt.value = ""
       },
@@ -171,14 +208,16 @@
     },
     searchData: function () {
       this.pageindex = 1;
-      this.getData();
-      this.getPageSize();
+      // this.getData();
+      // this.getPageSize();
     },
     getIndex: function (i) {
       this.pageindex = i;
-      this.getData();
-      this.getPageSize();
+      // this.getData();
+      // this.getPageSize();
     }
+
+
     // }
 
   }

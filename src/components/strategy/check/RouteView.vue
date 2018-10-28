@@ -74,7 +74,7 @@
     </div>
     <div class="line"></div>
 
-
+    <!--<route-discuss :tt="this.res"></route-discuss>-->
 
   </div>
 </template>
@@ -86,6 +86,11 @@
     name: 'RouteView',
     data () {
       return {
+        res:{
+          'id':this.travels['id'],
+          //游记的状态为1
+          'flag':2
+        },
         //数据库获取p的条数
         showall:3
       }

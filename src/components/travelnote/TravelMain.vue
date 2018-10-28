@@ -74,7 +74,7 @@
 
 
         <!--评论(存储到数据库 但未显示用户评论)-->
-        <route-discuss :tt="this.id"></route-discuss>
+        <route-discuss :tt="this.res"></route-discuss>
         <!--<discusstravel id="seven"></discusstravel>-->
         <!--<discusstravel></discusstravel>-->
       </div>
@@ -99,7 +99,12 @@
     props: ["travels"],
     data() {
       return {
-        id:this.travels['id']
+        res:{
+          'id':this.travels['id'],
+          //游记的状态为1
+          'flag':1
+        }
+
       }
     },
     created() {
@@ -136,6 +141,18 @@
     /*background: antiquewhite;*/
     /*z-index: 18;*/
     /*line-height: 49px;*/
+    border: 1px solid rgba(0, 0, 0, 0.42);
+    /*height: 50px;*/
+    /*width: 50px;*/
+    /*border-radius: 50%;*/
+    background-color: red;
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    line-height: 50px;
+    position: fixed;
+    left: 65%;
+    top: 60%;
   }
 
 

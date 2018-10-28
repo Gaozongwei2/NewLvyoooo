@@ -45,11 +45,8 @@
           <a href="/u/87710821.html" target="_blank" class="per_name" title="采蘑菇的juju佩奇" v-text="travel['title']">采蘑菇的juju佩奇</a>
           <!--用户等级 -->
           <a href="/u/87710821.html" target="_blank" class="per_grade" title="LV.11">LV.11</a>
-          <div  style="width: 48px;height: 13px;border: 0px ;background-color: limegreen ;font-size: 11px;position: relative;top: 5%"  @click="changefocus" ref="focus">
-            关注他
-          </div>
-          <!--<img src="http://images.mafengwo.net/images/home/tweet/btn_sfollow.gif" width="38" height="13" border="0"-->
-               <!--title="关注TA">-->
+          <img src="http://images.mafengwo.net/images/home/tweet/btn_sfollow.gif" width="38" height="13" border="0"
+               title="关注TA">
           <span class="now_time" v-text="travel['time']">2018-09-01 14:01</span>
 
           <!--浏览数量-->
@@ -68,14 +65,10 @@
 
       <!--点赞-->
       <div class="col-md-1">
-        <!--<div class=" praise">-->
-          <!--<i @cilck="good"></i> <br>-->
-          <!--<span v-model="goodnum" @click="good">23</span>点赞-->
-        <!--</div>-->
-          <div  class=" praise">
-            <i @cilck="good"></i> <br>
-            <span  @click="good" v-text="goodnum"></span>
-          </div>
+        <div class=" praise">
+          <i @cilck="good"></i> <br>
+          <span v-model="goodnum" @click="good">23</span>点赞
+        </div>
       </div>
     </div>
     <!--界面名字：TravelMian-->
@@ -94,23 +87,15 @@
       return {
 
         collect: 0,
+        collectstatus:'',
         praise: 25,
         clickable: false,
-        // travel: {
-        //   "id": '',
-        //   "title": "只有聪明的人才能看到标题",
-        //   "view": 0,
-        //   "good": 0,
-        //   "collect": 0,
-        // clickable:false,
-        // goodnum:'点赞',
-        travel:{
-          "id":'',
-
-          "title":"只有聪明的人才能看到标题",
-          "view":0,
-          "good":0,
-          "collect":0,
+        travel: {
+          "id": '',
+          "title": "只有聪明的人才能看到标题",
+          "view": 0,
+          "good": 0,
+          "collect": 0,
         },
         goodnum: travel['good']
       }
@@ -121,21 +106,24 @@
       vm.travel = vm.$route.params.travel
       // 计算游记被收藏数
       console.log(vm.travel["id"])
-      axios.get('http://127.0.0.1:8000/user/numcollect/'+ vm.travel['id']+'/')
+      axios.get('http://127.0.0.1:8000/user/numcollect/' + vm.travel['id'] + '/')
         .then(function (response) {
           vm.collect = response.data
-          console.log("收藏数"+ response.data)
+          console.log("收藏数" + response.data)
         })
         .catch(function (error) {
           return error
         })
 
     },
+
+
     methods: {
 
       collecttravelnote: function (event) {
+
         var vm = this
-        if (!vm.clickable){
+        if (!vm.clickable) {
           let num = event.target.id
           num = num.split("t")[0]
           vm.collect = parseInt(num) + 1
@@ -143,37 +131,27 @@
           // 更新收藏
           var params = new URLSearchParams();
           collect = {
-            "ctravelnote_id":vm.travel["id"],
-            "cuser_id":sessionStorage.getItem("id")
+            "ctravelnote_id": vm.travel["id"],
+            "cuser_id": sessionStorage.getItem("id")
           }
           alert(collect)
           console.log(collect)
-          params.append('usermessage',collect)
-          axios.post('http://127.0.0.1:8000/user/updatecollect/',params)
+          params.append('usermessage', collect)
+          axios.post('http://127.0.0.1:8000/user/updatecollect/', params)
             .then(
 
             )
             .catch(
 
             );
-        }else{
+        } else {
           alert("你已经收藏过了")
         }
       },
-      // 取消关注
-      changefocus:function () {
-        if(this.$refs.focus.innerHTML=="取消关注"){
-            this.$refs.focus.innerHTML='已关注'
-        }
-        else{
-          this.$refs.focus.innerHTML='取消关注'
-        }
-      },
-
-  // 点赞方法
-      good:function () {
+      // 点赞方法
+      good: function () {
         var vm = this
-        vm.goodnum ++
+        vm.goodnum++
         // vm.travel['good'] = vm.travel['good'] + 1
 
       }
@@ -207,6 +185,10 @@
 </script>
 
 <style scoped>
+  .collect{
+    background: url("../../assets/travelnote/collect22.png")!important;
+    background-size: cover;
+  }
   body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td {
     margin: 0;
     padding: 0;

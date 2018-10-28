@@ -4,7 +4,7 @@
     <div class="outbox">
       <div class="boxleft" v-for="i in pagelist">
         <!--用来存id的隐藏div-->
-        <router-link :to="{name:'travelnotes',params:{travel:travels[i-1]}}">
+        <router-link :to="{name:'HelloWorldAll',params:{travel:travels[i-1]}}">
           <div :id="travels[i-1]['id']" @click='showthat($event)'>
 
             <div class="leftcover" v-bind:style="{background:'url('+travels[i-1]['scover__url']+')' ,backgroundSize:'cover'}"
