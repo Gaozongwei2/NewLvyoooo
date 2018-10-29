@@ -10,7 +10,7 @@
         </div>
         <div class="col-lg-4 col-md-4 col-lg-offset-3" style="margin-top: 1%;height: 15px">
           <input type="text" maxlength="7" :readonly="readonly" ref="title" @blur="disfocus()"
-                 class="form-control text-center input-rename  float center-block" value="洛阳发两日玩法"
+                 class="form-control text-center input-rename  float center-block" v-model="title"
                  style="">
           <a href="#" class="float rename" style="font-size: 14px; height:35px; line-height: 35px; margin-left: 10px;  color: #ff9e00;text-decoration:none;"
              @click="rename">重命名</a>
@@ -253,8 +253,9 @@
     name: 'E_Top',
     data() {
       return {
+        tid:'',
         cityshow: false,
-        title: '', //攻略标题
+        title: '东北两日玩法', //攻略标题
         mainmessage: '',
         warning2: false,
         warntext: '',
@@ -305,7 +306,6 @@
         //存放每天的游记攻略
         playday: [],
 
-
         //测试========
         messagelist: [],
 
@@ -315,10 +315,18 @@
         tra:'',
         tic:'',
         foo:'',
-
+        city:[],
+        daym :{
+          "playt": '',
+          "cont":'',
+          "tra":'',
+          "tic":'',
+          "foo":'',
+          "city":[],
+        },
 
         day: '',
-        city: [],
+
         test: [
           1, 2, 3, 4, 5
         ]
@@ -330,18 +338,32 @@
       //隐藏第二天的按钮
       this.leftday.push(this.msg)
       var day = {
-        "playt": ''
+        "playt": '',
+        "cont":'',
+        "tra":'',
+        "tic":'',
+        "foo":'',
+        "city":[],
       }
       this.messagelist.push(day)
       console.log(day)
     },
     watch: {
       gao: function (newd, oldd) {
-        alert(newd)
       }
     },
 
     methods: {
+      // 获取当前时间方法
+      gettimenow:function(){
+        let date  = new Date()
+        //系统当前时间
+        let year = date.getFullYear();
+        let month = date.getMonth()+1;//js中是从0开始所以要加1
+        let day = date.getDate();
+        let utime = year+'-'+month+'-'+day
+        return utime
+      },
       // 重命名按钮
       rename: function (text) {
         var vm = this
@@ -371,24 +393,91 @@
         let id = event.target.id
         this.city.splice(id, 1)
       },
+      // 保存主表信息方法
+      savemain:function(){
+        var vm = this
+        // 存储当前界面信息
+        //取出当前页面显示的数据
+        var playt = vm.$refs.ywgl[0].innerHTML
+        var cont = vm.$refs.content[0].innerHTML
+        var transf = vm.$refs.transf[0].innerHTML
+        var ticket = vm.$refs.ticket[0].innerHTML
+        var food = vm.$refs.food[0].innerHTML
+        vm.daym = {
+          "playt": playt,
+          'cont': cont,
+          'tra': transf,
+          'tic':ticket,
+          'foo':food,
+          'city':vm.city,
+        }
+        //取出当前显示界面的天数
+        var day = this.$refs.day[0].innerHTML
+        //更新当前显示界面的数据
+        vm.messagelist[day - 1] = vm.daym
+        // 获取保存主表信息
+        var strategy= [{
+          "title":vm.title,
+          "state":vm.daym['city'][0],
+          "time": vm.gettimenow(),
+          "good":0,
+          "view":0,
+          "content":vm.daym['cont'],
+          "condition_id":1,
+          "scover_id":3,
+          "userid_id":vm.id,
+        }]
+        var params = new URLSearchParams()
+        params.append('strategy', JSON.stringify(strategy))
+        axios.post('http://127.0.0.1:8000/strategy/addstrategy/', params)
+          .then(function (response) {
+            vm.tid = response.data
+          })
+          .catch(
+          )
+      },
       // 保存按钮
       save: function () {
         var vm = this
+
         // 判断主题信息是否为空
-        if (vm.title) {
-          // 更新当前页面存储的信息
-          //取出当前页面显示的数据
-          var playt = vm.$refs.ywgl[0].innerHTML
-          var daym = {
-            "playt": playt
-          }
-          //取出当前显示界面的天数
-          var day = this.$refs.day[0].innerHTML
-          //更新当前显示界面的数据
-          vm.messagelist[day - 1] = daym
-          alert("hahahaha")
+        if (vm.title.length != 0) {
+          vm.savemain()
+          var strategy = vm.tid
+          alert(vm.tid)
           var params = new URLSearchParams()
-          params.append('title', JSON.stringify(this.messagelist))
+          // 数据清洗
+          var strategys = []
+          var content = {
+            "contents":'',
+            "advantage":'',
+            "address":'',
+            "play":'',
+            "playphoto":'',
+            "traffic":'',
+            "ticket":'',
+            "food":'',
+            "foodphoto":'',
+            "sid_id":'',
+          }
+          console.log(vm.messagelist)
+          for (let i in vm.messagelist){
+            console.log(i)
+            content["contents"] = vm.messagelist[i]['cont']
+            content["advantage"] = vm.messagelist[i]['city']
+            content['address'] = ''
+            content['play'] = vm.messagelist[i]['playt']
+            content['playphoto'] = '',
+            content['traffic'] = vm.messagelist[i]['tra']
+            content['ticket'] = vm.messagelist[i]['tic']
+            content['food'] = vm.messagelist[i]['foo']
+            content['foodphoto'] = ''
+            alert(strategy)
+            content['sid_id'] = parseInt(strategy)
+            strategys.push(content)
+            console.log(strategys)
+          }
+          params.append('strategy', JSON.stringify(strategys))
           axios.post('http://127.0.0.1:8000/strategy/addcontent/', params)
             .then(function (response) {
               console.log(response.data)
@@ -404,8 +493,6 @@
       //左侧导航按钮上的天数
       clickone: function () {
         var vm = this
-        // vm.newtest= 1
-
       },
 
       // 点击左侧天数
@@ -417,17 +504,18 @@
         var transf = vm.$refs.transf[0].innerHTML
         var ticket = vm.$refs.ticket[0].innerHTML
         var food = vm.$refs.food[0].innerHTML
-        var daym = {
+        vm.daym = {
           "playt": playt,
           'cont': cont,
           'tra': transf,
           'tic':ticket,
           'foo':food,
+          'city':vm.city,
         }
         //取出当前显示界面的天数
         var day = this.$refs.day[0].innerHTML
         //更新当前显示界面的数据
-        vm.messagelist[day - 1] = daym
+        vm.messagelist[day - 1] = vm.daym
         //从列表中取出点击天数的数据
         var nowday = event.target.id
         var nowdayms = vm.messagelist[nowday - 1]
@@ -436,6 +524,7 @@
         vm.tra = nowdayms['tra']
         vm.tic = nowdayms['tic']
         vm.foo = nowdayms['foo']
+        vm.city = nowdayms['city']
         console.log(vm.messagelist)
         vm.newtest = event.target.id
         //获取当前按钮的天数
@@ -453,18 +542,18 @@
         var transf = vm.$refs.transf[0].innerHTML
         var ticket = vm.$refs.ticket[0].innerHTML
         var food = vm.$refs.food[0].innerHTML
-        alert(cont)
-        var daym = {
+        vm.daym = {
           "playt": playt,
           "cont": cont,
           "tra":transf,
           'tic':ticket,
           'foo':food,
+          'city':vm.city,
         }
         //取出当前显示界面的天数
         var day = this.$refs.day[0].innerHTML
         //更新当前显示界面的数据
-        vm.messagelist[day - 1] = daym
+        vm.messagelist[day - 1] = vm.daym
         //获取第几天
         vm.msg++
         //新建第几天的按钮和模版
@@ -472,18 +561,22 @@
         vm.newtest = vm.msg
 
         // 获取新表数据===========================
-        var playt = ''
-        var cont = ''
-        var tra = ''
-        var tic = ''
-        var daym = {
-          "playt": playt,
-          "cont":  cont,
-          "tra": tra,
-          'tic':tic,
-          'foo':foo,
+        vm.city=[]
+        vm.playt='',
+        vm.cont='',
+        vm.tra='',
+        vm.tic='',
+        vm.foo='',
+
+        vm.daym = {
+          "playt": '',
+          "cont":  '',
+          "tra": '',
+          'tic': '',
+          'foo':'',
+          'city':[],
         }
-        vm.messagelist.push(daym)
+        vm.messagelist.push(vm.daym)
         console.log(vm.messagelist)
       },
 

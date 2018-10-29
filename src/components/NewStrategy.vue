@@ -10,18 +10,18 @@
             <div class="leftcover" v-bind:style="{background:'url('+travels[i-1]['scover__url']+')' ,backgroundSize:'cover'}"
                  :id="travels[i-1]['id']">
               <div class="lefttxt">
-                <div class="lefttitle" v-text="travels[i-1]['title']" @click="showthat" style="background-size: cover;">
+                <div class="lefttitle" v-text="travels[i-1]['title']" @click="showthat" style="background-size: cover; color: white">
                   第一次来到苏州，感觉还不错
                 </div>
                 <div class="txt">
                   <div class="usericno left">
                     <img class="usericno" :src="travels[i-1]['userid__icno__imageurl']" alt="" height="20px" width="20px">
                   </div>
-                  <div class="username left" :id="i" style="color: green" @click="showpage($event)"><a href="javascrip:;" v-text="travels[i-1]['userid__username']" ></a>
+                  <div class="username left" :id="i" style="color: green" @click="showpage($event)"><a href="javascrip:;" v-text="travels[i-1]['userid__username']" style="color: white"></a>
                   </div>
-                  <div class="leftstate left" v-text="travels[i-1]['state']">地址</div>
-                  <div class="leftgood left" v-text="travels[i-1]['good']">点赞</div>
-                  <div class="leftview left" v-text="travels[i-1]['view']">浏览</div>
+                  <div class="leftstate left" v-text="travels[i-1]['state']" style="color: whitesmoke">地址</div>
+                  <div class="leftgood left" v-text="travels[i-1]['good']" style="color: whitesmoke">点赞</div>
+                  <div class="leftview left" v-text="travels[i-1]['view']" style="color: whitesmoke">浏览</div>
                 </div>
               </div>
             </div>
@@ -237,7 +237,7 @@
     width: 400px;
     top: 145px;
     overflow: hidden;
-    background-color: rgba(255, 251, 249, 0.56);
+    background-color: rgba(0, 0, 0, 0.25);
     border-radius: 0 0 10px 10px;
     padding: 5px 10px 10px 10px;
   }

@@ -252,11 +252,10 @@
 
   /*万用搜索键*/
   .thegadofsearch{
-    border: 1px solid rgba(0, 0, 0, 0.42);
     height: 50px;
     width: 50px;
     border-radius: 50%;
-    background-color: red;
+    background-color: rgba(255, 0, 0, 0.83);
     color: white;
     font-size: 25px;
     text-align: center;
@@ -266,7 +265,7 @@
     top: 60%;
   }
   .thegadofsearch:hover{
-    background-color: #ab0000;
+    background-color: #ff0000;
 
   }
   .thegadofsearch a{

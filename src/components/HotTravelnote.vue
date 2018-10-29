@@ -287,7 +287,6 @@
     width: 80%;
     /*background-color: limegreen;*/
     overflow: hidden;
-
   }
 
   /*基础框架*/

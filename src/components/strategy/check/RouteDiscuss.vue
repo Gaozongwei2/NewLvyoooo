@@ -1,47 +1,44 @@
 <!--路线讨论区-->
 <template>
-  <div>
-    <div class="container-fluid bg-color-ff" style="padding-left: 50px;" id="three">
+  <div class="container-fluid">
 
-      <div class="row">
-
-        <!--左边空格-->
-        <div class="col-lg-1"></div>
-
-        <!-- 中间内容-->
-        <div class="col-lg-10 bg-color-ff" style=" margin-top: 15px;width: 80%;">
-
-          <!--标题-->
-          <div class="h2 text-center" style="padding: 40px 0px">
-            讨论区
-          </div>
-
-          <!--输入框-->
-          <div>
-            <!--多文本输入框-->
-            <form role="form" class="text-center">
-              <div class="form-group">
-                <textarea id="distext" class="form-control float" rows="2"
-                          style="background: none;transform: none;border: 0"></textarea>
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-warning " @click="up">发 布</button>
-                </span>
-              </div>
-            </form>
-          </div>
-
-          <!--向子组件传值-->
-          <discuss :ulists="lists"></discuss>
-
-          <!--右边空格-->
-          <div class="col-lg-1"></div>
-        </div>
-      </div>
-    </div>
-
-    <!--分页-->
-    <!--<page-index :count="pagesize" @indexclick="getIndex"></page-index>-->
   </div>
+  <!--<div>-->
+    <!--<div class="container-fluid bg-color-ff" style="padding-left: 50px; height: auto" id="three">-->
+      <!--<div class="row">-->
+        <!--&lt;!&ndash;左边空格&ndash;&gt;-->
+        <!--<div class="col-lg-1"></div>-->
+        <!--&lt;!&ndash; 中间内容&ndash;&gt;-->
+
+        <!--<div class="col-lg-10 bg-color-ff" style=" margin-top: 15px;width: 80%;">-->
+          <!--&lt;!&ndash;标题&ndash;&gt;-->
+          <!--<div class="h2 text-center" style="padding: 40px 0px">-->
+            <!--讨论区-->
+          <!--</div>-->
+          <!--&lt;!&ndash;输入框&ndash;&gt;-->
+          <!--<div>-->
+            <!--&lt;!&ndash;多文本输入框&ndash;&gt;-->
+            <!--<form role="form" class="text-center">-->
+              <!--<div class="form-group">-->
+                <!--<textarea id="distext" class="form-control float" rows="2"-->
+                          <!--style="background: none;transform: none;border: 0"></textarea>-->
+                <!--<span class="input-group-btn">-->
+                  <!--<button type="button" class="btn btn-warning " @click="up">发 布</button>-->
+                <!--</span>-->
+              <!--</div>-->
+            <!--</form>-->
+          <!--</div>-->
+          <!--&lt;!&ndash;向子组件传值&ndash;&gt;-->
+          <!--<discuss :ulists="tt"></discuss>-->
+          <!--&lt;!&ndash;右边空格&ndash;&gt;-->
+          <!--<div class="col-lg-1"></div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <!--&lt;!&ndash;分页&ndash;&gt;-->
+    <!--&lt;!&ndash;<page-index :count="pagesize" @indexclick="getIndex"></page-index>&ndash;&gt;-->
+  <!--</div>-->
 </template>
 
 <!--复制模板-->
@@ -71,6 +68,13 @@
       Discuss
     },
     created(){
+      let id = this.tt['id']
+      if (id == 1){
+        this.searchtravelnotecommit()
+      }else if(id == 2){
+
+      }
+
       console.log(this.tt)
     },
     mounted: function () {
@@ -82,7 +86,7 @@
 
       // this.getPageSize();
 
-      this.searchData()
+      // this.searchData()
 
     },
 
@@ -182,6 +186,11 @@
         // 清空文本框
         discusstxt.value = ""
       },
+      // 查询游记评论
+      searchstrategycommit:function () {
+
+      },
+
       // getData: function () {
       //   let vm = this;
       //   axios.get('http://0.0.0.0:8000/strategy/getcontent/'+vm.pageindex+'/')
@@ -206,11 +215,11 @@
       //       console.log(error)
       //     })
     },
-    searchData: function () {
-      this.pageindex = 1;
-      // this.getData();
-      // this.getPageSize();
-    },
+    // searchData: function () {
+    //   this.pageindex = 1;
+    //   // this.getData();
+    //   // this.getPageSize();
+    // },
     getIndex: function (i) {
       this.pageindex = i;
       // this.getData();

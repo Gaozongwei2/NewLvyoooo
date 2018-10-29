@@ -19,7 +19,7 @@
             <div>
               <span class="left identification" v-text="strategy['condition__condition']">已发布</span>
               <div class="fix right btn btn-success bb">编辑</div>
-              <div class="fix right btn btn-danger bb" data-toggle="modal" data-target="#myModal">删除</div>
+              <div class="fix right btn btn-danger bb" data-toggle="modal" data-target="#myModal"  :id="strategy['id']">删除</div>
             </div>
           </div>
         </div>

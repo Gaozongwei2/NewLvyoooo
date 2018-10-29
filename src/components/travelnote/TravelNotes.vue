@@ -3,7 +3,7 @@
     <div class="container-fluid" style="padding: 0px; margin: 0px ;height: 58px">
       <div class="col-md-3" id="logo-img"><router-link to="/"><img src="../../assets/images/logoweight.png" alt="" height="50px" width="150px" ></router-link></div>
       <ul class="col-md-3" id="nav-list">
-        <router-link to="/"><li>首页</li></router-link>
+        <router-link to="/hottravelnote"><li>首页</li></router-link>
         <router-link to="/strategy"> <li>游记攻略</li></router-link>
         <router-link to="/write"><li>写游记</li></router-link>
       </ul>
@@ -15,7 +15,7 @@
           <li >
             <router-link to="/usercenter"><a href="####">
               <img class="img-circle icno col-md-6"src="http://n2-q.mafengwo.net/s10/M00/6C/09/wKgBZ1nm_RuAcRY4AABeA1K-J9Y49.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90" alt="">
-              <span class="left col-md-6"v-text="user['username']"style="color: whitesmoke">棕色试剂瓶</span></a>
+              <span class="left col-md-6" style="color: whitesmoke">棕色试剂瓶</span></a>
             </router-link>
           </li>
         </ul>
@@ -27,7 +27,7 @@
           <li><router-link to="/usercenter/mystrategys"><a href="####">我的攻略</a></router-link></li>
           <li><router-link to="/write"><a href="####">写游记</a></router-link></li>
           <li><router-link to="/edit"><a href="####">写攻略</a></router-link></li>
-          <li><a href="javascript:;" class="exit" @click="exit">退出</a></li>
+          <li><a href="javascript:;" class="tuichu" @click="tuichu">退出</a></li>
         </ul>
       </div>
     </div>
@@ -98,6 +98,7 @@
         praise: 25,
         clickable:false,
         goodnum:'点赞',
+        bianmei:true,
         travel:{
           "id":'',
           "title":"只有聪明的人才能看到标题",
@@ -114,14 +115,14 @@
       vm.travel = vm.$route.params.travel
       // 计算游记被收藏数
       console.log(vm.travel["id"])
-      axios.get('http://127.0.0.1:8000/user/numcollect/'+ vm.travel['id']+'/')
-        .then(function (response) {
-          vm.collect = response.data
-          console.log("收藏数"+ response.data)
-        })
-        .catch(function (error) {
-          return error
-        })
+      // axios.get('http://127.0.0.1:8000/user/numcollect/'+ vm.travel['id']+'/')
+      //   .then(function (response) {
+      //     vm.collect = response.data
+      //     console.log("收藏数"+ response.data)
+      //   })
+      //   .catch(function (error) {
+      //     return error
+      //   })
 
     },
     methods: {
@@ -175,6 +176,9 @@
     },
     collectadd: function () {
       alert('ok')
+    },
+    tuichu:function(){
+
     },
 
     //离开页面浏览数加 1
@@ -441,11 +445,11 @@
     vertical-align: center;
   }
 
-  .username {
-    font-size: small !important;
-    line-height: 54px;
-    vertical-align: center;
-  }
+  /*.username {*/
+    /*font-size: small !important;*/
+    /*line-height: 54px;*/
+    /*vertical-align: center;*/
+  /*}*/
 
   .usermessage {
     display: none;

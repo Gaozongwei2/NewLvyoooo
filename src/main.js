@@ -16,7 +16,8 @@ import StateAdd from './components/strategy/edit/StateAdd'
 
 import motaikuangdelete from './components/personalcenter/motaikuangdelete'
 
-
+// 分页组件
+import Pagination from './components/Pagination'
 
 // 测试组件
 import TestX from './components/TestX'
@@ -93,6 +94,7 @@ Vue.component('stateadd',StateAdd)
 
 // 测试组件
 //分页
+
 import PageIndex from './components/PageIndex'
 
 // Vue.component('test',test1)
