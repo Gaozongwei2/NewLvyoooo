@@ -72,10 +72,6 @@ import MyAchieve from './components/personalcenter/MyAchieve'
 
 
 
-import test1 from './components/test1'
-
-
-
 // import Footer from './components/Footer'
 
 // 搜索结果

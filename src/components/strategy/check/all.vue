@@ -4,7 +4,7 @@
     <nav-bottom></nav-bottom>
     <route-view></route-view>
     <specific-route></specific-route>
-    <route-discuss></route-discuss>
+    <route-discuss :tt="this.res"></route-discuss>
     <!--轮播-->
     <!--<sowing-map></sowing-map>-->
     <!--<hello></hello>-->
@@ -15,11 +15,23 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'HelloWorldAll',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      res:'',
+      travels:'',
     }
+  },
+  created(){
+    var vm = this
+    vm.travels = vm.$route.params.travel
+    vm.res={
+      'id':vm.travels['id'],
+        //游记的状态为1
+        'flag':2
+    },
+    console.log(vm.travels)
+
   }
 }
 </script>

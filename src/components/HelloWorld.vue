@@ -30,13 +30,13 @@
         </ul>
         <ul class="col-md-2 nav navbar navbar-right droplist">
           <li class="switch"></li>
-          <li><router-link to="/usercenter/mycollect"><a href="####">我的关注</a></router-link></li>
+          <li ><router-link to="/usercenter/mycollect"><a href="####" >我的关注</a></router-link></li>
           <li><router-link to="/usercenter/myfocus"><a href="####">我的收藏</a></router-link></li>
           <li><router-link to="/usercenter/mytravelnotes"><a href="####">我的游记</a></router-link></li>
           <li><router-link to="/usercenter/mystrategys"><a href="####">我的攻略</a></router-link></li>
           <li><router-link to="/write"><a href="####">写游记</a></router-link></li>
           <li><router-link to="/edit"><a href="####">写攻略</a></router-link></li>
-          <li><a href="javascript:;" class="exit" @click="exit">退出</a></li>
+          <li @click="loginout()"><router-link to="/"><a href="javascript:;" class="exit" >退出</a></router-link></li>
         </ul>
         <!--<div v-if="aa">-->
         <!--<div class="col-md-1"></div>-->
@@ -148,7 +148,14 @@
       this.showtrvelnotes()
     },
 
-    methods: {
+    methods:{
+
+      //点击退出
+      loginout:function(){
+        var vm = this
+        sessionStorage.setItem('token','0')
+        this.bianmei = false
+      },
       //查询用户信息
       getmymessage: function () {
         var vm = this
@@ -201,7 +208,6 @@
           event.currentTarget.style.backgroundColor = "green"
           vm.termtext = event.currentTarget.id
         }
-
       },
       // 搜索方法
       search: function () {
@@ -233,22 +239,19 @@
     background-color: white;
     border: 1px whitesmoke solid;
   }
-
-  .all {
+  .all{
     background-color: green;
   }
-
-  .searchtxt {
+  .searchtxt{
     color: whitesmoke;
   }
-
-  .searchlogo {
+  .searchlogo{
     height: 20px;
     margin: 15px 0 10px 0;
   }
 
   /*万用搜索键*/
-  .thegadofsearch {
+  .thegadofsearch{
     border: 1px solid rgba(0, 0, 0, 0.42);
     height: 50px;
     width: 50px;
@@ -262,53 +265,46 @@
     left: 92%;
     top: 60%;
   }
-
-  .thegadofsearch:hover {
+  .thegadofsearch:hover{
     background-color: #ab0000;
 
   }
-
-  .thegadofsearch a {
+  .thegadofsearch a{
     text-decoration: none;
     color: white;
   }
-
   /*搜索框*/
-  .searchbox {
+  .searchbox{
     background-color: rgba(0, 0, 0, 0.36);
     border-radius: 5px;
     height: 100px;
     width: 600px;
     position: absolute;
     left: 50%;
-    top: 320px;
-    transform: translate(-50%, 0);
+    top:320px;
+    transform: translate(-50%,0);
     z-index: 50;
 
   }
-
-  .inputbox {
+  .inputbox{
 
   }
-
-  .searchinput {
+  .searchinput{
     height: 45px;
     border: none;
     border-radius: 5px 0 0 5px;
     outline: none;
   }
-
-  .searchimg {
+  .searchimg{
     height: 45px;
     width: 45px;
     border-radius: 0 5px 5px 0;
     background-color: limegreen;
-    background-size: contain;
+    background-size:contain;
     padding: 5px;
     background-image: url("../assets/images/search.png");
 
   }
-
   .title1 {
     height: 54px;
     background-color: #333333 !important;
@@ -319,29 +315,26 @@
     border-radius: 0px !important;
     /*display: none;*/
   }
-
-  .sowingmap #searchbox {
-    width: 300px !important;
-    height: 60px !important;
+  .sowingmap #searchbox{
+    width: 300px!important;
+    height: 60px!important;
     background-color: rgb(14, 0, 6) !important;
     /*filter: alpha(opacity=50);*/
-    position: absolute !important;
-    top: 500px !important;
-    left: 500px !important;
+    position: absolute!important;
+    top: 500px!important;
+    left: 500px!important;
     /*font-size: 14px;*/
     /*color: whitesmoke;*/
-    z-index: 10 !important;
+    z-index: 10!important;
     /*transition: height 0.1s;*/
     border-radius: 4px;
   }
-
-  .search {
+  .search{
     height: 60px;
     width: 100%;
     border: whitesmoke 1px solid;
     border-radius: 5px;
   }
-
   .title1 a {
     color: whitesmoke !important;
     font-size: 17px !important;
@@ -382,7 +375,6 @@
     width: 100%;
     background-color: yellowgreen;
   }
-
   .notes-del-confirm {
     width: 480px;
     text-align: center;
@@ -392,8 +384,7 @@
     z-index: 501;
     margin: -130px 0px 0px -240px;
   }
-
-  .notes-del-confirm {
+  .notes-del-confirm{
     width: 480px;
     text-align: center;
     position: fixed;
@@ -402,15 +393,13 @@
     z-index: 501;
     margin: -130px 0px 0px -240px;
   }
-
   /*title2*/
 
-  .title2 {
+  .title2{
     box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 5px 3px;
     /*display: none;*/
   }
-
-  .title2-left li:active {
+  .title2-left li:active{
     background-color: rgba(76, 174, 76, 0.75) !important;
     transition: background-color 0.3s;
     color: whitesmoke;
@@ -454,8 +443,7 @@
     height: 54px;
     width: 190px;
   }
-
-  .nologin {
+  .nologin{
     display: none;
   }
 
@@ -468,6 +456,7 @@
     padding: 0;
     color: #fcfcfc !important;
     border-radius: 5px;
+    width: 150px!important;
     width: 200px !important;
     position: absolute;
     left: 1052px;
@@ -482,7 +471,6 @@
   .droplist li:hover + .droplist li a{
     color: #3c3c3c!important;
   }
-
   .droplist .switch {
     height: 5px;
     opacity: 0;

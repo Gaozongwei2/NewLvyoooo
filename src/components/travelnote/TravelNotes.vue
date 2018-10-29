@@ -51,13 +51,13 @@
         <strong>
           <a href="/u/87710821.html" target="_blank" class="per_name" title="采蘑菇的juju佩奇" v-text="travel['title']">采蘑菇的juju佩奇</a>
           <a href="/u/87710821.html" target="_blank" class="per_grade" title="LV.11">LV.11</a>
-          <div  style="width: 48px;height: 13px;border: 0px ;background-color: limegreen ;font-size: 11px;position: relative;top: 5%"  @click="changefocus" ref="focus">
-            关注他
-          </div>
-          <!--<img src="http://images.mafengwo.net/images/home/tweet/btn_sfollow.gif" width="38" height="13" border="0"-->
-               <!--title="关注TA">-->
+          <img src="http://images.mafengwo.net/images/home/tweet/btn_sfollow.gif" width="38" height="13" border="0"
+               title="关注TA">
           <span class="now_time" v-text="travel['time']">2018-09-01 14:01</span>
-          <span v-text="travel['view']"><i class="ico_view"></i>5754/44</span>
+
+          <!--浏览数量-->
+          <img src="../../assets/travelnote/浏览.png" alt="" class="look">
+          <span v-text="travel['view']"></span>
         </strong>
       </div>
 
@@ -70,18 +70,16 @@
         </a>
       </div>
 
-
       <!--点赞-->
-
       <div class="col-md-1">
-          <div  class=" praise">
-            <i @cilck="good"></i> <br>
-            <span  @click="good" v-text="goodnum"></span>
-          </div>
+        <div class=" praise">
+          <i @cilck="good"></i> <br>
+          <span v-model="goodnum" @click="good">23</span>点赞
+        </div>
       </div>
     </div>
     <!--界面名字：TravelMian-->
-    <travel-main></travel-main>
+    <travel-main :travels="this.travel"></travel-main>
   </div>
 
 
@@ -89,12 +87,14 @@
 
 <script>
   import axios from 'axios'
+
   export default {
     name: "TravelNotes",
     data() {
       return {
 
         collect: 0,
+        collectstatus:'',
         praise: 25,
         clickable:false,
         goodnum:'点赞',
@@ -105,6 +105,7 @@
           "good":0,
           "collect":0,
         },
+
       }
 
     },
@@ -165,7 +166,7 @@
   // 点赞方法
       good:function () {
         var vm = this
-        vm.goodnum ++
+        vm.goodnum++
         // vm.travel['good'] = vm.travel['good'] + 1
 
       }
@@ -173,18 +174,35 @@
     dianzan: function () {
     },
     collectadd: function () {
+      alert('ok')
+    },
 
-    }
+    //离开页面浏览数加 1
+    mounted: function () {
+      this.travel['view']++
+      //存储用户浏览数
+      var params = new URLSearchParams();
+      console.log("jfkdjsfkdj"+ this.travel['view'])
+      params.append('view',this.travel['view'] )
 
+      axios.post('http://localhost:8000/travelnote/updatelooknum/' +this.travel['id']+'/',params)
+        .then(function (response) {
+          vm.looknum= response.data
+          console.log(vm.looknum)
+          vm.getpages()
+        })
+        .catch(function (error) {
+          return error
+        })
+    },
   }
 </script>
 
-
-
-
-
-
 <style scoped>
+  .collect{
+    background: url("../../assets/travelnote/collect22.png")!important;
+    background-size: cover;
+  }
   body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td {
     margin: 0;
     padding: 0;
@@ -200,10 +218,11 @@
   #logo-img {
     /*background-image: url("../../assets/travelnote/logoweight.png");*/
     height: 40px;
-    width: 150px;
+    width: 130px;
     background-repeat: no-repeat;
     margin-left: 100px;
-    margin-top: 5px;
+    margin-top: 11px;
+    z-index: 18;
   }
 
   #nav-list {
@@ -229,30 +248,45 @@
     border-top-left-radius: 5px;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
-    background-color: #fafafa;
+    background-color: #EFEFEF;
     border: none;
-    width: 130px;
-    height: 28px;
-    transition: width .5s ease 0s;
+    width: 60%;
+    height: 30px;
+    transition: width 0.5s;
+    background-image: url("../../assets/strategy/search2.svg");
     background-repeat: no-repeat;
-    margin-left: 10px;
-    margin-top: 6px;
+    background-position: 95%;
+    margin-top: 5px;
+    padding-left: 20px;
   }
 
   #search-bar-input:focus {
     outline-style: none;
-    transition: width .5s ease 0s;
-    width: 375px;
+    transition: width 1s;
+    width: 400px;
     text-shadow: none;
     -webkit-appearance: none;
     -webkit-user-select: text;
     outline-color: transparent;
     box-shadow: none;
-    border: 1px solid #ff9d00;
+    border: 1px solid #7cbd60;
+    background: url("../../assets/strategy/search22.png");
     background-position: 95%;
     background-repeat: no-repeat;
-    margin-left: 10px;
-    margin-top: 6px;
+    padding-left: 20px;
+  }
+
+  h1 {
+    width: 710px;
+    height: 80px;
+    font-size: 26px;
+    line-height: 80px;
+    overflow: hidden;
+    margin-left: 25%;
+    font-weight: bold;
+    color: #fff;
+    position: absolute;
+    margin-top: 28%;
   }
 
   h1 {
@@ -313,7 +347,7 @@
     color: #ff7200;
     font-size: 14px;
     font-weight: normal;
-    margin-left: -45%;
+    margin-left: -50%;
   }
 
   a.per_grade {
@@ -332,16 +366,18 @@
     margin-left: 10px;
   }
 
-  span i {
+  /*浏览数量图片*/
+  .look {
     width: 18px;
-    height: 14px;
+    height: 15px;
     display: inline-block;
-    background: url(../../assets/travelnote/浏览.png);
+    /*background: url(../../assets/travelnote/浏览.png);*/
     background-repeat: no-repeat;
     margin-right: 4px;
     vertical-align: -2px;
   }
-  span{
+
+  span {
     color: #acacac;
     font-size: 12px;
   }
@@ -353,7 +389,7 @@
     display: inline-block;
     background: url("../../assets/travelnote/collect.png");
     margin-top: 15px;
-    margin-left: 35px;
+    margin-left: 29px;
   }
 
   a.collect_num span {
