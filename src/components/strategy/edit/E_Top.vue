@@ -90,11 +90,11 @@
                   <!--景点地名-->
                   <div class="col-lg-8">
                     <ul class="space-size list-unstyled address-close" style="margin-top: 40px;margin-left: 20px">
-                      <li>
+                      <li v-for="c in city.length">
                             <span class="place">
-                                <strong>成都</strong>
+                                <strong v-text="city[c-1]">成都</strong>
                                 <i class="i-line"></i>
-                                <i class="i-close"></i>
+                                <i class="i-close" :id="c-1"  @click="delcity($event)"></i>
                             </span>
                       </li>
                     </ul>
@@ -113,12 +113,13 @@
                   </div>
                   <div class="col-lg-1" style="margin-top: 60px">
                     <!--添加目的地-->
-                    <button type="button" class="btn btn-default btn-style  " style="outline: none;width: 78px" >目的地
+                    <button type="button" class="btn btn-default btn-style  " style="outline: none;width: 78px" @click="addstate" >目的地
                     </button>
                     <!--删除本日-->
                   </div>
 
                 </div>
+
               </div>
 
               <!---------------------------------------详细攻略start-------------------------------------->
@@ -236,9 +237,10 @@
 
 
     </div>
+    <stateadd :getcity="cityshow" @htitlepush = "htitlepush"></stateadd>
 
     <!--信息不全提示-->
-    <mwarning2 :warning2="warning2" :text="warntext" @hidden="htitlepush"></mwarning2>
+    <!--<mwarning2 :warning2="warning2" :text="warntext" @hidden="htitlepush"></mwarning2>-->
 
   </div>
 </template>
@@ -251,6 +253,7 @@
     name: 'E_Top',
     data() {
       return {
+        cityshow:false,
         title:'', //攻略标题
         mainmessage:'',
 
@@ -313,6 +316,7 @@
         ],
         mms: '',
         day: '',
+        city:[],
         test:[
           1,2,3,4,5
         ]
@@ -353,6 +357,18 @@
         vm.$refs.title.style.outline = "none"
         vm.$refs.tilte.style.border = "rgba(0,0,0,0.2) 1px solid"
 
+      },
+      addstate:function(){
+        this.cityshow = !this.cityshow
+
+      },
+      htitlepush:function(city){
+        this.city.push(city)
+      },
+      // 删除地点卡片
+      delcity:function(event){
+        let id = event.target.id
+        this.city.splice(id,1)
       },
       // 保存按钮
       save:function(){
@@ -605,6 +621,11 @@
     background: url('../../../assets/strategy/取消.png') no-repeat;
     overflow: hidden;
     display: inline;
+  }
+  .i-close:hover{
+    transform: rotateZ(360deg);
+    -webkit-transform: rotateZ(360deg);
+    -moz-transform: rotateZ(360deg);
   }
 
   .address-close > li {

@@ -12,6 +12,7 @@ import MoTaiKuang from './components/MoTaiKuang'
 import moaikuang from './components/strategy/edit/moaikuang'
 import Mwarning from './components/MWarning'
 import Mwarning2 from './components/Mwarning2'
+import StateAdd from './components/strategy/edit/StateAdd'
 
 import motaikuangdelete from './components/personalcenter/motaikuangdelete'
 
@@ -92,6 +93,7 @@ Vue.component('mpush',Mpush)
 Vue.component('mwarning',Mwarning)
 Vue.component('mwarning2',Mwarning2)
 Vue.component('motaikuangdelete',motaikuangdelete)
+Vue.component('stateadd',StateAdd)
 
 // 测试组件
 //分页

@@ -23,12 +23,6 @@
         handler(newValue, oldValue) {
           //父组件param对象改变会触发此函数
           this.war = "motaikuang"
-          var t;
-          clearTimeout(t)
-          t = setTimeout(function (){
-            this.Hidden()
-          }, 500);
-
         },
         deep: true
       }
@@ -78,7 +72,7 @@
 
   .show {
     position: absolute;
-    top:35%;
+    /*top:35%;*/
     width: 20%;
     left: 50%;
     height: 100px;

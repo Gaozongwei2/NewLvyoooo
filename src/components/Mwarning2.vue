@@ -29,7 +29,6 @@
           t = setTimeout(function (){
             this.Hidden()
           }, 1000);
-
         },
         deep: true
       },
@@ -44,7 +43,6 @@
       }
     },
     created() {
-
     },
     methods: {
       // 点击空白处消失
@@ -67,6 +65,7 @@
     border: #3f9f5f 10px solid;
     background-color: whitesmoke;
   }
+
   .motaikuang {
     position: fixed;
     top: 0;

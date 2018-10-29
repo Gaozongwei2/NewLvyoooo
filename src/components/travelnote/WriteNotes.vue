@@ -19,7 +19,7 @@
 
     <div class="set_index">
       <!--中间添加图片部分---------------------------------->
-      <div class="set_page">
+      <div class="set_page" :style="{background:'url('+this.cover_url+')'}">
         <a role="button" class="set_add" @click="changecoverimg"></a>
         <h2>设置游记头图</h2>
         <p>图片建议选择尺寸大于1680px的高清大图，如相机原图</p>
@@ -83,6 +83,8 @@
         condition:1,
         marks:15,
         id:sessionStorage.getItem("id"),
+        tid:'',
+        cover_url:'',
         travel:{
           "title":'',
           "time":'',
@@ -95,19 +97,50 @@
           "cover_id":37,
           "user_id":this.id,
         },
-        title:'填写游记标题',
+        title:'',
         contentx:'',
         state:'北京',
         // 存放内容HTML
         content:'先简单介绍一下你的游记吧......',
         // 内容id
         contentid:'',
+        // 是否发布
         conditionid:2,
       }
     },
     created(){
+      this.travel = this.$route.params.travel
+      this.tid = this.travel['id']
+      if(this.tid){
+        this.title = this.travel['id']
+        this.cover_url = this.travel['cover__url']
+        this.good = this.travel['good']
+        this.view = this.travel['view']
+        this.title = this.travel['title']
+        this.content = this.travel['content']
+        this.contentid = this.travel['contentall_id']
+        this.getcontent()
+
+      }
+
     },
     methods:{
+      // 查询用户游记信息
+      searchtravel:function(){
+        
+      },
+      // 获取攻略信息
+      getcontent:function(){
+        var vm = this
+        axios.get('http://127.0.0.1:8000/travelnote/getcontent/'+vm.contentid+'/')
+          .then(function (response) {
+            console.log(response.data['contentt'])
+            vm.content = response.data['contentt']
+          })
+          .catch(function (error) {
+            return error
+          })
+      },
       //积分更新
       markupdate:function(){
         var vm = this
@@ -150,8 +183,9 @@
       htitlepush:function(city){
         var vm = this
         vm.state = city
-        vm.conditionid = 1
+        vm.conditionid = 2
         if (vm.title && vm.state){
+          alert(vm.state)
           vm.savecontent()
           vm.markupdate()
         }
@@ -177,43 +211,48 @@
         var vm = this
         // 存储内容
         var params = new URLSearchParams();
-        // 1. 存储主要内容
         params.append('content', vm.content)
-        axios.post('http://127.0.0.1:8000/travelnote/savecontent/', params)
+        // 1. 存储主要内容
+        axios.post('http://127.0.0.1:8000/travelnote/savecontent/',params)
           .then(function (response) {
             vm.contentid = response.data
-            alert(vm.contentid)
-            // 初步存储信息
-            let date = new Date()
-              //系统当前时间
-            let year = date.getFullYear();
-            let month = date.getMonth()+1;//js中是从0开始所以要加1
-            let day = date.getDate();
-            let utime = year+'-'+month+'-'+day
-            var params = new URLSearchParams();
-            params.append('title', vm.title)
-            params.append('state', vm.state)
-            params.append('content', vm.contentx.split("<h1>")[0])
-            params.append('time', utime)
-            params.append('cover_id', 3)
-            params.append('condition_id', vm.conditionid)
-            params.append('content_id', vm.contentid)
-            params.append('good', 0)
-            params.append('view', 0)
-            params.append('userid_id', vm.id)
-            axios.post('http://127.0.0.1:8000/travelnote/savetravelnote/', params)
-              .then(function (response) {
-                console.log(response.data)
-              })
-              .catch(
-              )
-          }
-          .catch()
+            vm.saveall()
+          })
+          .catch(function (error) {
+            return error
+          })
+      },
+      // 保存游记信息
+      saveall:function(){
+        var vm = this
+        var params = new URLSearchParams();
+        let date  = new Date()
+        //系统当前时间
+        let year = date.getFullYear();
+        let month = date.getMonth()+1;//js中是从0开始所以要加1
+        let day = date.getDate();
+        let utime = year+'-'+month+'-'+day
+        params.append('title', vm.title)
+        params.append('state', vm.state)
+        params.append('content', vm.content.split("<h1")[0])
+        params.append('time', utime)
+        params.append('cover_id', 3)
+        params.append('condition_id', vm.conditionid)
+        params.append('content_id', vm.contentid)
+        params.append('good', 0)
+        params.append('view', 0)
+        params.append('userid_id', vm.id)
+        axios.post('http://127.0.0.1:8000/travelnote/savetravelnote/', params)
+          .then(function (response) {
+            console.log(response.data)
+          })
+          .catch(
           )
       },
       // 保存为草稿
       savenote:function () {
         var vm = this
+        vm.conditionid = 1
         // 进行保存操作
         vm.savecontent()
         alert(vm.contentid)

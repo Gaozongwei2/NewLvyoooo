@@ -30,7 +30,7 @@
           </router-link>
           <div>
             <span class="left identification" v-text="travelnotes[travelnotes.length-i]['condition__condition']"></span>
-            <div class="fix right btn btn-success bb" @click="edit($event)" :id="travelnotes[travelnotes.length-i]['id']">编辑</div>
+            <div class="fix right btn btn-success bb" @click="edit($event)" :id="travelnotes[travelnotes.length-i]['id']"><router-link :to="{name:'writenotes',params:{travel:travelnotes[travelnotes.length-i]}}">编辑</router-link></div>
             <div class="fix right btn btn-danger bb" :id="travelnotes[travelnotes.length-i]['id']" @click="shanchu($event)">删除</div>
           </div>
         </div>
@@ -147,7 +147,10 @@
         // vm.reload()
 
       },
+      // 修改用户信息
+      edit:function(event){
 
+      },
     },
 
   }

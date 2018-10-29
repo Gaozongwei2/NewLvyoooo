@@ -100,7 +100,6 @@
         goodnum:'点赞',
         travel:{
           "id":'',
-
           "title":"只有聪明的人才能看到标题",
           "view":0,
           "good":0,
