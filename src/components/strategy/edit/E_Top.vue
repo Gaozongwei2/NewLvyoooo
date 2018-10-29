@@ -71,7 +71,7 @@
                 <span class="font-20">简介：</span>
                 <!--多文本输入框-->
                 <!--这里style改了-->
-                <div class="form-group div-height1 center-block edit-div focusdiv" contenteditable="true" style="margin-top: 10px; padding: 10px; font-size: 14px" ref="content" v-html="contenth">
+                <div class="form-group div-height1 center-block edit-div focusdiv" contenteditable="true" style="margin-top: 10px; padding: 10px; font-size: 14px" ref="content" v-html="con">
                 </div>
               </div>
 
@@ -168,7 +168,7 @@
                   </div>
 
                   <!--编写div文本框-->
-                  <div class="form-group div-height1 center-block edit-div focusdiv" ref="aaa" contenteditable="true">
+                  <div class="form-group div-height1 center-block edit-div focusdiv" ref="transf" v-html="tra" contenteditable="true">
 
                   </div>
                 </div>
@@ -186,7 +186,7 @@
                   </div>
 
                   <!--编写div文本框-->
-                  <div class="form-group div-height1 center-block edit-div focusdiv" contenteditable="true">
+                  <div class="form-group div-height1 center-block edit-div focusdiv" contenteditable="true" ref="ticket" v-html="tic">
                     fds
                   </div>
                 </div>
@@ -204,7 +204,7 @@
                   </div>
 
                   <!--编写div文本框-->
-                  <div class="form-group div-height1 center-block edit-div  focusdiv" contenteditable="true">
+                  <div class="form-group div-height1 center-block edit-div  focusdiv" contenteditable="true" ref="food" v-html="foo">
 
                   </div>
 
@@ -253,16 +253,11 @@
     name: 'E_Top',
     data() {
       return {
-        cityshow:false,
-        title:'', //攻略标题
-        mainmessage:'',
-
-        warning2:false,
-        warntext:'',
-
-
-
-
+        cityshow: false,
+        title: '', //攻略标题
+        mainmessage: '',
+        warning2: false,
+        warntext: '',
         jj: "iuuinini",
         msg: 1,
         //新添加的模版个数
@@ -312,13 +307,20 @@
 
 
         //测试========
-        messagelist: [
-        ],
+        messagelist: [],
+
+        // html绑定
         mms: '',
+        con:'',
+        tra:'',
+        tic:'',
+        foo:'',
+
+
         day: '',
-        city:[],
-        test:[
-          1,2,3,4,5
+        city: [],
+        test: [
+          1, 2, 3, 4, 5
         ]
       }
     },
@@ -350,7 +352,7 @@
         vm.$refs.title.focus()
       },
       // 标题输入框失去焦点
-      disfocus(){
+      disfocus() {
         var vm = this
         vm.readonly = "true"
         vm.$refs.title.style.backgroundColor = "#ededed"
@@ -358,23 +360,22 @@
         vm.$refs.tilte.style.border = "rgba(0,0,0,0.2) 1px solid"
 
       },
-      addstate:function(){
+      addstate: function () {
         this.cityshow = !this.cityshow
-
       },
-      htitlepush:function(city){
+      htitlepush: function (city) {
         this.city.push(city)
       },
       // 删除地点卡片
-      delcity:function(event){
+      delcity: function (event) {
         let id = event.target.id
-        this.city.splice(id,1)
+        this.city.splice(id, 1)
       },
       // 保存按钮
-      save:function(){
+      save: function () {
         var vm = this
         // 判断主题信息是否为空
-        if(vm.title){
+        if (vm.title) {
           // 更新当前页面存储的信息
           //取出当前页面显示的数据
           var playt = vm.$refs.ywgl[0].innerHTML
@@ -385,9 +386,7 @@
           var day = this.$refs.day[0].innerHTML
           //更新当前显示界面的数据
           vm.messagelist[day - 1] = daym
-
           alert("hahahaha")
-
           var params = new URLSearchParams()
           params.append('title', JSON.stringify(this.messagelist))
           axios.post('http://127.0.0.1:8000/strategy/addcontent/', params)
@@ -397,14 +396,10 @@
             .catch(
             )
         }
-        else{
+        else {
           vm.warning2 = !vm.warning2
           vm.warntext = "没有标题的游记不是真游记"
         }
-
-
-
-
       },
       //左侧导航按钮上的天数
       clickone: function () {
@@ -413,14 +408,21 @@
 
       },
 
-
+      // 点击左侧天数
       left: function (event) {
         var vm = this
-
         //取出当前页面显示的数据
         var playt = vm.$refs.ywgl[0].innerHTML
+        var cont = vm.$refs.content[0].innerHTML
+        var transf = vm.$refs.transf[0].innerHTML
+        var ticket = vm.$refs.ticket[0].innerHTML
+        var food = vm.$refs.food[0].innerHTML
         var daym = {
-          "playt": playt
+          "playt": playt,
+          'cont': cont,
+          'tra': transf,
+          'tic':ticket,
+          'foo':food,
         }
         //取出当前显示界面的天数
         var day = this.$refs.day[0].innerHTML
@@ -430,21 +432,34 @@
         var nowday = event.target.id
         var nowdayms = vm.messagelist[nowday - 1]
         vm.mms = nowdayms['playt']
+        vm.con = nowdayms['cont']
+        vm.tra = nowdayms['tra']
+        vm.tic = nowdayms['tic']
+        vm.foo = nowdayms['foo']
         console.log(vm.messagelist)
         vm.newtest = event.target.id
         //获取当前按钮的天数
         vm.whichday = event.target.innerText.charAt(2)
 
       },
-      //点击加号将新的模版添加到模版数组里
+
+
+      //点击加号将新的模版添加到模版数组里=====================================================
       addevent: function () {
         var vm = this
-
         //获取并更新当前数据===================
         var playt = vm.$refs.ywgl[0].innerHTML
-        alert(playt)
+        var cont = vm.$refs.content[0].innerHTML
+        var transf = vm.$refs.transf[0].innerHTML
+        var ticket = vm.$refs.ticket[0].innerHTML
+        var food = vm.$refs.food[0].innerHTML
+        alert(cont)
         var daym = {
-          "playt": playt
+          "playt": playt,
+          "cont": cont,
+          "tra":transf,
+          'tic':ticket,
+          'foo':food,
         }
         //取出当前显示界面的天数
         var day = this.$refs.day[0].innerHTML
@@ -458,61 +473,39 @@
 
         // 获取新表数据===========================
         var playt = ''
+        var cont = ''
+        var tra = ''
+        var tic = ''
         var daym = {
-          "playt": playt
+          "playt": playt,
+          "cont":  cont,
+          "tra": tra,
+          'tic':tic,
+          'foo':foo,
         }
         vm.messagelist.push(daym)
         console.log(vm.messagelist)
-
-        // alert(vm.$refs.aa[0].innerHTML)
-
-
-        //获取当前是第几天
-        //将总共有几个li存到数组里
-        // vm.leftday.push(vm.msg)
-
-        //显示第二天的按钮
-        //将添加的天数存到数组里
-        // console.log(vm.leftday)
-
-
-        // 将新建的每天的div存入对应的数组中
-        vm.play.push('')
-        alert(vm.play.length)
-
-
-      },
-      //点击其他按钮时将文本存入数组中
-      saveplay: function (event) {
-        this.playday.push(event.target.innerHTML)
       },
 
 
-      //点击div时判断这是第几天的div
-      brgorereftext: function () {
-        // alert(this.newtest)
-      },
+        reftext: function(event) {
 
-      //div失去焦点时获取文本框中的内容
-      reftext: function f(event) {
+          // //如果文本框中的文本为空，就将空值填入数组
+          // if(event.target.innerHTML.trim()==''){
+          //   this.play.push('')
+          //   alert(this.play[0])
+          // }
+          // else{
+          //   this.play.push(event.target.innerHTML)
+          //   alert(this.play[1])
+          // }
+          var day = this.$refs.day[0].innerHTML
 
-        // //如果文本框中的文本为空，就将空值填入数组
-        // if(event.target.innerHTML.trim()==''){
-        //   this.play.push('')
-        //   alert(this.play[0])
-        // }
-        // else{
-        //   this.play.push(event.target.innerHTML)
-        //   alert(this.play[1])
-        // }
-        var day = this.$refs.day[0].innerHTML
-        // alert(day)
+          this.play[1] = event.target.innerHTML
+        }
 
-        this.play[1] = event.target.innerHTML
-        // alert(this.play[1])
       }
 
-    }
 
 
 
@@ -522,47 +515,48 @@
 
 
 
+      //获取到的html传递到后台
+      // sendhtml:function(){
+      //   let vm = this;
+      //   this.$post('http://127.0.0.1:8000/strategy/insertdetail/',
+      //     this.$qs.stringify({"content": vm.text})).then((response) => {
+      //     console.log(response)
+      //     this.$notify({
+      //       title: '成功',
+      //       message: response.errorCode,
+      //       type: 'success'
+      //     })
+      //   }).catch((response) => {
+      //     let errorData = ''
+      //     if (response.response === undefined) {
+      //       errorData = response.errorMsg
+      //     } else {
+      //       errorData = response.errorMsg
+      //     }
+      //     this.$notify.error({
+      //       title: '失败',
+      //       message: errorData
+      //     })
+      //   })
 
-    //获取到的html传递到后台
-    // sendhtml:function(){
-    //   let vm = this;
-    //   this.$post('http://127.0.0.1:8000/strategy/insertdetail/',
-    //     this.$qs.stringify({"content": vm.text})).then((response) => {
-    //     console.log(response)
-    //     this.$notify({
-    //       title: '成功',
-    //       message: response.errorCode,
-    //       type: 'success'
-    //     })
-    //   }).catch((response) => {
-    //     let errorData = ''
-    //     if (response.response === undefined) {
-    //       errorData = response.errorMsg
-    //     } else {
-    //       errorData = response.errorMsg
-    //     }
-    //     this.$notify.error({
-    //       title: '失败',
-    //       message: errorData
-    //     })
-    //   })
+      // let vm = this;
+      // console.log(text)
+      // var params = new URLSearchParams();
+      // params.append('content', vm.text);
+      // axios.post('http://127.0.0.1:8000/strategy/edit/', params)
+      //
+      //   .then(function (response) {
+      //     vm.list = response.data
+      //     console.log(vm.list)
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   })
 
-    // let vm = this;
-    // console.log(text)
-    // var params = new URLSearchParams();
-    // params.append('content', vm.text);
-    // axios.post('http://127.0.0.1:8000/strategy/edit/', params)
-    //
-    //   .then(function (response) {
-    //     vm.list = response.data
-    //     console.log(vm.list)
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   })
 
 
   }
+
 
 
 </script>

@@ -95,7 +95,7 @@ Vue.component('stateadd',StateAdd)
 //分页
 import PageIndex from './components/PageIndex'
 
-Vue.component('test',test1)
+// Vue.component('test',test1)
 Vue.component("testx",TestX)
 Vue.component('testradiobutton',TestRadioButton)
 // 注册全局组件
@@ -103,7 +103,7 @@ Vue.component("mymessage",MyMessage);
 Vue.component("lunbotu",Lunbotu);
 Vue.component("contentleft",ContentLeft);
 Vue.component("contentright",ContentRight);
-Vue.component('test1',test);
+// Vue.component('test1',test);
 Vue.component('footer1',Footer1)
 // Vue.component('newest',Newest);
 // Vue.component('hottravelnote',HotTravelnote);
