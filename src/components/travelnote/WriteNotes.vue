@@ -19,7 +19,7 @@
 
     <div class="set_index">
       <!--中间添加图片部分---------------------------------->
-      <div class="set_page">
+      <div class="set_page" :style="{background:'url('+this.cover_url+')'}">
         <a role="button" class="set_add" @click="changecoverimg"></a>
         <h2>设置游记头图</h2>
         <p>图片建议选择尺寸大于1680px的高清大图，如相机原图</p>
@@ -62,6 +62,8 @@
     <mpush :getcity="cityshow" @htitlepush = "htitlepush"></mpush>
     <!--操作提示-->
     <mwarning :warning="warning"></mwarning>
+    <!--信息不全提示-->
+    <mwarning2 :warning2="warning2" :text="warntext"></mwarning2>
   </div>
 </template>
 
@@ -75,9 +77,14 @@
         pattern:false,
         cityshow:false,
         warning:false,
+        warning2:false,
+        warntext:'',
+        savestatus:false,
         condition:1,
         marks:15,
         id:sessionStorage.getItem("id"),
+        tid:'',
+        cover_url:'',
         travel:{
           "title":'',
           "time":'',
@@ -97,12 +104,43 @@
         content:'先简单介绍一下你的游记吧......',
         // 内容id
         contentid:'',
+        // 是否发布
+        conditionid:2,
       }
     },
     created(){
-    },
+      this.travel = this.$route.params.travel
+      this.tid = this.travel['id']
+      if(this.tid){
+        this.title = this.travel['id']
+        this.cover_url = this.travel['cover__url']
+        this.good = this.travel['good']
+        this.view = this.travel['view']
+        this.title = this.travel['title']
+        this.content = this.travel['content']
+        this.contentid = this.travel['contentall_id']
+        this.getcontent()
 
+      }
+
+    },
     methods:{
+      // 查询用户游记信息
+      searchtravel:function(){
+        
+      },
+      // 获取攻略信息
+      getcontent:function(){
+        var vm = this
+        axios.get('http://127.0.0.1:8000/travelnote/getcontent/'+vm.contentid+'/')
+          .then(function (response) {
+            console.log(response.data['contentt'])
+            vm.content = response.data['contentt']
+          })
+          .catch(function (error) {
+            return error
+          })
+      },
       //积分更新
       markupdate:function(){
         var vm = this
@@ -132,62 +170,74 @@
       htitle2:function(title){
         vm.pattern = "motaikuang1"
       },
-
-      // 被动调用，保存预览标题
+      // 获取输入的段落标题
       htitle:function(title){
         var vm = this
-        // 内容合并
         vm.contentx = title
         vm.content = vm.$refs.content.innerHTML
-        // 标题样式模板
         vm.content = vm.content + "<h1 style='font-size: 25px; font-weight: bold; height: 35px; line-height: 35px; '>"+title+"</h1><br><img src=\"https://n3-q.mafengwo.net/s12/M00/2D/DE/wKgED1vQmGSAIXMPAAa7vBs-6aI31.jpeg?imageMogr2%2Finterlace%2F1\" alt=\"\" height='400px' width='400px'>"
-        // 内容显示
         vm.$refs.content.innerHTML = vm.content
-        // 1. 判断标题和内容是否为空
-        vm.savenote()
-        if (vm.title && vm.content){
-          // 初步存储信息
-          let date = new Date()
-          var params = new URLSearchParams();
-          params.append('title', vm.title)
-          params.append('state', city["area"])
-          params.append('content', vm.contentx.split("<h1>")[0])
-          params.append('time', date)
-          params.append('cover_id', 3)
-          params.append('condition_id', 2)
-          params.append('content_id', vm.contentid)
-          params.append('good', 0)
-          params.append('view', 0)
-          params.append('userid_id', vm.id)
-          axios.post('http://127.0.0.1:8000/travelnote/savetravelnote/', params)
-            .then(function (response) {
-              console.log(response.data)
-            })
-            .catch(
-            )
-        }else{
-
-        }
-
       },
-      // 获取地点信息
-      // 执行存储方法
+
+      // 发布游记
       htitlepush:function(city){
         var vm = this
-        vm.savenote()
-        let date = new Date()
+        vm.state = city
+        vm.conditionid = 2
+        if (vm.title && vm.state){
+          alert(vm.state)
+          vm.savecontent()
+          vm.markupdate()
+        }
+        else{
+          if (!vm.title){
+            vm.warntext = "有标题的游记更受欢迎哦，添加完标题再发布吧"
+          }else{
+            vm.warntext = "带有地点让才能更容易让大家看到，快去添加吧"
+          }
+          vm.warning2 = !vm.warning2
+        }
+      },
+      // 保存按钮，显示模态框
+      hsave:function(){
+        var vm  = this
+        vm.travel['title'] = vm.title
+      },
+      // 添加标题
+      changecoverimg:function () {
+      },
+      // 保存实际操作
+      savecontent:function(){
+        var vm = this
+        // 存储内容
+        var params = new URLSearchParams();
+        params.append('content', vm.content)
+        // 1. 存储主要内容
+        axios.post('http://127.0.0.1:8000/travelnote/savecontent/',params)
+          .then(function (response) {
+            vm.contentid = response.data
+            vm.saveall()
+          })
+          .catch(function (error) {
+            return error
+          })
+      },
+      // 保存游记信息
+      saveall:function(){
+        var vm = this
+        var params = new URLSearchParams();
+        let date  = new Date()
         //系统当前时间
         let year = date.getFullYear();
         let month = date.getMonth()+1;//js中是从0开始所以要加1
         let day = date.getDate();
         let utime = year+'-'+month+'-'+day
-        var params = new URLSearchParams();
         params.append('title', vm.title)
-        params.append('state', city)
-        params.append('content', vm.contentx.split("<h1>")[0])
+        params.append('state', vm.state)
+        params.append('content', vm.content.split("<h1")[0])
         params.append('time', utime)
         params.append('cover_id', 3)
-        params.append('condition_id', vm.condition)
+        params.append('condition_id', vm.conditionid)
         params.append('content_id', vm.contentid)
         params.append('good', 0)
         params.append('view', 0)
@@ -195,38 +245,21 @@
         axios.post('http://127.0.0.1:8000/travelnote/savetravelnote/', params)
           .then(function (response) {
             console.log(response.data)
-            if (response.data == "chenggong"){
-              vm.markupdate()
-            }
           })
           .catch(
           )
-
       },
-      // 保存
-      hsave:function(){
-        var vm  = this
-        vm.travel['title'] = vm.title
-        vm.travel['']
-      },
-
-      // 添加标题
-      changecoverimg:function () {
-      },
-      // 保存内容，返回内容id
+      // 保存为草稿
       savenote:function () {
         var vm = this
-        // 存储内容
-        var params = new URLSearchParams();
-        params.append('content', vm.content)
-        axios.post('http://127.0.0.1:8000/travelnote/savecontent/', params)
-          .then(function (response) {
-            vm.contentid = response.data
-          })
-          .catch(
-          )
+        vm.conditionid = 1
+        // 进行保存操作
+        vm.savecontent()
+        alert(vm.contentid)
+
       }
-    }
+      },
+
   }
 </script>
 

@@ -6,11 +6,9 @@
         <a class="btn btn-default padding" href="javascript:;" v-text="i" :id="i" @click="showpage($event)" ></a>
       </div>
       <a class="btn btn-default padding" href="javascript:;" v-if="morepage" :id="i" @click="countshow()" >...</a>
-
       <button class="btn next-page">下一页</button>
       <div class="btn ">共<span style="color: #549c55" v-text="countnum"></span>页</div>
     </div>
-
 </template>
 <!--复制模板-->
 
@@ -18,7 +16,7 @@
   import axios from 'axios'
 export default {
   name: 'PageIndex',
-  // props:['user'],
+  props:['pagecount'],
   data () {
     return {
       pagecount:0,

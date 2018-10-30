@@ -15,7 +15,7 @@
     <!---------------------里面具体的内容---------------从这里循环---------------------------->
     <specific-route   v-for="dd in days"  :key="dd"  :howmuch="dd" :strage="detdata[dd-1]"></specific-route>
 
-    <route-discuss></route-discuss>
+    <route-discuss :tt="this.res"></route-discuss>
     <!--轮播-->
     <!--<sowing-map></sowing-map>-->
     <!--<hello></hello>-->
@@ -40,6 +40,8 @@
     //  当前攻略id
       ssid:'',
       pac:'',
+      res:'',
+      travels:'',
     }
   },
   created(){
@@ -47,7 +49,13 @@
     vm.stragy = vm.$route.params.stragy
     vm.ssid = vm.$route.params.stragy['id']
     vm.title= vm.$route.params.stragy['title']
-
+    vm.travels = vm.$route.params.travel
+    vm.res={
+      'id':vm.travels['id'],
+      //游记的状态为1
+      'flag':2
+    },
+      console.log(vm.travels)
     console.log(vm.stragy)
     //组件传值
     this.getcontent()
@@ -77,6 +85,7 @@
 }
 </script>
 
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
 </style>

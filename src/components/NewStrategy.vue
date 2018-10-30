@@ -3,7 +3,7 @@
 
   <!--攻略模版-->
   <div>
-    <!--<motaikuang @hidden="hiddenshow" v-if="motaikuang" v-model="travelnoteid" :travelnoteid="travelnoteid"></motaikuang>-->
+    <motaikuang @hidden="hiddenshow" v-if="motaikuang" v-model="travelnoteid" :travelnoteid="travelnoteid"></motaikuang>
     <div class="outbox">
       <div class="boxleft" v-for="i in pagelist">
       <!--<div class="boxleft">-->
@@ -20,7 +20,6 @@
                 <!--攻略标题-->
                 <div class="lefttitle" v-text="stragys[i-1]['title']" style="background-size: cover;">
                 </div>
-
                 <div class="txt">
                   <div class="usericno left">
                     <!--用户头像-->
@@ -36,6 +35,7 @@
                 </div>
               </div>
             </div>
+
           </div>
 
 
@@ -53,8 +53,6 @@
       <div class="btn ">共<span style="color: #549c55" v-text="countnum"></span>页</div>
     </div>
   </div>
-<!--</div>-->
-
 </template>
 <!--复制模板-->
 <script>
@@ -101,7 +99,6 @@
       this.getallstragys()
     },
     methods: {
-
       // 点击最新发布
       newest: function () {
         var vm = this
@@ -168,7 +165,6 @@
             newlist.push((vm.page-1)*4+i)
           }
         }
-
         vm.pagelist = newlist
       },
       beforepage:function () {

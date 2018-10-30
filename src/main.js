@@ -11,7 +11,13 @@ import motaikuang from './components/personalcenter/moaikuang'
 import MoTaiKuang from './components/MoTaiKuang'
 import moaikuang from './components/strategy/edit/moaikuang'
 import Mwarning from './components/MWarning'
+import Mwarning2 from './components/Mwarning2'
+import StateAdd from './components/strategy/edit/StateAdd'
 
+import motaikuangdelete from './components/personalcenter/motaikuangdelete'
+
+// 分页组件
+import Pagination from './components/Pagination'
 
 // 测试组件
 import TestX from './components/TestX'
@@ -67,10 +73,6 @@ import MyAchieve from './components/personalcenter/MyAchieve'
 
 
 
-import test1 from './components/test1'
-
-
-
 // import Footer from './components/Footer'
 
 // 搜索结果
@@ -86,19 +88,16 @@ Vue.component('motaikuangbox',MoTaiKuang)
 Vue.component('modelk',moaikuang)
 Vue.component('mpush',Mpush)
 Vue.component('mwarning',Mwarning)
+Vue.component('mwarning2',Mwarning2)
+Vue.component('motaikuangdelete',motaikuangdelete)
+Vue.component('stateadd',StateAdd)
 
 // 测试组件
 //分页
+
 import PageIndex from './components/PageIndex'
 
-
-
-
-Vue.component('test',test1)
-
-
-
-
+// Vue.component('test',test1)
 Vue.component("testx",TestX)
 Vue.component('testradiobutton',TestRadioButton)
 // 注册全局组件
@@ -106,7 +105,7 @@ Vue.component("mymessage",MyMessage);
 Vue.component("lunbotu",Lunbotu);
 Vue.component("contentleft",ContentLeft);
 Vue.component("contentright",ContentRight);
-Vue.component('test1',test);
+// Vue.component('test1',test);
 Vue.component('footer1',Footer1)
 // Vue.component('newest',Newest);
 // Vue.component('hottravelnote',HotTravelnote);

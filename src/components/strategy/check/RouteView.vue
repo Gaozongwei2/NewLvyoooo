@@ -37,11 +37,19 @@
 
 
               </span>
+              <a href="">洛阳周王城天子驾六博物馆（1.5小时）</a>
+              <span style="padding-bottom: 0px">箭头</span>
+              <a href="">隋唐洛阳城国家遗址公园（天堂明堂景区）（3小时）</a>
+              <span style="padding-bottom: 0px">箭头</span>
+              <a href="">丽景门（2小时）</a>
             </p>
 
             <a href="javascript:;"  @click="showall"  class="show_all" ref="show" >展开全部</a>
 
 
+            <a href="javascript:;"  class="show_all" ref="show" @click="showallll()">
+              展开全部
+            </a>
 
           </div>
           <!--横线-->
@@ -64,15 +72,19 @@
             <ul class=" list-unstyled list-inline text-center" style=" position: absolute;z-index: 19;padding: 0;margin: 0">
               <li class="ll img-circle"  v-for="ddy in sday" :key="ddy">D{{ddy}}</li>
             </ul>
+
           </div>
 
           <div id="container" style="width:94%;height:285px; margin: 0"></div>
+
         </div>
 
       </div>
 
     </div>
     <div class="line"></div>
+
+
 
   </div>
 </template>
@@ -88,6 +100,13 @@
         city:'',
         cc:4,
 
+        res:{
+          'id':this.travels['id'],
+          //游记的状态为1
+          'flag':2
+        },
+        //数据库获取p的条数
+        showall:3
       }
     },
     mounted(){

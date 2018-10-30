@@ -28,7 +28,7 @@
       }
     },
     created() {
-      this.travelnotedetail()
+      // this.travelnotedetail()
     },
 
     methods: {
@@ -66,7 +66,7 @@
     width: 100%;
     z-index: 20;
     border: none;
-    box-shadow: whitesmoke 1px 1px 5px 1px;
+    /*box-shadow: whitesmoke 1px 1px 5px 1px;*/
     /*background-color: rgba(0, 0, 0, 0.49);*/
     transition: opacity 0.5s, top 0.5s, height 0.5s;
   }

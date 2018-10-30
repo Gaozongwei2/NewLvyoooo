@@ -4,34 +4,32 @@
    <!--暂时指定高度-->
 
    <!--每一个用户-->
-   <ul class="list-unstyled " >
-
-
+   <ul class="list-unstyled  " >
      <!--新写的信息-->
-     <li class="line" v-for="ulist in ulists"   style="border:  1px solid #fafafa">
+     <li class="line" v-for="item in list"   style="border:1px solid #fafafa">
        <div class="container-fluid bg-color-ff">
          <div class="row">
            <!--用户头像-->
            <div class="col-lg-1 ">
              <!--<img :src="i['url']" alt="" class="img-circle img-responsive center-block face-col-center" style="width: 48px;height: 48px">-->
            </div>
+
            <!--用户名，引用，回复-->
            <div class="col-lg-11 row-span-content" >
 
              <!--第一行-->
-             <ul class="list-unstyled list-inline first-line a-none-line" v-if="ulists.length" >
+             <ul class="list-unstyled list-inline first-line a-none-line" v-if="list.length" >
                <!--用户名-->
                <li >
                  <a href="" >
-                   <span class="uname" v-text="ulist['username']" >
-                   </span>
+                   <span class="uname" v-text="item['tid__userid__username']" ></span>
                  </a>
                </li>
 
                <!--评论时间-->
                <li >
                  <!--<span class="utime" v-text="ulist['datatime']">-->
-                 <span class="utime" v-text="ulist.time"></span>
+                 <span class="utime" v-text="item['time']"></span>
                </li>
 
               <!-- 如果用户是自己，就有删除按钮-->
@@ -46,7 +44,7 @@
              </ul>
 
              <!--第二行内容-->
-             <span class="row-span bg-color-ff " v-text="ulist.content">
+             <span class="row-span bg-color-ff " v-text="item['commit']">
                <!--{{ulist['content']}}-->
              </span>
            </div>
@@ -56,7 +54,7 @@
 
 
      <!--数据库中读出来的信息-->
-     <li class="line" v-for="info in list"   style="border:  1px solid #fafafa">
+     <li class="line" v-for="info in list"   style="border:1px solid #fafafa">
        <div class="container-fluid bg-color-ff">
          <div class="row">
            <!--用户头像-->
@@ -121,12 +119,35 @@ export default {
     }
   },
   created(){
-    // this.getinfo();
+    alert("discuss")
+    console.log("discuss")
+    console.log(this.ulists)
+    this.id = this.ulists['id']
+    console.log(this.id)
+    if (this.id == 1){
+
+      this.searchtravelnotecommit()
+    }else if(this.id == 2){
+
+    }
   },
   mounted:function(){
-    // this.getinfo();
+    this.getinfo();
   },
   methods:{
+    // 查询攻略评论
+    searchtravelnotecommit:function () {
+      var vm = this
+      axios.get('http://127.0.0.1:8000/travelnote/searchreview/'+vm.id+'/')
+        .then(function (response) {
+          console.log(response.data['data'])
+          vm.list = response.data['data']
+          console.log(vm.list)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    },
     //删除
     udelete(){
         pass
