@@ -141,7 +141,6 @@
 
                 <!--编写div文本框-->
                 <div class="form-group div-height1 center-block edit-div focusdiv" v-on:blur="reftext($event)" @click="brgorereftext()" contenteditable="true" ref="ywgl" v-html="mms">
-
                 </div>
 
                 <!--添加图片-->
@@ -172,7 +171,7 @@
                 </div>
 
                 <!--编写div文本框-->
-                <div class="form-group div-height1 center-block edit-div focusdiv"  ref="aaa" contenteditable="true">
+                <div class="form-group div-height1 center-block edit-div focusdiv"  ref="traf" contenteditable="true" v-html="traff">
 
                 </div>
               </div>
@@ -190,8 +189,8 @@
                 </div>
 
                 <!--编写div文本框-->
-                <div class="form-group div-height1 center-block edit-div focusdiv" contenteditable="true">
-                  fds
+                <div class="form-group div-height1 center-block edit-div focusdiv" contenteditable="true" ref="tick" v-html="ticket">
+
                 </div>
               </div>
 
@@ -297,18 +296,23 @@
       //交通攻略
       traffic:'',
       //门票攻略
-      trick:'',
+      ticket:'',
       //餐饮攻略
       food:'',
 
       //存放每天的游记攻略
       playday:[],
 
-
-
       //测试========
       messagelist:[],
+      //游玩
       mms:'',
+      //交通
+      traff:'',
+      //门票
+      ticket:'',
+      //餐饮
+      food:'',
       day:'',
     }
   },
@@ -318,7 +322,13 @@
     //隐藏第二天的按钮
     this.leftday.push(this.msg)
     var day={
-      "playt":''
+      //游玩
+      "playt":'',
+      //交通
+      "trafft":'',
+      //门票
+      'tickett':'',
+
     }
     this.messagelist.push(day)
     console.log(day)
@@ -334,21 +344,29 @@
       var vm = this
       vm.readonly = false
     },
-  //左侧导航按钮上的天数
-    clickone:function(){
-      var vm = this
-      // vm.newtest= 1
-
-    },
-
 
     left:function(event){
       var vm = this
 
       //取出当前页面显示的数据
-      var playt= vm.$refs.ywgl[0].innerHTML
+      //游玩
+      var playt = vm.$refs.ywgl[0].innerHTML
+      //门票
+      var trafft = vm.$refs.traf[0].innerHTML
+      //餐饮
+      var tickett = vm.$refs.tick[0].innerHTML
+      //交通
+
       var daym={
-        "playt":playt
+
+        //游玩攻略
+        "playt":playt,
+        // 交通
+        "trafft":trafft,
+        //门票
+        "tickett":tickett,
+        // 餐饮
+
       }
         //取出当前显示界面的天数
       var day = this.$refs.day[0].innerHTML
@@ -358,22 +376,25 @@
       var nowday = event.target.id
       var nowdayms = vm.messagelist[nowday-1]
       vm.mms = nowdayms['playt']
+      vm.traff = nowdayms["trafft"]
+      vm.tick = nowdayms['tickett']
       console.log(vm.messagelist)
-
       vm.newtest= event.target.id
       //获取当前按钮的天数
       vm.whichday = event.target.innerText.charAt(2)
-
     },
     //点击加号将新的模版添加到模版数组里
     addevent:function () {
       var vm = this
-
       //获取并更新当前数据===================
       var playt= vm.$refs.ywgl[0].innerHTML
-      alert(playt)
+      var trafft = vm.$refs.traf[0].innerHTML
+      var tickett = vm.$refs.tick[0].innerHTML
+
       var daym={
-        "playt":playt
+        "playt":playt,
+        "trafft":trafft,
+        "tickett":tickett,
       }
       //取出当前显示界面的天数
       var day = this.$refs.day[0].innerHTML
@@ -387,26 +408,15 @@
 
       // 获取新表数据===========================
       var playt= ''
+      var trafft = ''
+      var tickett = ''
       var daym={
-        "playt":playt
+        "playt":playt,
+        "trafft":trafft,
+        "tickett":tickett,
       }
       vm.messagelist.push(daym)
       console.log(vm.messagelist)
-
-      // alert(vm.$refs.aa[0].innerHTML)
-
-
-
-
-
-      //获取当前是第几天
-      //将总共有几个li存到数组里
-      // vm.leftday.push(vm.msg)
-
-      //显示第二天的按钮
-      //将添加的天数存到数组里
-      // console.log(vm.leftday)
-
 
       // 将新建的每天的div存入对应的数组中
        vm.play.push('')
@@ -428,15 +438,6 @@
     //div失去焦点时获取文本框中的内容
     reftext:function f(event) {
 
-      // //如果文本框中的文本为空，就将空值填入数组
-      // if(event.target.innerHTML.trim()==''){
-      //   this.play.push('')
-      //   alert(this.play[0])
-      // }
-      // else{
-      //   this.play.push(event.target.innerHTML)
-      //   alert(this.play[1])
-        // }
       var day = this.$refs.day[0].innerHTML
       // alert(day)
 

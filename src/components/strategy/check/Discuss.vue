@@ -124,7 +124,7 @@ export default {
     // this.getinfo();
   },
   mounted:function(){
-    this.getinfo();
+    // this.getinfo();
   },
   methods:{
     //删除

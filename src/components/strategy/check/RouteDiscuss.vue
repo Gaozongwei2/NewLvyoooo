@@ -1,7 +1,7 @@
 <!--路线讨论区-->
 <template>
   <div >
-    <div class="container-fluid bg-color-ff" style="padding-left: 50px;" id="three">
+    <div class="container-fluid bg-color-ff" style="padding-left: 50px; border: 1px solid #ededed ; border-bottom: none;border-left: none;border-right: none" id="three">
 
       <div class="row" >
 
@@ -62,9 +62,9 @@ export default {
     Discuss
   },
   mounted:function(){
-    this.getData();
-      this.getPageSize();
-    this.searchData()
+    // this.getData();
+    //   this.getPageSize();
+    // this.searchData()
   },
   methods:{
     //写评论
@@ -123,15 +123,15 @@ export default {
     //       console.log(error)
     //     })
     },
-    searchData:function () {
-      this.pageindex=1;
-      this.getData();
-      this.getPageSize();
-    },
+    // searchData:function () {
+    //   this.pageindex=1;
+    //   // this.getData();
+    //   // this.getPageSize();
+    // },
     getIndex:function (i) {
       this.pageindex=i;
-      this.getData();
-      this.getPageSize();
+      // this.getData();
+      // this.getPageSize();
     }
   // }
 

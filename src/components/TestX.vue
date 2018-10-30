@@ -23,7 +23,7 @@ export default {
   data () {
     return {
       id:1,
-      aa:[2,3,4,5,6],
+      aa:2,
       bb:0,
       props:["user","token"],
       user:{

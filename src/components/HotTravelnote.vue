@@ -1,12 +1,16 @@
 <template>
+  <!--游记模版-->
   <div>
     <motaikuang @hidden="hiddenshow" v-if="motaikuang" v-model="travelnoteid" :travelnoteid="travelnoteid"></motaikuang>
     <div class="outbox">
     <div class="boxleft" v-for="i in pagelist">
       <!--用来存id的隐藏div-->
-      <router-link :to="{name:'travelnotes',params:{travel:travels[i-1]}}">
-      <div :id="travels[i-1]['id']" @click='showthat($event)'>
 
+
+
+      <!----------------组件传值---------------->
+      <router-link :to="{name:'travelnotes',params:{travel:travels[i-1]}}">
+        <div :id="travels[i-1]['id']" @click='showthat($event)'>
         <div class="leftcover" v-bind:style="{background:'url('+travels[i-1]['cover__url']+')' ,backgroundSize:'cover'}"
              :id="travels[i-1]['id']">
           <div class="lefttxt">
@@ -20,7 +24,7 @@
               <div class="username left" :id="i" style="color: green" @click="showpage($event)"><a href="javascrip:;" v-text="travels[i-1]['userid__username']"  style="color:whitesmoke"></a>
               </div>
               <div class="leftstate left" v-text="travels[i-1]['state']" style="color: #cbcbcb">地址</div>
-              <div class="leftgood left" v-text="travels[i-1]['good']" style="color: #cbcbcb">点赞</div>
+              <div class="leftgood left" v-text="travels[i-1]['good']" style="color: #cbcbcb"  ref="good" @click="goods()">点赞</div>
               <div class="leftview left" v-text="travels[i-1]['view']" style="color: #cbcbcb">浏览</div>
             </div>
           </div>
@@ -128,7 +132,7 @@
         // 将其值修改为false
         that.motaikuang = !that.motaikuang
       },
-      // 获取所有的游记基础信息
+      // 获取所有的游记基础信息≥获取所有的游记基础信息//
       getalltravelnotes: function () {
         var vm = this
         axios.get('http://127.0.0.1:8000/travelnote/searchall/')
@@ -171,8 +175,18 @@
           }
         }
         vm.pagelist = newlist
+      },
+    //  点赞
+      goods :function () {
+        // var vm = this
+        alert(222)
+        // if(vm.$refs.good.innerHTML =='点赞'){
+        //   alert(111)
+           // vm.$refs.good.innerHTML ='已点赞'
+        // }
       }
-    }
+
+  }
   }
 </script>
 <style scoped>

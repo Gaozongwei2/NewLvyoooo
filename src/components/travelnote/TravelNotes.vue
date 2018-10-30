@@ -1,4 +1,5 @@
 <template>
+  <!--游记模版-->
   <div>
     <div class="container-fluid" style="padding: 0px; margin: 0px ;height: 58px">
       <div class="col-md-3" id="logo-img"><router-link to="/"><img src="../../assets/images/logoweight.png" alt="" height="50px" width="150px" ></router-link></div>
@@ -16,7 +17,6 @@
           height="32" width="32" alt="" style="object-fit: cover">
       </div>
     </div>
-
     <div id="set-bg-big" v-bind:style="{background:'url('+travel['cover__url']+')'}">
       <!--名字-->
       <h1 style="white-space: nowrap; overflow-wrap: normal;" v-text="travel['title']">
@@ -30,7 +30,6 @@
              :src="travel['userid__icno__imageurl']"
              alt="">
       </div>
-
 
       <div class="col-md-5" id="user-person">
         <strong>
@@ -50,7 +49,7 @@
       <div class="col-md-1" id="collect">
         <a  href="javascript:;" rel="nofollow" title="收藏" class="collect_num"
            data-ctime="2018-09-01 14:01:56">
-          <i @click="collecttravelnote($event)" :id="this.collect+'tcollect'" ></i><br>
+          <i @click="collecttravelnote($event)" :id="this.collect+'tcollect'"></i><br>
           <span v-text="this.collect" @click.prevent.stop >136</span>收藏
         </a>
       </div>
@@ -59,16 +58,16 @@
       <!--点赞-->
 
       <div class="col-md-1">
-          <div  class=" praise">
-            <i @cilck="good"></i> <br>
-            <span v-model="goodnum" @click="good"></span>点赞
+          <div class="praise" @click="newgoods" >
+            <i></i> <br>
+            <span v-text="goodnum" ref="goohere"></span>
           </div>
       </div>
     </div>
     <!--界面名字：TravelMian-->
-    <travel-main></travel-main>
+    <!--传递当前游记的id 查找里面具体内容-->
+    <travel-main :aa="travel['id']"></travel-main>
   </div>
-
 
 </template>
 
@@ -76,90 +75,146 @@
   import axios from 'axios'
   export default {
     name: "TravelNotes",
+
     data() {
       return {
-
+        res:'',
+        goodnum:'',
         collect: 0,
         praise: 25,
-        clickable:false,
-        travel:{
-          "id":'',
-          "title":"只有聪明的人才能看到标题",
-          "view":0,
-          "good":0,
-          "collect":0,
+        clickable: false,
+        goods:'',
+        tid:'',
+        travel: {
+          "id": '',
+          "title": "只有聪明的人才能看到标题",
+          "view": 0,
+          "good": 0,
+          "collect": 0,
         },
-        goodnum:travel['good']
+        // goodnum: travel['good']
       }
 
     },
-    created(){
+    created() {
+
       var vm = this
       vm.travel = vm.$route.params.travel
+      vm.tid = vm.travel['id']
+       // alert(vm.travel['id'])
       // 计算游记被收藏数
       console.log(vm.travel["id"])
-      axios.get('http://127.0.0.1:8000/user/numcollect/'+ vm.travel['id']+'/')
+      axios.get('http://127.0.0.1:8000/user/numcollect/' + vm.travel['id'] + '/')
         .then(function (response) {
           vm.collect = response.data
-          console.log("收藏数"+ response.data)
+          console.log("收藏数" + response.data)
         })
         .catch(function (error) {
           return error
         })
 
+
+      //查询用户对当前游记的点赞状态
+      vm.getgoods()
+      // 查询当前游记的点赞数
+      vm.currentgoods()
     },
     methods: {
 
       collecttravelnote: function (event) {
         var vm = this
-        if (!vm.clickable){
+        if (!vm.clickable) {
           let num = event.target.id
           num = num.split("t")[0]
           vm.collect = parseInt(num) + 1
-          vm.clickable=true
+          vm.clickable = true
           // 更新收藏
           var params = new URLSearchParams();
           collect = {
-            "ctravelnote_id":vm.travel["id"],
-            "cuser_id":sessionStorage.getItem("id")
+            "ctravelnote_id": vm.travel["id"],
+            "cuser_id": sessionStorage.getItem("id")
           }
           alert(collect)
           console.log(collect)
-          params.append('usermessage',collect)
-          axios.post('http://127.0.0.1:8000/user/updatecollect/',params)
+          params.append('usermessage', collect)
+          axios.post('http://127.0.0.1:8000/user/updatecollect/', params)
             .then(
-
             )
             .catch(
-
             );
-        }else{
+        } else {
           alert("你已经收藏过了")
         }
       },
       // 取消关注
-      changefocus:function () {
-        if(this.$refs.focus.innerHTML=="取消关注"){
-            this.$refs.focus.innerHTML='已关注'
+      changefocus: function () {
+        if (this.$refs.focus.innerHTML == "取消关注") {
+          this.$refs.focus.innerHTML = '已关注'
         }
-        else{
-          this.$refs.focus.innerHTML='取消关注'
+        else {
+          this.$refs.focus.innerHTML = '取消关注'
         }
       },
 
-  // 点赞方法
-      good:function () {
+      //查询用户对当前游记的点赞状态
+      getgoods: function () {
         var vm = this
-        vm.goodnum ++
-        // vm.travel['good'] = vm.travel['good'] + 1
+        //游记id  用户id
+        axios.get('http://127.0.0.1:8000/travelnote/hasgood/' + vm.travel['id'] + '/' + 1 + '/')
+          .then(function (response) {
+            console.log(response.data)
+            vm.goodnum = response.data["data"][0]["file1"]
+          })
+          .catch(function (error) {
+            return error
+          })
+      },
+
+      //未点赞时添加点赞数，并且更新当前用户对该游记的点赞状态
+      newgoods: function () {
+        var vm = this
+        if (vm.$refs.goohere.innerHTML == "点赞") {
+          vm.$refs.goohere.innerHTML = "已点赞"
+          //后台更新数据   //更新点赞状态
+          vm.travel['good']++
+          //获取当前点赞数
+          var params = new URLSearchParams();
+
+          params.append('good', vm.travel["good"])
+          axios.post('http://127.0.0.1:8000/travelnote/updategood/' + vm.travel['id'] + '/' + 1 + '/',params)
+            .then(function(response) {
+              vm.res = response.data
+              console.log(vm.res)
+            })
+            .catch(function (error) {
+              return error
+            })
+        }
+        else{
+          alert('已经点赞')
+        }
+      },
+
+      //查询当前游记的点赞数
+      currentgoods:function(){
+          var vm = this
+          axios.get('http://127.0.0.1:8000/travelnote/hasgood/' + vm.travel['id'] + '/' + 1 + '/')
+          .then(function (response) {
+            vm.travel['good'] = response.data["data"][0]["good"]
+          })
+          .catch(function (error) {
+            return error
+          })
+      }
+
+      },
+
+      dianzan: function () {
+      },
+      collectadd: function () {
 
       }
-    },
-    dianzan: function () {
-    },
-    collectadd: function () {
 
-    }
 
   }
 </script>

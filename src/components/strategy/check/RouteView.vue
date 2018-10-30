@@ -5,38 +5,43 @@
 
     <div class="container-fluid bg-color-ff" style="padding-left:30px " id="one">
       <!--标题-->
-      <div class="row " style="line-height: 30px;margin-top: 4%">
-
+      <div class="row" style="line-height: 30px;margin-top: 4%">
         <!--左边-->
-        <div class="col-lg-6  col-md-7 col-sm-6 col-lg-offset-1 bg-color-ff" >
+        <div class="col-lg-6 col-md-7 col-sm-6 col-lg-offset-1 bg-color-ff" >
           <!--标题-->
           <div class="font-title">
             路线概览
           </div>
+
           <div class="collapse in a-none-line" id="demo">
 
 
 
-            <p v-for="(item, index) in showall"    v-if='index<2'>
+            <!------------路线概览------------>
+            <!---------------循环几天---------------->
+            <p v-for="ddy in cc" :key="ddy"  ref="showall">
               <span style="padding-bottom: 0px">
-                 D1
+                 D{{ddy}}
               </span>
-              <a href="" >白马寺</a>
-              <span style="padding-bottom: 0px">
-                 箭头
+
+              <span>
+                <!--循环这一天的景点个数-->
+                <!--------------如果天数>4，隐藏剩余的那些-------------->
+
+              <span  v-for="item in strage[ddy-1]['advantage'].split('，').length-1"  >
+                <span v-text="strage[ddy-1]['advantage'].split('，')[item-1]"></span>
+                <img src="../../../assets/images/箭头.png" alt="">
               </span>
-              <a href="">洛阳周王城天子驾六博物馆（1.5小时）</a>
-              <span style="padding-bottom: 0px">箭头</span>
-              <a href="">隋唐洛阳城国家遗址公园（天堂明堂景区）（3小时）</a>
-              <span style="padding-bottom: 0px">箭头</span>
-              <a href="">丽景门（2小时）</a>
+                <span v-text="strage[ddy-1]['advantage'].split('，')[strage[ddy-1]['advantage'].split('，').length-1]"></span>
+
+
+
+              </span>
             </p>
 
+            <a href="javascript:;"  @click="showall"  class="show_all" ref="show" >展开全部</a>
 
 
-            <a href="javascript:;"  class="show_all" ref="show" @click="showallll()">
-              展开全部
-            </a>
 
           </div>
           <!--横线-->
@@ -46,35 +51,28 @@
             <div class="h3">
               总结
             </div>
-            <span>
-                        按照景点的热度和位置来安排，是一条经典的线路，能更全面的了解成都市区。
-                    </span>
 
+            <!-----------------总结文本------------------->
+            <span v-text="strage['contents']"></span>
           </div>
         </div>
         <!--右边-->
         <div class="col-lg-4 col-md-5 col-sm-6  hidden-xs route-right" style="padding: 0">
-          <!--D1,D2,D3,D4-->
+
+          <!---------------------根据天数循环地图的个数-------------------->
           <div class="section-map hh">
             <ul class=" list-unstyled list-inline text-center" style=" position: absolute;z-index: 19;padding: 0;margin: 0">
-              <li class="ll img-circle" >D1</li>
-              <li class="ll img-circle">D2</li>
-              <li class="ll img-circle">D3</li>
-              <li class="ll img-circle">D4</li>
+              <li class="ll img-circle"  v-for="ddy in sday" :key="ddy">D{{ddy}}</li>
             </ul>
-
           </div>
 
           <div id="container" style="width:94%;height:285px; margin: 0"></div>
-
         </div>
 
       </div>
 
     </div>
     <div class="line"></div>
-
-
 
   </div>
 </template>
@@ -84,23 +82,44 @@
 <script>
   export default {
     name: 'RouteView',
+    props:['strage','sday'],
     data () {
       return {
-        //数据库获取p的条数
-        showall:3
+        city:'',
+        cc:4,
+
       }
     },
+    mounted(){
+
+    },
     methods:{
-      showallll:function (){
-        //  如果条数>4，就把剩余的收起
-        if(this.showall>2){
-          this.$refs.show.innerHTML = "收起"
+        //展开全部
+        showall:function () {
+          var vm = this
+          //循环剩余的天数
+          if(vm.$refs.show.innerHTML =='展开全部'){
+            vm.cc = vm.sday
+            vm.$refs.show.innerHTML = '收起'
+          }
+          else{
+            vm.cc = 4
+            vm.$refs.show.innerHTML = '展开全部'
+
+
+          }
+
+
+          //更改文本
+
+
         }
-      }
+
     }
 
+}
 
-  }
+
 </script>
 
 

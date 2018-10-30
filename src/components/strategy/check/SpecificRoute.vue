@@ -3,21 +3,22 @@
   <div class="container-fluid bg-color-ff" style="padding-left: 50px" id="two">
     <!--<div class="row">-->
 
-    <div class="row" style="width:100%;border: #e4e4e4 1px solid ;border-right: none;border-left: none;border-top: none">
+    <div class="row" style="width:100%;">
       <div class="col-lg-1" ></div>
 
-      <!--具体内容-->
-      <div class="col-lg-10 center-block bg-color-ff" style="margin-top: 15px;  border: #e4e4e4 1px solid ;border-right: none;border-top: none;border-bottom: none">
-        <!--圆形-->
-        <div class="div-circle img-circle pull-left text-center "  style="line-height:38px " >D1</div>
 
-        <ul class="list-unstyled" style="margin-left: 5px">
+      <!--具体内容-->
+      <div class="col-lg-10 center-block bg-color-ff" style="  border: #e4e4e4 1px solid ;border-right: none;border-top: none;border-bottom: none">
+        <!--圆形-->
+        <div class="div-circle img-circle pull-left text-center"  style="line-height:38px">  D{{this.howmuch}}</div>
+
+        <ul class="list-unstyled" style="margin-left: 5px;margin-top: 100px">
           <!--游玩攻略-->
           <li>
             <div class="bg-color-ff ">
               <!--图片-->
               <div class="div-span-img-play float title-img "></div>
-              <div class="title-size " >
+              <div class="title-size" >
                 游玩攻略
               </div>
               <div class="line" style="border: 1px solid #f2f2f2"></div>
@@ -26,13 +27,12 @@
             <!--游玩攻略内容-->
             <div class="row-space row-col-space bg-color-ff" >
 
-              <!--文字-->
-              <span>
-                              上午
-                                上午前往白马寺游览，
-                                这座已有1900多年历史的寺庙是佛教传入我国后第一座由官府建造的寺院，
-                                历来被尊为中国佛教的“祖庭”和“释源”。
-                            </span>
+              <!---------------------------游玩攻略具体内容---------------------------->
+              <span v-text="strage['play']"></span>
+
+
+
+
               <!--地址-->
               <div class="container-fluid" style="padding: 0; margin: 0">
                 <div class="row" style="padding: 0;margin: 0">
@@ -106,11 +106,10 @@
 
             <!--交通攻略内容-->
             <div class="row-space row-col-space bg-color-ff ">
-                            <span >
-                              白马寺位于洛阳市区东北部，可从老城区坐公交56/58路前往，路程大概1小时；或者打车前往，需30元左右。
-                                周王城天子驾六博物馆和隋唐洛阳城国家遗址公园都位于市区，相距2公里，步行半小时即到。
-                                隋唐洛阳城国家遗址公园到丽景门景区1公里左右，步行20分钟即到
-                            </span>
+
+              <!--------------------交通攻略内容--------------------->
+
+                 <span v-text="strage['ticket']"></span>
             </div>
 
           </li>
@@ -129,11 +128,10 @@
 
             <!--门票内容-->
             <div class="row-space row-col-space bg-color-ff" >
-              <!--文字-->
-              <span>
-                           白马寺门票35元/人；周王城天子驾六博物馆门票30元；隋唐洛阳城国家遗址公园门票120元/人；
-                                王城公园平时免费开放，菊花展期间10元，牡丹花会期间40元；丽景门免费，上城门需要30元。
-                            </span>
+
+
+              <!---------------------门票攻略内容------------------->
+              <span v-text="strage['traffic']"></span>
 
             </div>
           </li>
@@ -149,16 +147,17 @@
               </div>
               <div class="line" style="border: 1px solid #f2f2f2"></div>
             </div>
-            <!--餐饮攻略内容-->
-            <div class="row-space row-col-space bg-color-ff" >
 
-              <!--文字-->
-              <span>
-                            洛阳水席和汤品是洛阳最具人气的美味，还有胡辣汤、洛鲤伊鲂、浆面条等都是当地有名的特色美味。
-                                洛阳市区内有一些美食聚集的街区，除老集外，还有万达广场、政和路等地。
-                            今日中午推荐前往下午景点附近享用午餐，当地有名的小街锅贴可以品尝试试；晚上游览完丽景门后可以进入老城区，
-                                在老街上逛逛，品尝一下当地的小吃美食。
-                            </span>
+
+
+
+
+
+            <!--餐饮攻略内容-->
+            <div class="row-space row-col-space bg-color-ff" style="margin-bottom: 49px" >
+
+              <!-----------------餐饮攻略内容--------------->
+              <span v-text="strage['food']"></span>
 
             </div>
           </li>
@@ -183,15 +182,25 @@
   </div>
 </template>
 
-<!--复制模板-->
+
+
 
 <script>
 export default {
   name: 'SpecificRoute',
+  props:["strage","howmuch"],
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+        idlength:[],
+        i:'',
     }
+  },
+
+  methods:{
+
+
+
+
   }
 }
 </script>
@@ -216,7 +225,7 @@ export default {
     width: 38px;
     height: 38px;
     margin-left: -37px;
-    margin-top: 30px;
+    margin-top: 62px;
   }
   /*标题图片居中显示*/
   .title-img{

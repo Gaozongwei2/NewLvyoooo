@@ -2,7 +2,7 @@
 <template>
   <div>
     <div class="bg-color-fa" style="padding: 0">
-      <!--目的地-洛阳-洛阳-->
+
       <div class="container-fluid">
         <div class="container-fluid div-all bg-color-fa">
           <div class="row div1">
@@ -17,7 +17,7 @@
           <!--洛阳四日玩法-->
           <div class="row div2">
             <div class="col-lg-4 col-md-5 col-sm-6 col-lg-offset-1 ">
-              <span class="font-h1 ">洛阳旅发委推荐4日玩法</span>
+              <span class="font-h1 " v-text="strage"></span>
               <!--<div ></div>-->
               <span class="col-line hidden-sm hidden-xs"></span>
             </div>
@@ -29,9 +29,15 @@
 
             <!--点赞收藏编辑-->
             <div class="col-lg-3 col-md-3 col-sm-6 hidden-xs " id="a-none">
-              <a href="javascript:;" class="size good text-center float a-none-line" id="good">
-                <div style="margin-top: 35px!important;">点赞</div>
-                <div style="margin-top: -5px">110</div>
+
+
+
+
+              <!---------------------点赞---------增加点赞数---------------->
+
+              <a href="javascript:;" class="size good text-center float a-none-line" @click="newsgoods" id="good" ref="goods">
+                <div style="margin-top: 35px!important;" ref="sgoohere">点赞</div>
+                <div style="margin-top: -5px" v-text="this.strategy['good']"></div>
                 <!--点赞数量-->
               </a>
               <a href="javascript:;" class="size text-center star float a-none-line" id="star">
@@ -78,13 +84,86 @@
 <!--复制模板-->
 
 <script>
+  import axios from 'axios'
+
   export default {
     name: 'NavMiddle',
+    //攻略标题和攻略id
+    props: ['strageid', 'strage'],
     data() {
       return {
-        msg: 'Welcome to Your Vue.js App'
+
+        straged: '',
+        strategy: {
+          "id": 1,
+          "view": 0,
+          "good": 0,
+          "collect": 0,
+        },
       }
-    }
+    },
+
+
+    created() {
+      var vm = this
+      vm.scurrentfgoods()
+      vm.getgoods()
+      console.log('id在这里'+vm.strageid)
+    },
+      methods: {
+        //  查询当前攻略的点赞数
+        scurrentfgoods: function () {
+          console.log('here')
+          var vm = this
+          console.log(vm.strategy['id'])
+          axios.get('http://127.0.0.1:8000/user/hasgood/' + vm.strageid + '/' + 1 + '/')
+            .then(function (response) {
+
+              vm.strategy['good'] = response.data["goodcount"]
+            })
+            .catch(function (error) {
+              return error
+            })
+        },
+        //查询用户对当前游记的点赞状态
+        getgoods: function () {
+          var vm = this
+          //游记id  用户id
+          axios.get('http://127.0.0.1:8000/user/hasgood/' + vm.strageid + '/' + 1 + '/')
+            .then(function (response) {
+              // console.log('查询用户当前游记的点赞状态'+response.data)
+              vm.goodnum = response.data["isgood"]
+              if(vm.goodnum!=0){
+              //  点赞的文本变成已点赞
+                vm.$refs.sgoohere.innerHTML='已点赞'
+              }
+            })
+            .catch(function (error) {
+              return error
+            })
+        },
+
+
+        //  添加用户点赞过这个游记并更新攻略表里点赞的数量
+        newsgoods: function () {
+
+          var vm = this
+          if(vm.$refs.sgoohere.innerHTML=='点赞'){
+              vm.goodnum++
+              var params = new URLSearchParams();
+              params.append('good', vm.goodnum)
+              axios.post('http://127.0.0.1:8000/user/updategood/' + vm.strageid + '/' + 1 + '/',params)
+                .then(function(response) {
+                  vm.res = response.data
+                  console.log('返回结果是'+vm.res)
+                })
+                .catch(function (error) {
+                  return error
+                })
+          }
+
+          }
+      }
   }
 </script>
 
