@@ -2,17 +2,17 @@
   <div>
   <div class="col-md-1"></div>
   <div class="col-md-3 city-list">
-    <div class="nav   city-title">热门城市</div>
+    <div class="nav   city-title"  style="font-family: 'Apple Color Emoji'; font-weight: bold">热门城市</div>
     <!--<ul class="nav navbar navbar-default">-->
     <ul class="nav nav-pills nav-stacked">
-      <li @click="search($event)" v-for="item in hotcity"><router-link :to="{name:'search',query:{cityindex:item['cityname']}}" v-text="item['cityname']">北京</router-link></li>
+      <li @click="search($event)" v-for="item in hotcity"><router-link :to="{name:'search',query:{cityindex:item['cityname']}}" v-text="item['cityname']" style="background-color: dodgerblue; color: white">北京</router-link></li>
     </ul>
-    <div class="nav   city-title travels">热门景点</div>
+    <div class="nav city-title travels" style="font-family: 'Apple Color Emoji'; font-weight: bold">热门景点</div>
     <ul class="nav nav-pills nav-stacked">
-       <li @click="search($event)"><router-link :to="{name:'search',query:{cityindex:index}}">拙政园</router-link></li>
-       <li @click="search($event)"><router-link :to="{name:'search',query:{cityindex:index}}">外滩</router-link></li>
-       <li @click="search($event)"><router-link :to="{name:'search',query:{cityindex:index}}">西湖</router-link></li>
-       <li @click="search($event)"><router-link :to="{name:'search',query:{cityindex:index}}">松花江</router-link></li>
+       <li @click="search($event)"><router-link :to="{name:'search',query:{cityindex:index}}" style="background:green; color:white">拙政园</router-link></li>
+       <li @click="search($event)"><router-link :to="{name:'search',query:{cityindex:index}}" style="background:green; color:white">外滩</router-link></li>
+       <li @click="search($event)"><router-link :to="{name:'search',query:{cityindex:index}}" style="background:green; color:white">西湖</router-link></li>
+       <li @click="search($event)"><router-link :to="{name:'search',query:{cityindex:index}}" style="background:green; color:white">松花江</router-link></li>
     </ul>
   </div>
   </div>

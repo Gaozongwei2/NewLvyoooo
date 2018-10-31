@@ -52,7 +52,7 @@ export default {
     margin-top: 1000px;
     display: block;
     height: 300px;
-    background-color: #333333;
+    background-color: black;
   }
 
   .foot-content {

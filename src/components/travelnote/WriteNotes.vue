@@ -69,6 +69,7 @@
 
 <script>
   import axios from 'axios'
+
   export default {
     name: "WriteNotes",
     data() {
@@ -80,8 +81,10 @@
         warning2:false,
         warntext:'',
         savestatus:false,
+        edit:false,
         condition:1,
         marks:15,
+        time:'',
         id:sessionStorage.getItem("id"),
         tid:'',
         cover_url:'',
@@ -112,6 +115,7 @@
       this.travel = this.$route.params.travel
       this.tid = this.travel['id']
       if(this.tid){
+        this.edit = true
         this.title = this.travel['id']
         this.cover_url = this.travel['cover__url']
         this.good = this.travel['good']
@@ -175,7 +179,7 @@
         var vm = this
         vm.contentx = title
         vm.content = vm.$refs.content.innerHTML
-        vm.content = vm.content + "<h1 style='font-size: 25px; font-weight: bold; height: 35px; line-height: 35px; '>"+title+"</h1><br><img src=\"https://n3-q.mafengwo.net/s12/M00/2D/DE/wKgED1vQmGSAIXMPAAa7vBs-6aI31.jpeg?imageMogr2%2Finterlace%2F1\" alt=\"\" height='400px' width='400px'>"
+        vm.content = vm.content + "<h1 style='font-size: 25px; font-weight: bold; height: 35px; line-height: 35px; '>"+title+"</h1><br><img src=\"https://n3-q.mafengwo.net/s12/M00/2D/DE/wKgED1vQmGSAIXMPAAa7vBs-6aI31.jpeg?imageMogr2%2Finterlace%2F1\" alt=\"\" width='500px'>"
         vm.$refs.content.innerHTML = vm.content
       },
 
@@ -206,22 +210,63 @@
       // 添加标题
       changecoverimg:function () {
       },
+
       // 保存实际操作
       savecontent:function(){
         var vm = this
         // 存储内容
+        vm.gettime()
         var params = new URLSearchParams();
+        params.append('tid',vm.id)
         params.append('content', vm.content)
+        params.append('title', vm.title)
+        params.append('state',vm.state)
+        params.append('condition',vm.conditionid)
+        params.append('time',vm.time)
+        params.append('contentallid',vm.conentid)
+        params.append('coverid',2)
         // 1. 存储主要内容
-        axios.post('http://127.0.0.1:8000/travelnote/savecontent/',params)
-          .then(function (response) {
-            vm.contentid = response.data
-            vm.saveall()
-          })
-          .catch(function (error) {
-            return error
-          })
+        if(vm.edit){
+          axios.post('http://127.0.0.1:8000/travelnote/updatetravelnote/',params)
+            .then(function (response) {
+
+              vm.contentid = response.data
+              vm.saveall()
+            })
+            .catch(function (error) {
+              return error
+            })
+        }else{
+          axios.post('http://127.0.0.1:8000/travelnote/savecontent/',params)
+            .then(function (response) {
+              vm.contentid = response.data
+              vm.saveall()
+            })
+            .catch(function (error) {
+              return error
+            })
+        }
+
       },
+
+
+
+      // 获取当前时间
+      gettime:function(){
+        let date  = new Date()
+        //系统当前时间
+        let year = date.getFullYear();
+        let month = date.getMonth()+1;//js中是从0开始所以要加1
+        let day = date.getDate();
+        let utime = year+'-'+month+'-'+day
+        var vm = this
+        vm.time = utime
+      },
+
+
+
+
+
       // 保存游记信息
       saveall:function(){
         var vm = this
@@ -249,6 +294,11 @@
           .catch(
           )
       },
+
+
+
+
+
       // 保存为草稿
       savenote:function () {
         var vm = this

@@ -3,15 +3,15 @@
   <div>
     <!--导航-->
     <nav-top></nav-top>
-    <div class="container-fluid bg-color-ff " style="margin: 0;padding: 0">
+    <div class="contentsainer-fluid bg-color-ff " style="margin: 0;padding: 0; ">
       <div class="row text-center  line " style="margin: 0;padding: 0;width: 100%;">
         <div class="col-lg-1 visible-lg"></div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
         </div>
         <div class="col-lg-4 col-md-4 col-lg-offset-3" style="margin-top: 1%;height: 15px">
           <input type="text" maxlength="7" :readonly="readonly" ref="title" @blur="disfocus()"
-                 class="form-control text-center input-rename  float center-block" v-model="title"
-                 style="">
+                 class="form-contentsrol text-center input-rename  float center-block" v-model="title"
+                 style="height: 40px; margin-left: -50px; border-radius: 7px; border: none">
           <a href="#" class="float rename" style="font-size: 14px; height:35px; line-height: 35px; margin-left: 10px;  color: #ff9e00;text-decoration:none;"
              @click="rename">重命名</a>
         </div>
@@ -28,13 +28,13 @@
 
 
     <!---------------------------------左侧导航------------------------------->
-    <div class="container-fluid bg-color-f5" id="contain" style="padding: 0">
+    <div class="contentsainer-fluid bg-color-f5" id="contentsain" style="padding: 0; background-color: rgba(169,169,169,0.31)">
       <!--左边导航-->
       <div class="col-lg-2 bg-color-f5 leftnav">
 
         <!--追加天数-->
         <ul class="list-unstyled div-left" ref="ul" id="day-ul-li">
-          <li v-for="i in msg" @click="left($event)" :id="i" class="add-day text-center btn-circle"
+          <li v-for="i in days" @click="left($event)" :id="i" class="add-day text-center btn-circle"
               style="margin-top: 10px">
             第
             <span>{{i}}</span>
@@ -53,7 +53,7 @@
 
       <!------------------循环添加模版-------------------->
 
-      <div style="background-color: rebeccapurple" v-for="moban in leftday" id="moban" v-if=" moban == newtest">
+      <div style="background-color: rebeccapurple"  id="moban">
         <div class="col-lg-8 bg-color-ff div-edit aaaa" id="div-center-edit" :id="i">
           <ul class="list-unstyled">
 
@@ -69,11 +69,11 @@
                 <span class="font-20">简介：</span>
                 <!--多文本输入框-->
                 <!--这里style改了-->
-                <div class="form-group div-height1 center-block edit-div focusdiv" contenteditable="true" style="margin-top: 10px; padding:6px 20px; font-size: 14px" ref="content" v-html="con">
+                <div class="form-group div-height1 center-block edit-div focusdiv" contenteditable="true" style="margin-top: 10px; padding: 15px; font-size:16px" ref="contents" v-html="contents" v-model="contents">
                 </div>
               </div>
 
-              <div class="container-fluid div-border-bottom ">
+              <div class="contentsainer-fluid div-border-bottom ">
                 <div class="row ">
                   <!--添加目的地-->
                   <div class="div-day-circle-top  div-border-space col-lg-1">
@@ -81,7 +81,7 @@
                     <!---------------------------------圆圈天数-------------------------------->
                     <div class="img-circle div-day-size list-inline text-center div-day-margin ">
                       <span>第</span>
-                      <span class="day" v-text="moban" ref="day"></span>
+                      <span class="day" v-text="nday" ref="day"></span>
                       <span>天</span>
                     </div>
                   </div>
@@ -105,7 +105,7 @@
                     <!--添加目的地-->
                     <!--删除本日-->
                     <button type="button" class="btn btn-default btn-style"
-                            style="outline: none; margin-left: -2px; margin-right:12px;width: 78px">删除本日
+                            style="outline: none; margin-right:1px;width: 78px">删除本日
                     </button>
                   </div>
                   <div class="col-lg-1" style="margin-top: 60px">
@@ -131,15 +131,15 @@
                   游玩攻略
                 </div>
                 <!--编写div文本框-->
-                <div style="padding:6px 20px" class="form-group div-height1 center-block edit-div focusdiv" v-on:blur="reftext($event)"
-                     @click="brgorereftext()" contenteditable="true" ref="ywgl" v-html="mms">
+                <div class="form-group div-height1 center-block edit-div focusdiv" v-on:blur="reftext($event)" style="font-size: 16px; padding: 15px 55px 15px 15px;"
+                     @click="brgorereftext()" contenteditable="true" ref="play" v-html="play">
                 </div>
                 <!--添加图片-->
                 <ul class="list-unstyled list-inline " id="ul">
                   <li class="li-space " style="margin-bottom: 20px;" data-toggle="modal" data-target="#myModal">
                     <a href="javascript:;" class="div-img-size float" @click="showmodel()" data-toggle="modal"
                        data-target="#myModal">
-                      <!--<img src="../../../assets/images/strategy/add.png" alt="">-->
+                      <!--<img src="../../../assets/images/straffictegy/add.png" alt="">-->
                     </a>
                   </li>
                 </ul>
@@ -158,7 +158,7 @@
                     交通攻略
                   </div>
                   <!--编写div文本框-->
-                  <div style="padding:6px 20px" class="form-group div-height1 center-block edit-div focusdiv" ref="transf" v-html="tra" contenteditable="true">
+                  <div class="form-group div-height1 center-block edit-div focusdiv" ref="traffic" style="font-size: 16px; padding: 15px 55px 15px 15px;" v-html="traffic" contenteditable="true">
                   </div>
                 </div>
 
@@ -173,8 +173,7 @@
                     门票攻略
                   </div>
                   <!--编写div文本框-->
-                  <div style="padding:6px 20px" class="form-group div-height1 center-block edit-div focusdiv" contenteditable="true" ref="ticket" v-html="tic">
-                    fds
+                  <div style="padding: 15px 55px 15px 15px; font-size: 16px;" class="form-group div-height1 center-block edit-div focusdiv" contenteditable="true" ref="ticket" v-html="ticket">
                   </div>
                 </div>
 
@@ -189,7 +188,7 @@
                     餐饮攻略
                   </div>
                   <!--编写div文本框-->
-                  <div style="padding:6px 20px"  class="form-group div-height1 center-block edit-div  focusdiv" contenteditable="true" ref="food" v-html="foo">
+                  <div class="form-group div-height1 center-block edit-div  focusdiv" contenteditable="true" ref="food" v-html="food" style="padding: 15px 55px 15px 15px; font-size: 16px">
 
                   </div>
 
@@ -198,7 +197,7 @@
                     <li class="li-space">
                       <a href="javascript:;" class="div-img-size" data-toggle="modal" data-target="#myModal1">
 
-                        <!--<img src="../../../assets/images/strategy/add.png" alt="">-->
+                        <!--<img src="../../../assets/images/straffictegy/add.png" alt="">-->
                       </a>
                     </li>
                     <!--{{li}}-->
@@ -231,144 +230,74 @@
   import axios from 'axios'
 
   export default {
-    name: 'E_Top',
+    name: 'E_Edit',
     data() {
       return {
         // -------------------------------
-        sid:'',
+        sid: '',// 攻略ID
+        nday:1,// 模板中显示的天数
         // -------------------------------
-        tid:'',
-        cityshow: false,
-        title: '东北两日玩法', //攻略标题
-        mainmessage: '',
+        cityshow: false,// 控制模态框状态
+        title: '在这里填写标题', //攻略标题
         warning2: false,
         warntext: '',
-        jj: "iuuinini",
-        msg: 1,
-        //新添加的模版个数
-        lis: 1,
-        html: '',
-        //新生成的天数
-        // newlist:[],
+        days: 1,// 左侧导航栏天数
+        readonly: true, // 标题readonly属性
+        messagelist: [],// 存放所有天数的数据
+        leftday:[],// 模板数量
         modal: false,
-        text: '',
-        //空白模版
-        list: [],
-        //  模态框
-        show: false,
-        a: '',
-        text1: '11',
-
-
-        //  -------------------------new--------------------------
-        //  左侧导航按钮的天数
-        whichday: '',
-        //  左侧天数从1开始存入数组
-        leftday: [],
-
-        //新建的模版存放的空数组
-        savemodel: [],
-
-        // 标题readonly属性
-        readonly: true,
-
-        newtest: '1',
-
-
-        //--------------文本-----------------
-        //优点
-        good: [],
-        //游玩攻略
-        play: [],
-        //交通攻略
-        traffic: '',
-        //门票攻略
-        trick: '',
-        //餐饮攻略
-        food: '',
-
-        //存放每天的游记攻略
-        playday: [],
-
-        //测试========
-        messagelist: [],
-
         // html绑定
-        mms: '',
-        con:'',
-        tra:'',
-        tic:'',
-        foo:'',
-        city:[],
-        daym :{
-          "playt": '',
-          "cont":'',
-          "tra":'',
-          "tic":'',
-          "foo":'',
-          "city":[],
+
+
+
+        days: 0, // 左侧导航天数
+        play:'',
+        contents: '',// 简介内容
+        traffic: '',// 交通攻略内容
+        ticket: '',// 门票攻略内容
+        food: '',// 饮食攻略内容
+        city: [],// 城市列表
+        daymsg: { // 主要信息封装字典
+          "play": '',
+          "contents": '',
+          "traffic": '',
+          "ticket": '',
+          "food": '',
+          "city": [],
         },
-
-        day: '',
-
-        test: [
-          1, 2, 3, 4, 5
-        ]
       }
     },
 
     created() {
-      if (this.$route.params.id){
-        this.sid = this.$route.params.id
-        this.getmaintable()
-        console.log(this.leftday)
-      }else{
-        this.leftday.push(this.msg)
-        var day = {
-          "playt": '',
-          "cont":'',
-          "tra":'',
-          "tic":'',
-          "foo":'',
-          "city":[],
-        }
-        this.messagelist.push(day)
-        console.log(day)
-      }
-
+      this.sid = this.$route.params.id // 获取传递过来的攻略ID
+      this.getmaintable() // 查询该攻略的信息
     },
-    watch: {
-      gao: function (newd, oldd) {
-      }
-    },
-
     methods: {
       // 编辑时获取大表信息
       getmaintable:function(){
         var vm = this
-        axios.get('http://127.0.0.1:8000/strategy/detailcontent/1/', vm.sid)
+        alert("haha")
+        axios.get('http://127.0.0.1:8000/strategy/detailcontent/'+vm.sid+'/')
           .then(function (response) {
             var data = response.data
-            vm.msg = data['day']
-            vm.messagelist = data['content']
-            console.log(vm.messagelist)
-            // vm.leftday = data['content'].length
-            // for(let i=0; i<data['content'].length; i++){
-            //   let day = data['content'][i]
-            //   vm.leftday.push(day)
-            // }
-
-            // console.log(vm.leftday.length)
-            // vm.title = data['title'][0]['title']
-            // alert(vm.title)
+            vm.days = parseInt(data['day']) // 游记天数
+            vm.messagelist = data['content'] //游记主要内容
+            vm.title = data['title'][0]['title'] // 获取标题
+            // 加载第一天数据
+            var nowdayms = vm.messagelist[0]
+            vm.play = nowdayms['play']
+            vm.contents = nowdayms['contents']
+            vm.traffic = nowdayms['traffic']
+            vm.ticket = nowdayms['ticket']
+            vm.food = nowdayms['food']
+            vm.city = eval(nowdayms['advantage'])
           })
           .catch(
           )
       },
       // 获取当前时间方法
       gettimenow:function(){
-        let date  = new Date()
-        //系统当前时间
+        let date  = new Date()  //系统当前时间
         let year = date.getFullYear();
         let month = date.getMonth()+1;//js中是从0开始所以要加1
         let day = date.getDate();
@@ -381,21 +310,22 @@
         vm.readonly = false
         vm.$refs.title.style.backgroundColor = "white"
         vm.$refs.title.style.border = "none"
-        vm.$refs.title.style.boxShadow = "rgba(50, 205, 50, 0.51) 1px 1px 3px 1px"
+        vm.$refs.title.style.boxShadow = "rgba(50, 205, 50, 0.51) 0px 1px 3px 1px"
         vm.$refs.title.focus()
       },
       // 标题输入框失去焦点
-      disfocus() {
+      disfocus(){
         var vm = this
         vm.readonly = "true"
         vm.$refs.title.style.backgroundColor = "#ededed"
         vm.$refs.title.style.outline = "none"
         vm.$refs.tilte.style.border = "rgba(0,0,0,0.2) 1px solid"
-
       },
+      // 添加地点时弹出模态框
       addstate: function () {
         this.cityshow = !this.cityshow
       },
+      // 模态框点击确定调用，在city中增加新项，
       htitlepush: function (city) {
         this.city.push(city)
       },
@@ -409,12 +339,12 @@
         var vm = this
         // 存储当前界面信息
         //取出当前页面显示的数据
-        var playt = vm.$refs.ywgl[0].innerHTML
-        var cont = vm.$refs.content[0].innerHTML
-        var transf = vm.$refs.transf[0].innerHTML
-        var ticket = vm.$refs.ticket[0].innerHTML
-        var food = vm.$refs.food[0].innerHTML
-        vm.daym = {
+        var playt = vm.$refs.ywgl.innerHTML
+        var cont = vm.$refs.content.innerHTML
+        var transf = vm.$refs.transf.innerHTML
+        var ticket = vm.$refs.ticket.innerHTML
+        var food = vm.$refs.food.innerHTML
+        vm.daymsg = {
           "playt": playt,
           'cont': cont,
           'tra': transf,
@@ -423,17 +353,18 @@
           'city':vm.city,
         }
         //取出当前显示界面的天数
-        var day = this.$refs.day[0].innerHTML
+        var day = vm.nday
         //更新当前显示界面的数据
-        vm.messagelist[day - 1] = vm.daym
+        vm.messagelist[day - 1] = vm.daymsg
+        console.log(vm.daymsg)
         // 获取保存主表信息
         var strategy= [{
           "title":vm.title,
-          "state":vm.daym['city'][0],
+          "state":vm.daymsg['city'][0],
           "time": vm.gettimenow(),
           "good":0,
           "view":0,
-          "content":vm.daym['cont'],
+          "content":vm.daymsg['cont'],
           "condition_id":1,
           "scover_id":3,
           "userid_id":vm.id,
@@ -447,18 +378,6 @@
             var params1 = new URLSearchParams()
             // 数据清洗
             var strategys = new Array();
-            var content = {
-              "contents":'',
-              "advantage":'',
-              "address":'',
-              "play":'',
-              "playphoto":'',
-              "traffic":'',
-              "ticket":'',
-              "food":'',
-              "foodphoto":'',
-              "sid_id":'',
-            }
             console.log(vm.messagelist)
             for ( let i=0; i<vm.messagelist.length; i++){
               var content = {
@@ -496,121 +415,99 @@
         // 判断主题信息是否为空
         if (vm.title.length != 0) {
           vm.savemain()
-
         }
         else {
           vm.warning2 = !vm.warning2
           vm.warntext = "没有标题的游记不是真游记"
         }
       },
-      //左侧导航按钮上的天数
-      clickone: function () {
-        var vm = this
-      },
 
       // 点击左侧天数
       left: function (event) {
         var vm = this
         //取出当前页面显示的数据
-        var playt = vm.$refs.ywgl[0].innerHTML
-        var cont = vm.$refs.content[0].innerHTML
-        var transf = vm.$refs.transf[0].innerHTML
-        var ticket = vm.$refs.ticket[0].innerHTML
-        var food = vm.$refs.food[0].innerHTML
-        vm.daym = {
-          "playt": playt,
-          'cont': cont,
-          'tra': transf,
-          'tic':ticket,
-          'foo':food,
-          'city':vm.city,
+        var play = vm.$refs.play.innerHTML
+        var contents = vm.$refs.contents.innerHTML
+        var traffic = vm.$refs.traffic.innerHTML
+        var ticket = vm.$refs.ticket.innerHTML
+        var food = vm.$refs.food.innerHTML
+        var data = {
+          "play": play,
+          'contents': contents,
+          'traffic': traffic,
+          'ticket':ticket,
+          'food':food,
+          'advantage':vm.city,
         }
-        //取出当前显示界面的天数
-        var day = this.$refs.day[0].innerHTML
+        // 取出当前显示界面的天数
+        var showday = vm.nday
         //更新当前显示界面的数据
-        vm.messagelist[day - 1] = vm.daym
+        vm.messagelist[parseInt(showday) - 1] = data
         //从列表中取出点击天数的数据
         var nowday = event.target.id
-        var nowdayms = vm.messagelist[nowday - 1]
-        vm.mms = nowdayms['playt']
-        vm.con = nowdayms['cont']
-        vm.tra = nowdayms['tra']
-        vm.tic = nowdayms['tic']
-        vm.foo = nowdayms['foo']
-        vm.city = nowdayms['city']
-        console.log(vm.messagelist)
-        vm.newtest = event.target.id
-        //获取当前按钮的天数
-        vm.whichday = event.target.innerText.charAt(2)
+        var nowdayms = vm.messagelist[parseInt(nowday) - 1]
+        vm.play='',
+        vm.contents='',
+        vm.traffic='',
+        vm.ticket='',
+        vm.food='',
+        vm.city = [],
 
+        vm.nday = nowday
+        vm.play = nowdayms['play']
+        vm.contents = nowdayms['contents']
+        vm.traffic = nowdayms['traffic']
+        vm.ticket = nowdayms['ticket']
+        vm.food = nowdayms['food']
+        vm.city = eval(nowdayms['advantage'])
+        console.log(vm.contents)
       },
-
-
       //点击加号将新的模版添加到模版数组里=====================================================
       addevent: function () {
         var vm = this
         //获取并更新当前数据===================
-        var playt = vm.$refs.ywgl[0].innerHTML
-        var cont = vm.$refs.content[0].innerHTML
-        var transf = vm.$refs.transf[0].innerHTML
-        var ticket = vm.$refs.ticket[0].innerHTML
-        var food = vm.$refs.food[0].innerHTML
-        vm.daym = {
-          "playt": playt,
-          "cont": cont,
-          "tra":transf,
-          'tic':ticket,
-          'foo':food,
-          'city':vm.city,
+        var play = vm.$refs.play.innerHTML
+        var contents = vm.$refs.contents.innerHTML
+        var traffic = vm.$refs.traffic.innerHTML
+        var ticket = vm.$refs.ticket.innerHTML
+        var food = vm.$refs.food.innerHTML
+        var data = {
+          "play": play,
+          "contents": contents,
+          "traffic":traffic,
+          'ticket':ticket,
+          'food':food,
+          'advantage':vm.city,
         }
         //取出当前显示界面的天数
-        var day = this.$refs.day[0].innerHTML
+        var day = vm.nday
         //更新当前显示界面的数据
-        vm.messagelist[day - 1] = vm.daym
+        vm.messagelist[parseInt(day) - 1] = data
         //获取第几天
-        // alert(vm.msg)
-        vm.msg++
+        vm.days++
         //新建第几天的按钮和模版
-        vm.leftday.push(vm.msg)
-        vm.newtest = vm.msg
+        alert(vm.days)
+
 
         // 获取新表数据===========================
-        vm.city=[]
-        vm.playt='',
-        vm.cont='',
-        vm.tra='',
-        vm.tic='',
-        vm.foo='',
+        // vm.city=[]
+        vm.play='',
+        vm.contents='',
+        vm.traffic='',
+        vm.ticket='',
+        vm.food='',
+        vm.city = [],
 
-        vm.daym = {
-          "playt": '',
-          "cont":  '',
-          "tra": '',
-          'tic': '',
-          'foo':'',
-          'city':[],
-        }
-        vm.messagelist.push(vm.daym)
-        console.log(vm.messagelist)
+       vm.daymsg= {
+        "play": '',
+        "contents":  '',
+        "traffic": '',
+        'ticket': '',
+        'food':'',
+        'advantage':[],
+      }
+        vm.messagelist.push(vm.daymsg)
       },
-
-
-        reftext: function(event) {
-
-          // //如果文本框中的文本为空，就将空值填入数组
-          // if(event.target.innerHTML.trim()==''){
-          //   this.play.push('')
-          //   alert(this.play[0])
-          // }
-          // else{
-          //   this.play.push(event.target.innerHTML)
-          //   alert(this.play[1])
-          // }
-          var day = this.$refs.day[0].innerHTML
-
-          this.play[1] = event.target.innerHTML
-        }
-
       }
 
 
@@ -625,8 +522,8 @@
       //获取到的html传递到后台
       // sendhtml:function(){
       //   let vm = this;
-      //   this.$post('http://127.0.0.1:8000/strategy/insertdetail/',
-      //     this.$qs.stringify({"content": vm.text})).then((response) => {
+      //   this.$post('http://127.0.0.1:8000/straffictegy/insertdetail/',
+      //     this.$qs.stringify({"contentmsg": vm.text})).then((response) => {
       //     console.log(response)
       //     this.$notify({
       //       title: '成功',
@@ -649,8 +546,8 @@
       // let vm = this;
       // console.log(text)
       // var params = new URLSearchParams();
-      // params.append('content', vm.text);
-      // axios.post('http://127.0.0.1:8000/strategy/edit/', params)
+      // params.append('contentmsg', vm.text);
+      // axios.post('http://127.0.0.1:8000/straffictegy/edit/', params)
       //
       //   .then(function (response) {
       //     vm.list = response.data
@@ -686,7 +583,7 @@
     border: 1px solid #f2f2f2;
     background-color: #f5f5f5;
     position: relative;
-    vertical-align: middle;
+    verticketal-align: middle;
     cursor: move;
   }
 
@@ -724,9 +621,9 @@
     display: inline;
   }
   .i-close:hover{
-    transform: rotateZ(360deg);
-    -webkit-transform: rotateZ(360deg);
-    -moz-transform: rotateZ(360deg);
+    trafficnsform: rotateZ(360deg);
+    -webkit-trafficnsform: rotateZ(360deg);
+    -moz-trafficnsform: rotateZ(360deg);
   }
 
   .address-close > li {

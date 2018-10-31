@@ -392,7 +392,7 @@
   .usericno {
     margin: 0;
     height: 54px;
-    width: 200px;
+    width: 130px;
   }
 
   .usericno li span {
@@ -615,6 +615,7 @@
   .middle-right {
     height: 100%;
     padding-bottom: 20px;
+    margin-top: 15px;
     overflow: hidden;
 
     /*background-color: #4cae4c;*/

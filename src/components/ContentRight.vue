@@ -1,8 +1,8 @@
 <template id="content-right">
   <div class="col-md-8 post-window">
     <ul class="nav nav-tabs card">
-      <li  @click='choose($event)' ref="hotravelnotes"><router-link to="/hottravelnote" ><a href="javascrapy:;">热门游记</a></router-link></li>
-      <li  @click='choose($event)' ref="newstrategys"><router-link to="/newstrategy"><a href="javascrapy:;">新鲜攻略</a></router-link></li>
+      <li  @click='choose($event)' ref="hotravelnotes"><router-link to="/hottravelnote" ><a href="javascrapy:;" style="font-family: 'Apple Color Emoji'; font-size: large; font-weight:bold">热门游记</a></router-link></li>
+      <li  @click='choose($event)' ref="newstrategys"><router-link to="/newstrategy"><a href="javascrapy:;" style="font-family: 'Apple Color Emoji'; font-size: large; font-weight:bold">新鲜攻略</a></router-link></li>
     </ul>
     <!--热门游记-->
     <!--邮寄详情模态框-->
@@ -61,9 +61,6 @@
         // 将其值修改为false
         that.motaikuang = ! that.motaikuang
       },
-
-
-
     }
   }
 </script>

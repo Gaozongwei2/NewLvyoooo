@@ -3,12 +3,11 @@
     <!--______________________________________________________-->
     <!--<motaikuang @hidden="hiddenshow" v-if="motaikuang"></motaikuang>-->
     <ul class="col-md-12 nopadding travelnotes-list">
-
-      <li v-for="i in travelnotes.length">
-
+      <!--通过v-if实现实时删除-->
+      <li v-for="i in travelnotes.length" v-if="travelnotes[i-1]['id'] !== showid">
         <div class="col-md-12 nopadding">
           <!--***********点击触发事件**********************************************************-->
-          <router-link to="/travel">
+          <router-link to="/travel" style="color: black; font-family: 'Apple Color Emoji'">
             <div class="col-md-5 nopadding img" @click="showthat"><img :src="travelnotes[travelnotes.length-i]['cover__url']" alt=""
                                                                        height="195px" width="300px"></div>
             <div class="col-md-7">
@@ -25,8 +24,6 @@
                 <span v-text="travelnotes[travelnotes.length-i]['content']"></span>
               </div>
             </div>
-
-
           </router-link>
           <div>
             <span class="left identification" v-text="travelnotes[travelnotes.length-i]['condition__condition']"></span>
@@ -76,6 +73,8 @@
     name: 'MyTravelnotes',
     data() {
       return {
+        showid:'',
+        chooseid:'',
         deletes: false,
         motaikuang: false,
         tid:'',
@@ -94,6 +93,7 @@
       // 点击删除按钮
       shanchu: function (event) {
         var vm = this
+        vm.chooseid = event.target.id
         vm.deletes = !vm.deletes
         vm.tid = event.target.id
 
@@ -134,11 +134,11 @@
       },
       // 删除游记信息
       deletetravel:function (text) {
-        alert("删除游记")
         var vm = this
         axios.get('http://127.0.0.1:8000/travelnote/deletetravelnote/' + vm.tid + '/')
           .then(function (response) {
             console.log(response.data)
+            vm.showid = vm.chooseid
           })
           .catch(function (error) {
             return error
@@ -286,6 +286,7 @@
   }
 
   .mytravelnotes {
+    margin-top: 15px;
     overflow: auto
   }
 </style>

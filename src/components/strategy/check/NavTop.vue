@@ -1,64 +1,53 @@
-<!--上面导航-->
+<!--导航组件-->
 <template>
 
-  <!--<div class="row">-->
-
   <!--导航-->
-  <div class="container-fluid outline" style="margin: 0;padding: 0; box-shadow: black 1px 1px 6px 4px;">
-    <div class="col-md-1"><img src="../../../assets/travelnote/logoweight.png" alt=""
-                               style="width: 130px;height: 40px;float: left;margin-left: 130px;margin-top: 12px"></div>
-    <div class="row text-center " style="background:white;margin: 0;padding: 0;width: 100%;">
-      <div class="col-lg-1 visible-lg"></div>
+  <div class="nav navbar navigation navbar-default title1">
+    <div class="container" style="margin-left: 120px">
+      <a href="####" class="col-md-2 nav navbar-header logo"><img src="../../../assets/images/logo.png" alt=""></a>
+      <ul class="col-md-4 nav navbar-nav">
+        <li><router-link to="/"><a href="####">首页</a></router-link></li>
+        <li>
+          <router-link to="/strategy">更多攻略</router-link>
+        </li>
+        <li>
+          <router-link to="/travel">更多游记</router-link>
+        </li>
+      </ul>
+      <!--点击退出登录注册-->
+      <!--<ul class="col-md-2 nav navbar-nav navbar-right" v-if="!bianmei">-->
+      <!--<li>-->
+      <!--<router-link to="/login"><a href="####">登录</a></router-link>-->
+      <!--</li>-->
+      <!--<li>-->
+      <!--<router-link to="/regist"><a href="####">注册</a></router-link>-->
+      <!--</li>-->
+      <!--</ul>-->
 
-      <!--图标-->
+      <ul class="col-md-3 nav navbar navbar-right usericno" style="margin-right: 40px" >
+        <li>
+          <router-link to="/usercenter">
+            <a href="####">
+              <img class="img-circle icno col-md-6"src="http://n2-q.mafengwo.net/s10/M00/6C/09/wKgBZ1nm_RuAcRY4AABeA1K-J9Y49.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90" alt="">
+              <span class="left col-md-6" style="color: whitesmoke">棕色试剂瓶</span>
+            </a>
+          </router-link>
+        </li>
+      </ul>
 
-      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
-        <!--转至首页-->
-        <a href="#">
-          <!--<img  class="logo" src="../assets/logo.png" alt="">-->
-        </a>
-      </div>
-      <router-link to="/">
-      <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 hasborder">
 
-            首页
+      <ul class="col-md-2 nav navbar navbar-right droplist">
+        <li class="switch"></li>
+        <li ><router-link to="/usercenter/mycollect"><a href="####" >我的关注</a></router-link></li>
+        <li><router-link to="/usercenter/myfocus"><a href="####">我的收藏</a></router-link></li>
+        <li><router-link to="/usercenter/mytravelnotes"><a href="####">我的游记</a></router-link></li>
+        <li><router-link to="/usercenter/mystrategys"><a href="####">我的攻略</a></router-link></li>
+        <li><router-link to="/write"><a href="####">写游记</a></router-link></li>
+        <li><router-link to="/edit"><a href="####">写攻略</a></router-link></li>
+        <li @click="loginout()"><router-link to="/"><a href="javascript:;" class="exit" >退出</a></router-link></li>
+      </ul>
 
-      </div>
-      </router-link>
-      <!--游记-->
-      <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 hasborder">
-          游记详情
-      </div>
-
-      <!--旅游攻略-->
-      <div class="col-lg-1 col-md-2 col-sm-2 col-xs-3 hasborder">
-          旅游攻略
-      </div>
-      <div class="col-lg-1  col-md-2 col-sm-1 hidden-xs"></div>
-      <div class="col-lg-1  visible-lg "></div>
-      <!--搜索框-->
-      <div class="col-lg-3  col-md-4 hidden-xs form-group search" style="margin-top: 11px">
-        <input type="text" class="input-form-control " id="search">
-      </div>
-      <!--头像-->
-      <div class="col-lg-1 col-md-1 hidden-sm hidden-xs">
-        <img src="../../../assets/strategy/face.jpeg" alt="" class="img-circle" id="img-face">
-        <div class="hover-div">
-          <ul class="list-unstyled hover-ul">
-            <li>我的关注</li>
-            <li>我的收藏</li>
-            <li>我的游记</li>
-            <li>写游记</li>
-            <li>写攻略</li>
-            <li>退出</li>
-          </ul>
-        </div>
-
-      </div>
-
-      <div class="col-lg-1 visible-lg"></div>
     </div>
-    <div class="line"></div>
   </div>
 
 
@@ -72,79 +61,41 @@
     name: 'NavTop',
     data() {
       return {
-        msg: 'Welcome to Your Vue.js App'
+        msg: 'Welcome to Your Vue.js App',
+        bianmei:false
+      }
+
+    },
+    methods:{
+      //点击退出(点击退出 变登录注册 没写出来 嘻嘻)
+      loginout:function(){
+        var vm = this
+        sessionStorage.setItem('token','0')
+        this.bianmei = false
+      },
+      // 退出方法
+      exit:function () {
+        sessionStorage.setItem("token","0")
+        this.bianmei=false
       }
     }
   }
 
 </script>
 
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .outline {
-    box-shadow: #4b4b4b 1px 1px 6px 1px;
-  }
 
   /*路线超链接下划线*/
   .a-none-line a {
     text-decoration: none !important;
   }
 
-  /*导航start*/
-  .row {
-    line-height: 58px;
-  }
-
-  /*头像*/
-  #img-face {
-    width: 32px;
-    height: 32px;
-    /*padding: 13px;*/
-    margin-top: 2px;
-  }
-
-  .hover-div {
-    width: 210px;
-    height: 346px;
-    opacity: 0.5;
-    background: #4cae4c;
-    display: none;
-    position: absolute;
-    z-index: 5;
-    left: -20%;
-    top: 60px;
-  }
-
-  /*悬浮div*/
-  #img-face:hover + .hover-div {
-    display: block;
-  }
-
-  .hover-div:hover {
-    display: block;
-  }
-
   .hover-ul li:hover {
     background-color: #ff9d00;
   }
 
-  /*导航块*/
-  .hasborder:hover {
-    border: 2px solid #ff9d00;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    cursor: pointer;
-    color: #ff9d00;
-  }
 
-  /*搜索框*/
-  .search {
-    display: flex;
-    justify-content: flex-end;
-  }
-
+  /*废弃的搜索框框 */
   .input-form-control {
     /*圆角*/
     border-top-right-radius: 5px;
@@ -178,10 +129,126 @@
     background-repeat: no-repeat;
   }
 
-  .search {
-    display: flex;
-    justify-content: flex-end;
-  }
 
   /*导航end*/
+
+  .title1 {
+    height: 54px;
+    background-color: #333333 !important;
+    background-image: none !important;
+    border: none !important;
+    margin-bottom: 0 !important;
+    color: whitesmoke !important;
+    border-radius: 0px !important;
+    /*display: none;*/
+  }
+
+
+  .title1 a {
+    color: whitesmoke !important;
+    font-size: 17px !important;
+    text-decoration: none!important;
+  }
+
+  .title1 a:hover {
+    color: #448700 !important;
+    transition: color 0.2s;
+  }
+
+  .usericno {
+    margin: 0;
+    height: 54px;
+    width: 200px;
+  }
+
+
+  .title2-left li:active{
+    background-color: rgba(76, 174, 76, 0.75) !important;
+    transition: background-color 0.3s;
+    color: whitesmoke;
+  }
+
+  .usericno .icno {
+    height: 45px !important;
+    width: 45px !important;
+    padding: 0;
+    margin-top: 5px;
+    background-image: url("http://n2-q.mafengwo.net/s10/M00/6C/09/wKgBZ1nm_RuAcRY4AABeA1K-J9Y49.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90");
+    object-fit: cover;
+    vertical-align: center;
+  }
+
+  .usericno li a:hover {
+    background-color: rgba(250, 0, 255, 0) !important;
+  }
+
+  .usericno li {
+    height: 54px;
+  }
+
+  .usericno li a {
+    height: 53px;
+    padding: 0 !important;
+    vertical-align: center;
+  }
+
+  .usericno li a span {
+    height: 53px;
+    color: #222222;
+    line-height: 54px;
+    font-size: small;
+    padding-left: 10px;
+    padding-right: 0;
+  }
+
+
+  /*头像*/
+  .usericno {
+    margin: 0;
+    height: 54px;
+    width: 190px;
+  }
+
+  .usericno:hover + .droplist {
+    display: block !important;
+  }
+
+  /*下达列表*/
+  .droplist {
+    display: none;
+    padding: 0;
+    color: #fcfcfc !important;
+    border-radius: 5px;
+    /*width: 150px!important;*/
+    width: 200px !important;
+    position: absolute;
+    left: 1045px;
+    top: 53px;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.45);
+  }
+
+  .droplist li a {
+    color: #fefefe !important;
+  }
+
+  .droplist li:hover + .droplist li a{
+    color: #3c3c3c!important;
+  }
+
+  .droplist .switch {
+    height: 5px;
+    opacity: 0;
+  }
+
+  .switch a{
+    text-decoration: none!important;
+    width: 100%;
+    height: 100%;
+  }
+  .droplist:hover {
+    display: block;
+    color: black!important;
+    z-index: 10 !important;
+  }
 </style>

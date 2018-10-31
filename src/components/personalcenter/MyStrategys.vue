@@ -1,7 +1,7 @@
 <template>
   <div class="mytravelnotes container-fluid nopadding">
     <ul class="col-md-12 nopadding travelnotes-list">
-      <li v-for="strategy in this.strategys">
+      <li v-for="strategy in this.strategys"  v-if="strategy['id'] !== showid">
         <div class="col-md-12 nopadding">
           <div class="col-md-5 nopadding img"><img :src="strategy['scover__url']" alt="" height="195px" width="300px"></div>
           <div class="col-md-7">
@@ -18,13 +18,15 @@
             </div>
             <div>
               <span class="left identification" v-text="strategy['condition__condition']">已发布</span>
-              <div class="fix right btn btn-success bb">编辑</div>
-              <div class="fix right btn btn-danger bb" data-toggle="modal" data-target="#myModal"  :id="strategy['id']">删除</div>
+              <div class="fix right btn btn-success bb" :id="strategy['id']"  @click="edit"><router-link :to="{name:'e_edit',params:{id:strategy['id']}}">编辑</router-link></div>
+              <div class="fix right btn btn-danger bb" data-toggle="modal" data-target="#myModal"  :id="strategy['id']" @click="shanchu($event)">删除</div>
             </div>
           </div>
         </div>
       </li>
     </ul>
+    <motaikuangdelete :del="deletes" @htitlepush="deletestrategy"></motaikuangdelete>
+
   </div>
 </template>
 
@@ -36,7 +38,11 @@
     name: 'MyStrategys',
     data() {
       return {
+        showid:'',
+        chooseid:'',
+        deletes: false,
         strategys:'',
+        sid:'',
         id: sessionStorage.getItem("id")
       }
     },
@@ -44,6 +50,30 @@
       this.gettravel()
     },
     methods:{
+      // 点击删除按钮
+      shanchu: function (event) {
+        var vm = this
+        vm.chooseid = event.target.id
+        vm.deletes = !vm.deletes
+        alert(vm.deletes)
+        vm.sid = event.target.id
+
+      },
+      // 删除攻略信息
+      deletestrategy:function (text) {
+        var vm = this
+        axios.get('http://127.0.0.1:8000/strategy/deletestrategy/' + vm.sid + '/')
+          .then(function (response) {
+            console.log(response.data)
+            vm.showid = vm.chooseid
+          })
+          .catch(function (error) {
+            return error
+          })
+        vm.gettravel()
+        // vm.reload()
+
+      },
       // 获取我的游记信息
       gettravel:function () {
         var vm = this

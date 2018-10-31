@@ -67,13 +67,14 @@
       //取消关注
       unfocus:function (event) {
         //  获取当前被点击的userid
+        var vm = this
         var id = sessionStorage.getItem("id")
-        this.disappear = event.target.id
+        vm.disappear = event.target.id
         axios.get('http://127.0.0.1:8000/user/unfocus/' + id + '/' + event.target.id+'/')
           .then(function (response) {
             //关注人数和粉丝数
             alert("取消成功")
-            this.getmessage()
+            vm.getmessage()
           })
           .catch(function (error) {
             return error

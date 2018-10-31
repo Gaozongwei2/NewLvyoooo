@@ -4,15 +4,15 @@
       <div class="col-md-3" id="logo-img"><router-link to="/"><img src="../../assets/images/logoweight.png" alt="" height="50px" width="150px" ></router-link></div>
       <ul class="col-md-3" id="nav-list">
         <router-link to="/hottravelnote"><li>首页</li></router-link>
-        <router-link to="/strategy"> <li>游记攻略</li></router-link>
-        <router-link to="/write"><li>写游记</li></router-link>
+        <router-link to="/strategy"> <li>更多攻略</li></router-link>
+        <router-link to="/write"><li>更多游记</li></router-link>
       </ul>
-      <div class="col-md-4 hidden-xs form-group search " style="margin-top: 11px">
-        <input type="search" id="search-bar-input" placeholder="搜索目的地">
-      </div>
+      <!--<div class="col-md-4 hidden-xs form-group search " style="margin-top: 11px">-->
+        <!--<input type="search" id="search-bar-input" placeholder="搜索目的地">-->
+      <!--</div>-->
       <div class="col-md-2" id="user-img">
         <ul class="col-md-2 nav navbar navbar-right usericno " v-if="bianmei">
-          <li >
+          <li>
             <router-link to="/usercenter"><a href="####">
               <img class="img-circle icno col-md-6"src="http://n2-q.mafengwo.net/s10/M00/6C/09/wKgBZ1nm_RuAcRY4AABeA1K-J9Y49.jpeg?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90" alt="">
               <span class="left col-md-6" style="color: whitesmoke">棕色试剂瓶</span></a>
@@ -27,7 +27,7 @@
           <li><router-link to="/usercenter/mystrategys"><a href="####">我的攻略</a></router-link></li>
           <li><router-link to="/write"><a href="####">写游记</a></router-link></li>
           <li><router-link to="/edit"><a href="####">写攻略</a></router-link></li>
-          <li><a href="javascript:;" class="tuichu" @click="tuichu">退出</a></li>
+          <li @click="loginout()"><router-link to="/"><a href="javascript:;" class="exit" >退出</a></router-link></li>
         </ul>
       </div>
     </div>
@@ -79,7 +79,7 @@
       </div>
     </div>
     <!--界面名字：TravelMian-->
-    <travel-main :travels="this.travel"></travel-main>
+    <travel-main :travels="travel"></travel-main>
   </div>
 
 
@@ -99,33 +99,47 @@
         clickable:false,
         goodnum:'点赞',
         bianmei:true,
+        some:'',
         travel:{
           "id":'',
           "title":"只有聪明的人才能看到标题",
           "view":0,
           "good":0,
-          "collect":0,
+          "cover__url":0,
+          "state":'',
+          "userid__icno__imageurl":"",
+          "userid__username":"",
         },
 
       }
 
     },
     created(){
-      var vm = this
-      vm.travel = vm.$route.params.travel
+      if(this.$route.params.travel){
+        this.travel = this.$route.params.travel
+      }else{
+        this.getsomeone()
+      }
       // 计算游记被收藏数
-      console.log(vm.travel["id"])
-      // axios.get('http://127.0.0.1:8000/user/numcollect/'+ vm.travel['id']+'/')
-      //   .then(function (response) {
-      //     vm.collect = response.data
-      //     console.log("收藏数"+ response.data)
-      //   })
-      //   .catch(function (error) {
-      //     return error
-      //   })
+      console.log(this.travel)
 
     },
     methods: {
+      // 随机获取一篇游记
+      getsomeone:function(){
+        var vm = this
+        // 获取某个游记
+        axios.get('http://127.0.0.1:8000/travelnote/getsomeone/')
+          .then(function (response) {
+            // vm.$forceUpdate();
+            vm.travel = response.data[0]
+            // vm.$set(vm.travel,response.data,true);
+            console.log(response.data)
+          })
+          .catch(function (error) {
+            return error
+          })
+      },
 
       collecttravelnote: function (event) {
         var vm = this
@@ -177,28 +191,27 @@
     collectadd: function () {
       alert('ok')
     },
-    tuichu:function(){
-
-    },
+    // tuichu:function(){
+    //
+    // },
 
     //离开页面浏览数加 1
-    mounted: function () {
-      this.travel['view']++
-      //存储用户浏览数
-      var params = new URLSearchParams();
-      console.log("jfkdjsfkdj"+ this.travel['view'])
-      params.append('view',this.travel['view'] )
-
-      axios.post('http://localhost:8000/travelnote/updatelooknum/' +this.travel['id']+'/',params)
-        .then(function (response) {
-          vm.looknum= response.data
-          console.log(vm.looknum)
-          vm.getpages()
-        })
-        .catch(function (error) {
-          return error
-        })
-    },
+    // mounted: function () {
+    //   this.travel['view']++
+    //   //存储用户浏览数
+    //   var params = new URLSearchParams();
+    //   params.append('view',this.travel['view'] )
+    //
+    //   axios.post('http://localhost:8000/travelnote/updatelooknum/' +this.travel['id']+'/',params)
+    //     .then(function (response) {
+    //       vm.looknum= response.data
+    //       console.log(vm.looknum)
+    //       vm.getpages()
+    //     })
+    //     .catch(function (error) {
+    //       return error
+    //     })
+    // },
   }
 </script>
 

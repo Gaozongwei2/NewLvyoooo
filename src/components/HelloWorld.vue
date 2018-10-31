@@ -1,15 +1,15 @@
 <template id="title1">
   <div>
-    <div class="nav navbar navigation navbar-default title1">
+    <div class="nav navbar navigation navbar-default title1" >
       <div class="container">
         <a href="####" class="col-md-2 nav navbar-header logo"><img src="../assets/images/logo.png" alt=""></a>
         <ul class="col-md-4 nav navbar-nav">
-          <li><a href="####">首页</a></li>
+          <li><a href="####" style="font-size: 15px">首页</a></li>
           <li>
-            <router-link to="/strategy">攻略</router-link>
+            <router-link  :to="{name:'travelnotes',params:{travel:travelnote}}" style="font-size: 15px"><span style="color: orange; font-size: 15px">随便</span>攻略</router-link>
           </li>
           <li>
-            <router-link to="/travel">游记</router-link>
+            <router-link :to="{name:'travelnotes',params:{travel:travelnote}}" style="font-size: 15px"><span style="color: orange; font-size: 15px">随便</span>游记</router-link>
           </li>
         </ul>
         <ul class="col-md-2 nav navbar-nav navbar-right" v-if="!bianmei">
@@ -115,6 +115,7 @@
     // props:['user'],
     data() {
       return {
+        travelnote:'',
         id: 1,
         aa: true,
         bb: 0,
@@ -145,7 +146,11 @@
       sessionStorage.setItem("id", "1")
       this.token = "gzw"
       console.log(this.props)
+      this.getsomeone()
+      // 默认获取一篇攻略
       this.showtrvelnotes()
+      // 默认获取一篇游记
+
     },
 
     methods:{
@@ -156,6 +161,7 @@
         sessionStorage.setItem('token','0')
         this.bianmei = false
       },
+
       //查询用户信息
       getmymessage: function () {
         var vm = this
@@ -306,12 +312,13 @@
   }
   .title1 {
     height: 54px;
-    background-color: #333333 !important;
+    background-color: black !important;
     background-image: none !important;
     border: none !important;
-    margin-bottom: 0 !important;
+    margin-bottom: 0px !important;
     color: whitesmoke !important;
     border-radius: 0px !important;
+    box-shadow:1px 1px 8px 1px #717171;
     /*display: none;*/
   }
   .sowingmap #searchbox{

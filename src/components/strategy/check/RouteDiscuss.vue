@@ -1,111 +1,89 @@
 <!--路线讨论区-->
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid box">
+    <!--编写div文本框-->
+    <div style="font-size: xx-large; font-family: 'Apple Color Emoji'; line-height:60px; font-weight: bold; text-align: center; border-bottom: 2px solid #cbcbcb; margin-bottom: 20px; ">评论</div>
+    <div class="col-md-9 comtext" contenteditable="true" ref="com"></div>
+    <div class="col-md-1"></div>
+    <div class="col-md-2 btn submit nopadding" @click="up">发布</div>
 
+    <div class="commit1 col-md-12 nopadding" v-for="item in commitlist" style="padding-top: 5px;margin-top: 10px; border-bottom: 1px solid rgba(152,152,152,0.32); background-color: rgba(220,220,220,0.31); border-radius: 5px">
+      <div class="col-md-2 nopadding" style="">
+        <div class="col-md-12 nopadding" style="height: 40px;">
+          <div class="img-circle icno" :style="{background:'url('+usericno+')'}"></div>
+        </div>
+        <div class="col-md-12 nopadding" style="height: 20px; text-align: center; line-height: 20px;color: orange"
+             v-text="username"></div>
+      </div>
+      <div class="col-md-10 nopadding" style="border-left: 1px solid rgba(221,213,210,0.99); min-height: 60px; padding: 10px; font-family: 'Apple Color Emoji'">
+        <div class="text" v-text="item"></div>
+      </div>
   </div>
-  <!--<div>-->
-    <!--<div class="container-fluid bg-color-ff" style="padding-left: 50px; height: auto" id="three">-->
-      <!--<div class="row">-->
-        <!--&lt;!&ndash;左边空格&ndash;&gt;-->
-        <!--<div class="col-lg-1"></div>-->
-        <!--&lt;!&ndash; 中间内容&ndash;&gt;-->
-
-        <!--<div class="col-lg-10 bg-color-ff" style=" margin-top: 15px;width: 80%;">-->
-          <!--&lt;!&ndash;标题&ndash;&gt;-->
-          <!--<div class="h2 text-center" style="padding: 40px 0px">-->
-            <!--讨论区-->
-          <!--</div>-->
-          <!--&lt;!&ndash;输入框&ndash;&gt;-->
-          <!--<div>-->
-            <!--&lt;!&ndash;多文本输入框&ndash;&gt;-->
-            <!--<form role="form" class="text-center">-->
-              <!--<div class="form-group">-->
-                <!--<textarea id="distext" class="form-control float" rows="2"-->
-                          <!--style="background: none;transform: none;border: 0"></textarea>-->
-                <!--<span class="input-group-btn">-->
-                  <!--<button type="button" class="btn btn-warning " @click="up">发 布</button>-->
-                <!--</span>-->
-              <!--</div>-->
-            <!--</form>-->
-          <!--</div>-->
-          <!--&lt;!&ndash;向子组件传值&ndash;&gt;-->
-          <!--<discuss :ulists="tt"></discuss>-->
-          <!--&lt;!&ndash;右边空格&ndash;&gt;-->
-          <!--<div class="col-lg-1"></div>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-
-    <!--&lt;!&ndash;分页&ndash;&gt;-->
-    <!--&lt;!&ndash;<page-index :count="pagesize" @indexclick="getIndex"></page-index>&ndash;&gt;-->
-  <!--</div>-->
+    <discuss :newcommit="tt" class="col-md-12 nopadding" style="margin-top: 20px"></discuss>
+  </div>
 </template>
 
 <!--复制模板-->
 
+
 <script>
-  import Discuss from './Discuss'
   import axios from 'axios'
+
 
   export default {
     name: 'RouteDiscuss',
     props: ["tt"],
+
     data() {
       return {
-        condition: '',
-        lists: [],
-        pageindex: 1,
-        pagesize: 0,
-        //commig列表
-        commitlist: [],
-        id: this.tt['id'],
-        uid: '',
-        //设定flag=1时，改该方法用于游记，否则就是攻略
-        flag:this.tt['flag']
+        commits:[],
+        commitlist:[],
+        username:'',
+        usericno:'',
+        commit:'',
+        lists:'',
+        id:this.tt['id'],
       }
-    },
-    components: {
-      Discuss
     },
     created(){
-      let id = this.tt['id']
-      if (id == 1){
+      this.getmymessage()
+      if (this.tt['flag'] == 1){
         this.searchtravelnotecommit()
-      }else if(id == 2){
-
+      }else if(this.tt['flag'] == 2){
       }
-
-      console.log(this.tt)
+      alert(this.lists.length)
     },
-    mounted: function () {
-      //获取userid
-      this.uid = sessionStorage.getItem('id')
-      // alert(this.uid)
-      // alert(this.id)
-      // this.getData();
-
-      // this.getPageSize();
-
-      // this.searchData()
-
-    },
-
     //组件停用时调用
     beforeDestroy: function () {
-      // alert(2222)
-      // alert(this.lists)
+
     },
     methods: {
+      // 获取自身信息
+      //查询用户信息
+      getmymessage: function () {
+        var vm = this
+        axios.get(' http://127.0.0.1:8000/user/getusermessage/'+sessionStorage.getItem('id')+'/')
+          .then(function (response) {
+            console.log(response.data)
+            vm.usericno = response.data[0]['icno__imageurl']
+            vm.username = response.data[0]['username']
+            console.log(vm.usericno)
+            console.log(vm.username)
+          })
+          .catch(function (error) {
+            return error
+          })
+      },
       //写评论
       up() {
         var vm = this
+        vm.commit = vm.$refs.com.innerHTML
+        if (vm.commit.length>0){
+          vm.commitlist.push(vm.commit)
+          console.log(vm.commitlist)
+        }
         alert(vm.flag)
         //定义变量
-        var a = 0
-        //  用户名，时间，评论内容
-        //获取当前用户名
-        // let uname = document.querySelector('.uname').value
-        //系统当前时间
         let date = new Date()
         let year = date.getFullYear();
         let month = date.getMonth() + 1;//js中是从0开始所以要加1
@@ -114,14 +92,12 @@
         let utime = year + '年' + month + '月' + day + '日 '
 
         // 输入框的内容
-        let discusstxt = document.querySelector('#distext')
+        let discusstxt = vm.commit
         //封装到一个新的字典中
 
         if (discusstxt.value.trimLeft() != '') {
           alert(1)
           let dict = {
-            // uface:"1111",
-            // username:uname,
             datetime: utime,
             content: discusstxt.value,
             tid_id: this.id,
@@ -181,28 +157,12 @@
         }else{
           alert("判断出错")
         }
-
-
         // 清空文本框
-        discusstxt.value = ""
-      },
-      // 查询游记评论
-      searchstrategycommit:function () {
-
+        vm.commit = ''
       },
 
-      // getData: function () {
-      //   let vm = this;
-      //   axios.get('http://0.0.0.0:8000/strategy/getcontent/'+vm.pageindex+'/')
-      //     .then(function (response) {
-      //       vm.getPageSize();
-      //       vm.list = response.data;
-      //       console.log(vm.list)
-      //     })
-      //     .catch(function (error) {
-      //       console.log(error);
-      //     })
-      // },
+
+
 
       // getPageSize:function () {
       //   var vm=this;
@@ -224,7 +184,7 @@
       this.pageindex = i;
       // this.getData();
       // this.getPageSize();
-    }
+    },
 
 
     // }
@@ -236,37 +196,31 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  /*背景颜色fffff*/
-  .bg-color-ff {
-    background-color: #ffffff;
+  .box{
+    height: auto;
+    margin-bottom: 100px;
   }
+ .comtext{
+   padding: 10px;
+   min-height: 50px;
+   border-radius: 5px;
+   border:1px solid orange;
+   outline: none;
 
-  /*字体大小*/
-  .h2 {
-    font-size: 26px;
+ }
+  .submit{
+    padding:0;
+    height: 50px;
+    line-height: 50px;
+    font-family: "Apple Color Emoji";
+    border-radius: 5px;
+    font-size:larger;
+    color: white;
+    text-align: center;
+    background-color: #ff9d00;
   }
-
-  /*浮动*/
-  .float {
-    float: left;
+  .mycommit{
+    min-height: 50px;
+    background-color: whitesmoke;
   }
-
-  /*多文本输入框*/
-  .form-control {
-    width: 86%;
-  }
-
-  /*多文本输入框按钮*/
-  .btn-warning {
-    /*圆角*/
-    border-top-right-radius: 0px;
-    border-top-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-    border-bottom-left-radius: 0px;
-    width: 80%;
-    height: 51px;
-    margin-top: -1px;
-  }
-
-
 </style>

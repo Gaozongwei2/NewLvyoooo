@@ -6,6 +6,7 @@ import TestX  from '../components/TestX'
 import TestRadioButton from '../components/TestRadioButton'
 import MoTaiKuang from '../components/MoTaiKuang'
 import HelloWorldAll from '../components/strategy/check/all'
+import E_Edit from '../components/strategy/edit/E_Edit'
 
 
 
@@ -50,11 +51,11 @@ export default new Router({
       name:'test',
       component:TestX
     },
-    {
-      path:'/testradio',
-      name:'testradio',
-      component:TestRadioButton
-    },
+    // {
+    //   path:'/testradio',
+    //   name:'testradio',
+    //   component:TestRadioButton
+    // },
     // 攻略部分
     {
       path:'/all',
@@ -77,6 +78,12 @@ export default new Router({
       path: '/edit',
       name: 'edit',
       component: E_Top
+    },
+    //编辑攻略
+    {
+      path: '/e_edit',
+      name: 'e_edit',
+      component: E_Edit
     },
     // 登录注册部分
     {

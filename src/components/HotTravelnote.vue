@@ -31,13 +31,13 @@
     </div>
     </div>
     <div class="page">
-      <button class="btn before-page">上一页</button>
+      <button class="btn before-page" @click="before">上一页</button>
       <div class="lin_page_index btn " v-for="i in pagecount">
         <a class="btn btn-default padding" href="javascript:;" v-text="i" :id="i" @click="showpage($event)" ></a>
       </div>
       <a class="btn btn-default padding" href="javascript:;" v-if="morepage" :id="i" @click="countshow()" >...</a>
 
-      <button class="btn next-page">下一页</button>
+      <button class="btn next-page" @click="next">下一页</button>
       <div class="btn ">共<span style="color: #549c55" v-text="countnum"></span>页</div>
     </div>
   </div>
@@ -110,6 +110,50 @@
       this.getalltravelnotes()
     },
     methods: {
+      // 上一页
+      before:function(){
+        var vm = this
+        alert(vm.page-1)
+        if (vm.page-1>0){
+          vm.page = vm.page - 1
+          var newlist=[]
+          if (vm.page*vm.pagesize<=vm.travels.length){
+            vm.pagesize = 6
+            for(let i =1; i<=6; i++){
+              newlist.push((vm.page-1)*6+i)
+            }
+          }else{
+            vm.pagesize = vm.travels.length-((vm.page-1)*vm.pagesize)
+            for(let i =1; i<=vm.pagesize; i++){
+              newlist.push((vm.page-1)*6+i)
+            }
+          }
+          vm.pagelist = newlist
+        }
+        alert("before")
+      },
+      // 下一页
+      next:function(){
+        var vm = this
+        alert("next")
+        if(vm.page+1<=vm.pagecount){
+          vm.page = vm.page + 1
+          var newlist=[]
+          if (vm.page*vm.pagesize<=vm.travels.length){
+            vm.pagesize = 6
+            for(let i =1; i<=6; i++){
+              newlist.push((vm.page-1)*6+i)
+            }
+          }else{
+            vm.pagesize = vm.travels.length-((vm.page-1)*vm.pagesize)
+            for(let i =1; i<=vm.pagesize; i++){
+              newlist.push((vm.page-1)*6+i)
+            }
+          }
+          vm.pagelist = newlist
+        }
+      },
+
       // 点击最新发布
       newest: function () {
         var vm = this
@@ -155,6 +199,7 @@
 
         console.log(vm.pagecount)
       },
+
       showpage:function (event) {
         var vm = this
         var newlist=[]

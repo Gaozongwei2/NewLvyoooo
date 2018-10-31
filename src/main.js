@@ -71,7 +71,7 @@ import MyLetter from './components/personalcenter/MyLetter'
 //我的成就
 import MyAchieve from './components/personalcenter/MyAchieve'
 
-
+import E_Edit from './components/strategy/edit/E_Edit'
 
 // import Footer from './components/Footer'
 
@@ -129,6 +129,7 @@ Vue.component('mtravelnote',Mtravelnote)
 // 注册全局组件
 Vue.component('nav-top',NavTop)
 Vue.component('nav-bottom',NavBottom)
+Vue.component('e_edit',E_Edit)
 //面包屑导航
 Vue.component('nav-bread',NavBread)
 //路线概览

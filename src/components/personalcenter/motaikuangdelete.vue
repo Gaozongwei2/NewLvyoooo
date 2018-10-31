@@ -3,7 +3,7 @@
   <div :class="war" ref="abc" @click="Hidden">
     <div class="show" ref="abc" @click.prevent.stop>
       <div class="showmessage container-fluid" >
-        <div class="col-md-12 txt">是否删除本游记？？？</div>
+        <div class="col-md-12 txt">是否删除？？？</div>
         <div class="box">
           <div class="btn col-md-1"></div>
           <div class="btn col-md-4 but" style="background-color: red; color: white" @click="deletetravel">确认</div>
@@ -50,9 +50,7 @@
         // vm.$emit("htitlepush", vm.text)
       },
       deletetravel:function () {
-        alert("删除")
         this.Hidden()
-
         this.$emit("htitlepush", this.text)
       }
 

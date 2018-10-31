@@ -13,7 +13,7 @@
         <div class="col-md-12">这里是基本信息</div>
       </div>
       <div class="button col-md-3">
-        <div class="btn">关注</div>
+        <div class="btn" @click="focususer($event)" ref="isfocus" v-text="this.focustxt"></div>
       </div>
 
     </div>
@@ -30,6 +30,7 @@
         travels:'',
         notxt:false,
         showmore:false,
+        focustxt:"关注",
       }
     },
     created(){
@@ -64,6 +65,27 @@
             .catch(function (error) {
               return error
             })
+        },
+
+      //  根据用户id添加关注用户
+        focususer:function () {
+          var vm = this
+          if (vm.focustxt=='关注'){
+              vm.focustxt='已关注'
+            // vm.focustxt = "已关注"
+            // vm.$refs.isfocus[i].innerHTML = "一观乎"
+            // event.currentTarget.target.innerText = "99999"
+          }
+          // if(vm.$refs.isfocus.innerHTML == '关注'){
+          //   vm.$refs.isfocu = 'jjjjj'
+          //   alert(1)
+          // }
+          // else{
+          //   vm.$refs.isfocus.innerHTML = '2'
+          //   alert(2)
+          // }
+
+
         }
       }
 
