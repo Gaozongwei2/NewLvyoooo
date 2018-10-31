@@ -195,6 +195,7 @@
     //
     // },
 
+
     //离开页面浏览数加 1
     // mounted: function () {
     //   this.travel['view']++

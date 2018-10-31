@@ -1,42 +1,56 @@
 <template>
+
+
+  <!--攻略模版-->
   <div>
     <motaikuang @hidden="hiddenshow" v-if="motaikuang" v-model="travelnoteid" :travelnoteid="travelnoteid"></motaikuang>
     <div class="outbox">
       <div class="boxleft" v-for="i in pagelist">
-        <!--用来存id的隐藏div-->
-        <router-link :to="{name:'HelloWorldAll',params:{travel:travels[i-1]}}">
-          <div :id="travels[i-1]['id']" @click='showthat($event)'>
+      <!--<div class="boxleft">-->
 
-            <div class="leftcover" v-bind:style="{background:'url('+travels[i-1]['scover__url']+')' ,backgroundSize:'cover'}"
-                 :id="travels[i-1]['id']">
+
+        <!--用来存id的隐藏div-->
+        <router-link :to="{name:'all',params:{stragy:stragys[i-1]}}">
+
+
+          <div :id="stragys[i-1]['id']">
+            <!--攻略封面-->
+            <div class="leftcover" v-bind:style="{background:'url('+stragys[i-1]['scover__url']+')' ,backgroundSize:'cover'}" :id="stragys[i-1]['id']">
               <div class="lefttxt">
-                <div class="lefttitle" v-text="travels[i-1]['title']" @click="showthat" style="background-size: cover; color: white">
-                  第一次来到苏州，感觉还不错
+                <!--攻略标题-->
+                <div class="lefttitle" v-text="stragys[i-1]['title']" style="background-size: cover;">
                 </div>
                 <div class="txt">
                   <div class="usericno left">
-                    <img class="usericno" :src="travels[i-1]['userid__icno__imageurl']" alt="" height="20px" width="20px">
+                    <!--用户头像-->
+                    <img class="usericno" :src="stragys[i-1]['userid__icno__imageurl']" alt="" height="20px" width="20px">
                   </div>
-                  <div class="username left" :id="i" style="color: green" @click="showpage($event)"><a href="javascrip:;" v-text="travels[i-1]['userid__username']" style="color: white"></a>
+
+                  <!--用户名-->
+                  <div class="username left" :id="i" style="color: green"><a href="javascrip:;" v-text="stragys[i-1]['userid__username']" ></a>
                   </div>
-                  <div class="leftstate left" v-text="travels[i-1]['state']" style="color: whitesmoke">地址</div>
-                  <div class="leftgood left" v-text="travels[i-1]['good']" style="color: whitesmoke">点赞</div>
-                  <div class="leftview left" v-text="travels[i-1]['view']" style="color: whitesmoke">浏览</div>
+                  <div class="leftstate left" v-text="stragys[i-1]['state']">地址</div>
+                  <div class="leftgood left" v-text="stragys[i-1]['good']">点赞</div>
+                  <div class="leftview left" v-text="stragys[i-1]['view']">浏览</div>
                 </div>
               </div>
             </div>
 
           </div>
+
+
         </router-link>
+
       </div>
     </div>
     <div class="page">
-      <button class="btn before-page">上一页</button>
+      <button class="btn before-page" @click="beforepage">上一页</button>
       <div class="lin_page_index btn " v-for="i in pagecount">
-        <a class="btn btn-default padding" href="javascript:;" v-text="i" :id="i" @click="showpage($event)" ></a>
+        <a class="btn btn-default padding" href="javascript:;" v-text="i" :id="i" @click="showpage($event)"></a>
       </div>
-      <button class="btn next-page">下一页</button>
-      <div class="btn ">共<span style="color: #549c55" v-text="pagecount"></span>页</div>
+      <a class="btn btn-default padding" href="javascript:;" v-if="morepage" :id="i" @click="countshow()" >...</a>
+      <button class="btn next-page" @click="nextpage">下一页</button>
+      <div class="btn ">共<span style="color: #549c55" v-text="countnum"></span>页</div>
     </div>
   </div>
 </template>
@@ -47,46 +61,26 @@
     name: 'HotTravelnote',
     data() {
       return {
-        travel: [],
+        stragy: [],
         // id: 1,
         aa: 1,
         bb: 0,
 
         // 分页相关
         pagecount:0,
-        pagesize:4,
+        pagesize:6,
         page:1,
-        pagelist:[1,2,],
-
+        pagelist:[1,2,3,4,5,6],
+        count:1,
+        nowcount:1,
+        countnum:0,
+        morepage:false,
 
         travelnoteid: '1',
         motaikuang: false,
         props: ["user", "token"],
-        travels: [{
-          "id": "1",
-          "username": "莎莎爱旅行",
-          "title": "徽州，一座文化古城。。。。大江东去浪淘尽，千古风流人物，故垒西边，人道是，三国周郎赤壁，乱石穿空，惊涛拍岸，卷起千堆雪，",
-          "imageurls": "https://b1-q.mafengwo.net/s12/M00/39/F7/wKgED1ujYTGAUH0zAAhVpG44zZE10.jpeg?imageMogr2%2Finterlace%2F1",
-          "content": "这里是简介",
-          "good": "231",
-          "view": "300",
-          "state": "苏州",
-          "cover_url": "https://p4-q.mafengwo.net/s12/M00/71/49/wKgED1vF6liAG23NAASqHYuzB4U99.jpeg?imageMogr2%2Finterlace%2F1",
-          "usericno": "https://b1-q.mafengwo.net/s12/M00/39/F7/wKgED1ujYTGAUH0zAAhVpG44zZE10.jpeg?imageMogr2%2Finterlace%2F1",
-        },
-        ],
-        travel1: [{
-          "id": "1",
-          "title": "开封，一座文化古城。。。。",
-          "imageurls": "https://b1-q.mafengwo.net/s12/M00/39/F7/wKgED1ujYTGAUH0zAAhVpG44zZE10.jpeg?imageMogr2%2Finterlace%2F1",
-          "content": "这里是简介",
-          "good": "231",
-          "view": "300",
-          "state": "苏州",
-          "cover_url": "https://b1-q.mafengwo.net/s12/M00/39/F7/wKgED1ujYTGAUH0zAAhVpG44zZE10.jpeg?imageMogr2%2Finterlace%2F1",
-          "usericno": "https://b1-q.mafengwo.net/s12/M00/39/F7/wKgED1ujYTGAUH0zAAhVpG44zZE10.jpeg?imageMogr2%2Finterlace%2F1",
-        },
-        ],
+        //  展示的攻略
+        stragys: [],
         user: {
           'id': '1',
           "username": "棕色试剂瓶",
@@ -101,16 +95,17 @@
       }
     },
     created() {
-      console.log(this.travels)
-      this.getalltravelnotes()
+      //获取所有的攻略
+      this.getallstragys()
     },
     methods: {
       // 点击最新发布
       newest: function () {
         var vm = this
-        vm.$set(vm.travels, vm.travel1, 1)
+        // vm.$set(vm.travels, vm.travel1, 1)
       },
-      // 点击显示模态框
+
+      // // 点击显示模态框
       showthat(event) {
         console.log(event.currentTarget); // event.currentTarget获取当前点击元素DOM
         this.travelnoteid = event.currentTarget.id
@@ -123,42 +118,67 @@
         // 将其值修改为false
         that.motaikuang = !that.motaikuang
       },
-      // 获取所有的游记基础信息
-      getalltravelnotes: function () {
+      // 获取所有的攻略基础信息
+
+
+      getallstragys: function () {
         var vm = this
         axios.get('http://127.0.0.1:8000/strategy/showall/')
           .then(function (response) {
-            vm.travels = response.data
-            console.log(vm.travels)
+            vm.stragys = response.data
+            console.log(vm.stragys)
             vm.getpages()
           })
           .catch(function (error) {
             return error
           })
       },
-      // 获取游记条数进而确定页数
+
+
+      // // 获取游记条数进而确定页数
       getpages: function () {
         var vm = this
-        vm.pagecount = Math.ceil(vm.travels.length/vm.pagesize)
-        console.log(vm.pagecount)
-
+        console.log(vm.stragys.length)
+        vm.countnum = Math.ceil(vm.stragys.length/6)
+        console.log(vm.countnum)
+        vm.count = Math.ceil(vm.countnum/9)
+        console.log(vm.count)
+        if (vm.countnum>=9){
+          vm.pagecount = 9
+          vm.morepage = true
+        }else{
+          vm.pagecount = vm.countnum
+        }
       },
       showpage:function (event) {
         var vm = this
         var newlist=[]
         vm.page = event.currentTarget.id
-        if (vm.page*vm.pagesize<=vm.travels.length){
-          vm.pagesize = 4
-          for(let i =1; i<=4; i++){
+        if (vm.page*vm.pagesize<=vm.stragys.length){
+          vm.pagesize = 6
+          for(let i =1; i<=6; i++){
             newlist.push((vm.page-1)*4+i)
           }
         }else{
-          vm.pagesize = vm.travels.length-((vm.page-1)*vm.pagesize)
+          vm.pagesize = vm.stragys.length-((vm.page-1)*vm.pagesize)
           for(let i =1; i<=vm.pagesize; i++){
             newlist.push((vm.page-1)*4+i)
           }
         }
         vm.pagelist = newlist
+      },
+      beforepage:function () {
+        var vm = this
+        if (vm.page-1>0){
+          vm.page = vm.page-1
+        }
+
+      },
+      nextpage:function () {
+        var vm = this
+        if(vm.page+1<=vm.countnum){
+          vm.page = vm.page+1
+        }
       }
     }
   }
@@ -167,13 +187,15 @@
   a,button,input{-webkit-tap-highlight-color:rgba(255,0,0,0);}
   .outbox{
     width: 100%;
-    min-height: 530px;
+    min-height: 800px;
     /*background-color: lime;*/
   }
   .page{
     width: 100%;
     display: block;
-    margin-top: 20px;
+    margin: auto;
+    margin-left: 40px;
+    margin-top: 40px;
   }
   body {
     position: fixed;
@@ -237,7 +259,7 @@
     width: 400px;
     top: 145px;
     overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: rgba(255, 251, 249, 0.56);
     border-radius: 0 0 10px 10px;
     padding: 5px 10px 10px 10px;
   }

@@ -145,11 +145,11 @@
       //  存储传递的值
       saveinfo: function () {
 
-      }
-
     }
 
   }
+
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
